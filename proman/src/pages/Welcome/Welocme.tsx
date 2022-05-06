@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { userSlice } from '../../store/reducers/userSlice';
+import Button from '@mui/material/Button';
 
 const Welcome: FC = () => {
   const { isLogin } = useAppSelector((state) => state.userReducer);
@@ -9,7 +10,9 @@ const Welcome: FC = () => {
 
   return (
     <div>
-      <button onClick={() => dispatch(userLogin(!isLogin))}>Click</button>
+      <Button variant="contained" onClick={() => dispatch(userLogin(!isLogin))}>
+        Click
+      </Button>
       <h1>{isLogin ? 'Hello Page' : 'Welocme Page'}</h1>
     </div>
   );
