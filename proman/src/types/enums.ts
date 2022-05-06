@@ -1,1 +1,1 @@
-export enum Exemple {}; // Перед созданием енама удалить
+export enum Exemple {} // Перед созданием енама удалить

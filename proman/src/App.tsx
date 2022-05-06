@@ -8,7 +8,7 @@ const App: FC = () => {
   return (
     <div>
       <Routes>
-        <Route path='/' element={<Welcome />} />
+        <Route path="/" element={<Welcome />} />
       </Routes>
     </div>
   );
