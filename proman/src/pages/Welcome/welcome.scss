@@ -1,0 +1,46 @@
+@import '../../scss/variables';
+@import '../../scss/mixins';
+
+.welcome-page {
+  padding: $padding-container;
+  min-height: 100vh;
+  background-color: $main-color;
+  &__main-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 50px;
+  }
+  &__poster {
+    min-width: 50%;
+    min-height: 400px;
+    background-color: #fff;
+    box-shadow: rgb(232 251 70 / 20%) 0px 15px 40px;
+  }
+  &__text {
+    max-width: 48%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  &__greeting {
+    @include GilroyFont;
+    font-size: 3rem;
+    line-height: 40px;
+    letter-spacing: 3px;
+    color: #ffffff;
+    span {
+      color: #fee304;
+    }
+  }
+  &__descr {
+    @include ProximaRegularFont;
+    font-size: 2rem;
+    line-height: 40px;
+    letter-spacing: 2px;
+    color: #ffffff;
+    span {
+      color: #fee304;
+    }
+  }
+}

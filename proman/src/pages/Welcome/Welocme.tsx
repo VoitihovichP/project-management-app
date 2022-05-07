@@ -1,19 +1,20 @@
 import React, { FC } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { userSlice } from '../../store/reducers/userSlice';
+import './welcome.scss';
 import Button from '@mui/material/Button';
+import { WelcomePageText } from '../../types/enums';
 
 const Welcome: FC = () => {
-  const { isLogin } = useAppSelector((state) => state.userReducer);
-  const dispatch = useAppDispatch();
-  const { userLogin } = userSlice.actions;
-
   return (
-    <div>
-      <Button variant="contained" onClick={() => dispatch(userLogin(!isLogin))}>
-        Click
-      </Button>
-      <h1>{isLogin ? 'Hello Page' : 'Welocme Page'}</h1>
+    <div className="welcome-page">
+      <div className="welcome-page__main-info">
+        <div className="welcome-page__poster"></div>
+        <div className="welcome-page__text">
+          <h1 className="welcome-page__greeting">
+            {WelcomePageText.GREETING_FIRST_PART} <span>{WelcomePageText.APP_TITLE}.</span>
+          </h1>
+          <p className="welcome-page__descr">{WelcomePageText.GREETING_SECOND_PART}</p>
+        </div>
+      </div>
     </div>
   );
 };
