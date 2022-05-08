@@ -13,7 +13,7 @@ const Welcome: FC = () => {
       <Button variant="contained" onClick={() => dispatch(userLogin(!isLogin))}>
         Click
       </Button>
-      <h1>{isLogin ? 'Hello Page' : 'Welocme Page'}</h1>
+      <h1>{isLogin ? 'Hello Page' : 'Welcome Page'}</h1>
     </div>
   );
 };
