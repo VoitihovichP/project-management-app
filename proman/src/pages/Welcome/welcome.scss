@@ -5,23 +5,42 @@
   padding: $padding-container;
   min-height: 100vh;
   background-color: $main-color;
+  @media (max-width: 1390px) {
+    padding: 30px 30px 30px 60px;
+  }
+  @media (max-width: 567px) {
+    padding: 30px 10px 30px 10px;
+  }
   &__main-info {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 50px;
+    @media (max-width: 1023px) {
+      flex-direction: column-reverse;
+      margin: 0;
+    }
   }
   &__poster {
     min-width: 50%;
     min-height: 400px;
     background-color: #fff;
     box-shadow: rgb(232 251 70 / 20%) 0px 15px 40px;
+    @media (max-width: 1023px) {
+      margin-top: 30px;
+    }
+    @media (max-width: 567px) {
+      min-height: 250px;
+    }
   }
   &__text {
     max-width: 48%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    @media (max-width: 1023px) {
+      max-width: 100%;
+    }
   }
   &__greeting {
     @include GilroyFont;
@@ -32,6 +51,22 @@
     span {
       color: #fee304;
     }
+    @media (max-width: 1520px) {
+      line-height: 50px;
+      font-size: 2.85rem;
+    }
+    @media (max-width: 1390px) {
+      line-height: 40px;
+      font-size: 2.55rem;
+    }
+    @media (max-width: 1023px) {
+      font-size: 2.4rem;
+      margin-bottom: 30px;
+    }
+    @media (max-width: 567px) {
+      margin-bottom: 20px;
+      line-height: 35px;
+    }
   }
   &__descr {
     @include ProximaRegularFont;
@@ -41,6 +76,62 @@
     color: #ffffff;
     span {
       color: #fee304;
+    }
+    @media (max-width: 1520px) {
+      font-size: 1.75rem;
+      line-height: 35px;
+    }
+    @media (max-width: 1390px) {
+      font-size: 1.45rem;
+      line-height: 30px;
+    }
+    @media (max-width: 1023px) {
+      font-size: 1.3rem;
+      line-height: 25px;
+    }
+  }
+  &__team {
+    margin-top: 100px;
+    @media (max-width: 1520px) {
+      margin-top: 70px;
+    }
+    @media (max-width: 567px) {
+      margin-top: 50px;
+    }
+    &-subtitle {
+      margin-bottom: 50px;
+      @include GilroyFont;
+      font-size: 2.65rem;
+      line-height: 50px;
+      letter-spacing: 3px;
+      color: #ffffff;
+      @media (max-width: 1520px) {
+        font-size: 2.40rem;
+      }
+      @media (max-width: 1390px) {
+        font-size: 2.1rem;
+        line-height: 40px;
+      }
+      @media (max-width: 1023px) {
+        margin-bottom: 30px;
+        font-size: 1.9rem;
+        line-height: 30px;    
+      }
+      @media (max-width: 767px) {
+        margin-bottom: 30px;
+        font-size: 1.8rem;
+        line-height: 30px;    
+      }
+    }
+    &-wrapper {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      @media (max-width: 1023px) {
+        align-items: center;
+        flex-direction: column;
+        gap: 30px;   
+      }
     }
   }
 }
