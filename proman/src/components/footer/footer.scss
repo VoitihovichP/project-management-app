@@ -1,0 +1,94 @@
+@import '../../scss/variables';
+@import '../../scss/mixins';
+
+footer {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 50px 60px 15px 60px;
+   background-color: $main-color;
+   color: $white-color;
+   height: fit-content;
+   @include GilroyFont;
+   a {
+         text-decoration: none;
+      }
+   div:first-child {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         text-align: center;
+         font-size: 0.9rem;
+         font-weight: 600;
+         color: $white-color;
+         row-gap: 0.75vh;
+         img {
+            border-radius: 75px;
+            width: 85%;
+         }
+      }
+      div:nth-child(2) {
+      
+      display: flex;
+      align-content: center;
+      align-items: center;
+      vertical-align: middle;
+      font-size: 2.3rem;
+            }
+      ul {
+      list-style: none;
+      width: 12%;
+      display: flex;
+      flex-direction: column;
+      /* row-gap: 1.5vh; */
+      justify-content: space-between;
+      height: 15vh;
+      li {
+      color: $white-color;
+      background-image: url(../../assets/svg/github-logo.svg);
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position-y: center;
+      background-position-x: 0%;
+      padding-left: 27%;
+      height: 155%;
+      display: flex;
+      align-items: center;
+      }
+   }
+}
+/*
+footer div:first-child {
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+font-size: 14px;
+font-weight: 600;
+color: grey;
+img {
+   border-radius: 75px;
+   width: 90%;
+}
+}
+*/
+
+
+/* {
+   background-image: url('https://cdn.discordapp.com/icons/794806036506607647/23adbdd5c06bbe67f2256d7c045dd4f9.webp');
+   background-repeat: no-repeat;
+   background-size: 115px 115px;
+   background-position-x: 75%;
+   background-position-y: 60%;
+   height: 25%;
+   text-decoration: none;
+   text-decoration-style: none;
+   -moz-text-decoration-style: none;
+   text-transform: uppercase;
+   font-weight: 900;
+   font-size: 14px;
+   color: grey;
+   padding-top: 50%;
+   text-align: center;
+}
+*/

@@ -1,0 +1,68 @@
+@import '../../scss/mixins'; 
+
+.team-card {
+  padding: 15px 20px;
+  max-width: 400px;
+  text-align: left;
+  background-color: #404040;
+  border-radius: 10px;
+  box-shadow: rgb(232 251 70 / 20%) 0px 15px 40px;
+  @media (max-width: 1390px) {
+    max-width: 280px;
+  }
+  @media (max-width: 1023px) {
+    max-width: 330px;
+  }
+  &__icon {
+    display: block;
+    margin: 0 auto;
+    height: 150px;
+    @media (max-width: 1390px) {
+      height: 140px;
+    }
+  }
+  &__name {
+    margin: 6px 0 15px 0;
+    @include ProximaSemiboldFont;
+    font-size: 2rem;
+    color: #fee304;
+    @media (max-width: 1390px) {
+      font-size: 1.5rem;
+    }
+  }
+  &__descr {
+    @include ProximaRegularFont;
+    font-size: 1.65rem;
+    color: #ffffff;
+    @media (max-width: 1390px) {
+      font-size: 1.15rem;
+    }
+  }
+  &__github {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 30px;
+    @media (max-width: 1390px) {
+      gap: 10px;
+    }
+    &-icon {
+      width: 25px;
+      height: 25px;
+    }
+    &-url {
+      @include ProximaRegularFont;
+      font-size: 1.5rem;
+      color: #fee304;
+      text-decoration: none;
+      transition: 0.3s all;
+      &:hover {
+        transform: scale(1.08);
+        color: #bba904;
+      }
+      @media (max-width: 1390px) {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
