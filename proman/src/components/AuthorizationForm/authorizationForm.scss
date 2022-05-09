@@ -1,0 +1,56 @@
+.authorization-form {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  width: 350px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.authorization-form__item {
+  position: relative !important; 
+  margin-bottom: 35px !important;
+}
+.authorization-form__item p {
+  position: absolute;
+  bottom: -25px;
+}
+
+//custom label color
+.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root {
+  color: #a2a0a2 !important;
+}
+
+// custom placeholder color
+.css-r527s4-MuiFormLabel-root-MuiInputLabel-root {
+ color: #a2a0a2 !important;
+}
+
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+  color: #a2a0a2 !important;
+}
+
+// custom border color
+.MuiOutlinedInput-notchedOutline {
+  border-color: #a2a0a2 !important;
+}
+
+// custom border color error
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
+  border-color: #d32f2f !important;
+}
+
+// custom text color
+.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  color:  #a2a0a2 !important;
+}
+
+.css-1yrmfgj-MuiButtonBase-root-MuiButton-root.Mui-disabled {
+  color: rgba(255, 255, 255, 0.5) !important;
+  background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.css-1m1snbk-MuiFormLabel-root-MuiInputLabel-root {
+  color:  #a2a0a2 !important;
+}
