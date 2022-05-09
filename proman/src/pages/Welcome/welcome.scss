@@ -47,7 +47,7 @@
     font-size: 3rem;
     line-height: 40px;
     letter-spacing: 3px;
-    color: #ffffff;
+    color: #a2a0a2;
     span {
       color: #fee304;
     }
@@ -73,7 +73,7 @@
     font-size: 2rem;
     line-height: 40px;
     letter-spacing: 2px;
-    color: #ffffff;
+    color: #a2a0a2;
     span {
       color: #fee304;
     }
@@ -104,9 +104,9 @@
       font-size: 2.65rem;
       line-height: 50px;
       letter-spacing: 3px;
-      color: #ffffff;
+      color: #a2a0a2;
       @media (max-width: 1520px) {
-        font-size: 2.40rem;
+        font-size: 2.4rem;
       }
       @media (max-width: 1390px) {
         font-size: 2.1rem;
@@ -115,12 +115,12 @@
       @media (max-width: 1023px) {
         margin-bottom: 30px;
         font-size: 1.9rem;
-        line-height: 30px;    
+        line-height: 30px;
       }
       @media (max-width: 767px) {
         margin-bottom: 30px;
         font-size: 1.8rem;
-        line-height: 30px;    
+        line-height: 30px;
       }
     }
     &-wrapper {
@@ -130,7 +130,7 @@
       @media (max-width: 1023px) {
         align-items: center;
         flex-direction: column;
-        gap: 30px;   
+        gap: 30px;
       }
     }
   }
