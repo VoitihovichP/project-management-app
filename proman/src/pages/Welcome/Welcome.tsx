@@ -11,7 +11,7 @@ const Welcome: FC = () => {
         <div className="welcome-page__poster"></div>
         <div className="welcome-page__text">
           <h1 className="welcome-page__greeting">
-            {WelcomePageText.GREETING_FIRST_PART} <span>{WelcomePageText.APP_TITLE}.</span>
+            {WelcomePageText.GREETING_FIRST_PART} <span>{WelcomePageText.APP_TITLE}</span>!
           </h1>
           <p className="welcome-page__descr">{WelcomePageText.GREETING_SECOND_PART}</p>
         </div>
