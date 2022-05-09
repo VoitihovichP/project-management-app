@@ -1,0 +1,40 @@
+@import '../../scss/variables';
+@import '../../scss/mixins';
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $padding-container; 
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: $main-color;
+    border-bottom: 4px #404040;
+    border-style:groove;
+    h1{
+        color: $yellow-color;
+        @include GilroyFont;
+    }
+    .language-switch {
+    margin-right: -41%;
+    background-color: $white-color;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    .language-switch_left-text {
+        font-weight: 900;
+        margin-right: -10%;
+        color: #9d9d9d;
+        @include ProximaSemiboldFont;
+        }
+    .language-switch_right-text {
+        font-weight: 900;
+    margin-left: -5%;
+    color: #1976d2;
+    @include ProximaSemiboldFont;
+        }
+    }
+    .login-button{
+        margin-right: -41%;
+    }
+}
