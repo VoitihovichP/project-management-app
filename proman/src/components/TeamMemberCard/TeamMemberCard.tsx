@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import './teamMemberCard.scss';
-import MemberIcon from '../../assets/icons/member-icon.svg';
-import GHLogo from '../../assets/icons/gh-logo.svg';
+import MemberIcon from '../../assets/svg/member-icon.svg';
+import GHLogo from '../../assets/svg/gh-logo.svg';
 
 export type TeamMemberProps = {
   name: string;
