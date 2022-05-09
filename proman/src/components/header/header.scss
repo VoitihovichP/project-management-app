@@ -6,35 +6,44 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: $padding-container; 
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding-top: 14px;
+    padding-bottom: 0px;
     background-color: $main-color;
     border-bottom: 4px #404040;
     border-style:groove;
+    .header_left-block{
+    display: flex;
+    flex-direction: column;
+    row-gap: 0px;
     h1{
         color: $yellow-color;
         @include GilroyFont;
+        font-size: 2.5rem;
     }
     .language-switch {
-    margin-right: -41%;
-    background-color: $white-color;
-    border-radius: 50px;
+    background-color: $main-color;
     display: flex;
-    justify-content: center;
+    gap: 0;
     .language-switch_left-text {
-        font-weight: 900;
-        margin-right: -10%;
-        color: #9d9d9d;
+        color: $white-color;
         @include ProximaSemiboldFont;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-right: -20px;
         }
     .language-switch_right-text {
-        font-weight: 900;
-    margin-left: -5%;
-    color: #1976d2;
+        width:10%;
+    color: $white-color;
     @include ProximaSemiboldFont;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-left: -12px;
         }
-    }
-    .login-button{
-        margin-right: -41%;
+    }}
+        .header_right-block{
+            display: flex;
+            column-gap: 3%;
+            align-items: center;
+            padding-bottom: 1%;
     }
 }
