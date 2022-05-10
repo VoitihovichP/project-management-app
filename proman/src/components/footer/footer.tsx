@@ -11,7 +11,7 @@ const Footer: FC = () => {
           React 2022 Q1
         </div>
       </a>
-      <div>© 2022</div>
+      <div className="footer_yearmark">© 2022</div>
       <ul>
         <a href="https://github.com/SergeyKozlovskiy" rel="noreferrer" target="_blank">
           <li>SergeyKozlovskiy</li>

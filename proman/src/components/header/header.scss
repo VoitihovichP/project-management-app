@@ -3,6 +3,7 @@
 
 header {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     padding: $padding-container; 
@@ -11,10 +12,17 @@ header {
     background-color: $main-color;
     border-bottom: 4px #404040;
     border-style:groove;
+    @media (max-width: 520px) {
+        flex-direction: column;
+    }
     .header_left-block{
     display: flex;
     flex-direction: column;
     row-gap: 0px;
+    @media (max-width: 520px) {
+         flex-direction: column;
+         align-items: center;
+        }
     h1{
         color: $yellow-color;
         @include GilroyFont;
@@ -41,9 +49,14 @@ header {
         }
     }}
         .header_right-block{
-            display: flex;
-            column-gap: 3%;
-            align-items: center;
-            padding-bottom: 1%;
+        display: flex;
+         column-gap: 3%;
+        align-items: center;
+        padding-bottom: 1%;
+        @media (max-width: 520px) {
+                flex-direction: column;
+                align-items: flex-start;
+                row-gap: 1vh;
+            }
     }
 }
