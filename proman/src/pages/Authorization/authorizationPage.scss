@@ -1,6 +1,107 @@
+$text_color: #a2a0a2;
+
 .authrization-page {
+  position: relative;
   width: 100%;
   height: 100vh;
   background-color: #252628;
 }
-// 
+
+.authorization-legend {
+  text-align: center;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 25px;
+  color: $text_color
+}
+
+.authorization-form {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  width: 350px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.authorization-form__item {
+  position: relative !important;
+  margin-bottom: 35px !important;
+}
+
+.authorization-form__item p {
+  position: absolute;
+  bottom: -25px;
+}
+
+//custom label color
+.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root {
+  color: $text_color !important;
+}
+
+// custom placeholder color
+.css-r527s4-MuiFormLabel-root-MuiInputLabel-root {
+  color: $text_color !important;
+}
+
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+  color: $text_color !important;
+}
+
+// custom border color
+.MuiOutlinedInput-notchedOutline {
+  border-color: $text_color !important;
+}
+
+// custom border color error
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
+  border-color: #d32f2f !important;
+}
+
+// custom text color
+.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  color: $text_color !important;
+}
+
+.css-1yrmfgj-MuiButtonBase-root-MuiButton-root.Mui-disabled {
+  color: rgba(255, 255, 255, 0.5) !important;
+  background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.css-1m1snbk-MuiFormLabel-root-MuiInputLabel-root {
+  color: $text_color !important;
+}
+
+@media(max-width: 400px) {
+  .authorization-form {
+    width: 250px;
+  }
+
+  .authorization-legend {
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+
+  .authorization-form__item {
+    margin-bottom: 27px !important;
+  }
+
+  .authorization-form__item p {
+    bottom: -20px;
+  }
+
+  .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+    padding: 10px 14px !important;
+  }
+
+  .css-r527s4-MuiFormLabel-root-MuiInputLabel-root {
+    line-height: 1 !important;
+  }
+
+  .css-1wc848c-MuiFormHelperText-root {
+    font-size: 9px !important;
+  }
+}

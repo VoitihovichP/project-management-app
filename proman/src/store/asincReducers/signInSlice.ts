@@ -46,6 +46,7 @@ export const signInSlice = createSlice({
     [signIn.fulfilled.type]: (state, action: PayloadAction<Response>) => {
       state.isLoading = false;
       state.token = action.payload.token;
+      localStorage.setItem('token', action.payload.token);
     },
     [signIn.rejected.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
