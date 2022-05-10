@@ -5,10 +5,13 @@ footer {
    display: flex;
    justify-content: space-between;
    align-items: center;
-   padding: 50px 60px 15px 60px;
+   padding: $padding-container;
+   padding-right: 1.5%;
+   padding-left: 5%;
    background-color: $main-color;
    color: $white-color;
    height: fit-content;
+   width: 100%;
    @include GilroyFont;
    a {
          text-decoration: none;
@@ -22,27 +25,50 @@ footer {
          font-weight: 600;
          color: $white-color;
          row-gap: 0.75vh;
-         img {
+         @media (max-width: 600px) {
+               font-size: 0.6rem;
+            }
+         img { 
             border-radius: 75px;
-            width: 85%;
+            width: 115px;
+         @media (max-width: 600px) {
+               width: 85px;
+            }
+         @media (max-width: 500px) {
+                width: 75px;
+             }
          }
       }
-      div:nth-child(2) {
-      
+      .footer_yearmark {
       display: flex;
       align-content: center;
       align-items: center;
       vertical-align: middle;
       font-size: 2.3rem;
+      width: fit-content;
+      @media (max-width: 600px) {
+         font-size: 2rem;
+         }
+      @media (max-width: 550px) {
+         font-size: 1.7rem;
+            }
+      @media (max-width: 500px) {
+         font-size: 1.3rem;
+            }
             }
       ul {
       list-style: none;
-      width: 12%;
+      width: 180px;
+      height: 14vh;
       display: flex;
       flex-direction: column;
-      /* row-gap: 1.5vh; */
       justify-content: space-between;
-      height: 15vh;
+      @media (max-width: 600px) {
+         width:150px;
+         }
+      @media (max-width: 500px) {
+         width: 105px;
+         }
       li {
       color: $white-color;
       background-image: url(../../assets/svg/github-logo.svg);
@@ -50,10 +76,19 @@ footer {
       background-size: contain;
       background-position-y: center;
       background-position-x: 0%;
-      padding-left: 27%;
-      height: 155%;
+      padding-left: 19%;
+      height: 4vh;
+      width: 100%;
       display: flex;
       align-items: center;
+      @media (max-width: 600px) {
+            font-size: 0.8rem;
+            padding-left: 21%;
+         }
+      @media (max-width: 500px) {
+          font-size: 0.6rem;
+          padding-left: 28%;
+            }
       }
    }
 }
