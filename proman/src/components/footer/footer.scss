@@ -1,7 +1,7 @@
 @import '../../scss/variables';
 @import '../../scss/mixins';
 
-footer {
+.footer {
    display: flex;
    justify-content: space-between;
    align-items: center;
@@ -16,19 +16,38 @@ footer {
    a {
          text-decoration: none;
       }
-   div:first-child {
+   .footer_rss-logo-block {
          display: flex;
-         flex-direction: column;
-         align-items: center;
-         text-align: center;
-         font-size: 0.9rem;
+         align-items: flex-end;
+         justify-content: center;
+         font-size: 1.2rem;
          font-weight: 600;
          color: $white-color;
          row-gap: 0.75vh;
-         @media (max-width: 600px) {
-               font-size: 0.6rem;
+         background-image: url('../../assets/svg/rs-school-logo_inverted.svg');
+         background-size: cover;
+         background-repeat: no-repeat;
+         background-position-x: -5px;
+         background-position-y: center;
+         padding-top: 65%;
+         width: 150%;
+         @media (max-width: 1000px) {
+               width: 130%;
+               font-size: 1.1rem;
             }
-         img { 
+         @media (max-width: 600px) {
+               font-size: 1rem;
+            }
+         @media (max-width: 500px) {
+            width: 115%;
+             font-size: 1rem;
+            }
+         @media (max-width: 500px) {
+                width: 100%;
+                font-size: 0.9rem;
+                padding-top: 50%;
+                }
+       /*  img { 
             border-radius: 75px;
             width: 115px;
          @media (max-width: 600px) {
@@ -37,9 +56,9 @@ footer {
          @media (max-width: 500px) {
                 width: 75px;
              }
-         }
+         } */
       }
-      .footer_yearmark {
+      .footer_yearmark-block {
       display: flex;
       align-content: center;
       align-items: center;
@@ -55,8 +74,11 @@ footer {
       @media (max-width: 500px) {
          font-size: 1.3rem;
             }
+      @media (max-width: 350px) {
+         font-size: 1.2rem;
             }
-      ul {
+            }
+      .footer_github-block {
       list-style: none;
       width: 180px;
       height: 14vh;
@@ -68,7 +90,11 @@ footer {
          }
       @media (max-width: 500px) {
          width: 105px;
+         height: 10vh;
          }
+      @media (max-width: 400px) {
+        height: 9.5vh;
+                  }
       li {
       color: $white-color;
       background-image: url(../../assets/svg/github-logo.svg);
@@ -87,7 +113,7 @@ footer {
          }
       @media (max-width: 500px) {
           font-size: 0.6rem;
-          padding-left: 28%;
+          background-size: 17%;
             }
       }
    }

@@ -3,7 +3,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { userSlice } from '../../store/reducers/userSlice';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-/* import AntSwitch from '@mui/material/Switch'; */
 import Typography from '@mui/material/Typography';
 import './header.scss';
 
@@ -12,9 +11,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
-  width: 45,
+  width: 43,
   height: 22,
-  padding: 7,
+  padding: 7.3,
   '& .MuiSwitch-switchBase': {
     margin: 1,
     padding: 0,
