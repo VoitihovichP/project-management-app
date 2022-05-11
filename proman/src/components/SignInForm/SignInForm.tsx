@@ -1,7 +1,7 @@
 import { Button, createTheme, ThemeProvider } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { signIn } from '../../store/asincReducers/signInSlice';
+import { signIn } from '../../store/asyncReducers/signInSlice';
 import { RegistrationFormInputs } from '../../types/types';
 import { InputForm } from '../InputForm/InputForm';
 

@@ -1,10 +1,12 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import signInSlice from './asincReducers/signInSlice';
-import signUpSlice from './asincReducers/signUpSlice';
+import signInSlice from './asyncReducers/signInSlice';
+import signUpSlice from './asyncReducers/signUpSlice';
+import formSlice from './reducers/formSlice';
 
 const rootReducer = combineReducers({
   signUpSlice,
   signInSlice,
+  formSlice,
 });
 
 export const setupStore = () => {
