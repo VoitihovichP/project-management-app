@@ -1,12 +1,10 @@
 import { SignInForm } from '../../components/SignInForm/SignInForm';
 import { SignUpForm } from '../../components/SignUpForm/SignUpForm';
+import { useAppSelector } from '../../hooks/redux';
 import './authorizationPage.scss';
 
 export const AuthorizationPage: React.FC = () => {
-  return (
-    <div className="authrization-page">
-      <SignUpForm />
-      {/* <SignInForm /> */}
-    </div>
-  );
+  const { isShowSignUp } = useAppSelector((state) => state.formSlice);
+  console.log(isShowSignUp);
+  return <div className="authrization-page">{isShowSignUp ? <SignUpForm /> : <SignInForm />}</div>;
 };
