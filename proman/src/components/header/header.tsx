@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { userSlice } from '../../store/reducers/userSlice';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -57,10 +56,6 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 const Header: FC = () => {
-  const { isLogin } = useAppSelector((state) => state.userReducer);
-  const dispatch = useAppDispatch();
-  const { userLogin } = userSlice.actions;
-
   return (
     <header>
       <div className="header_left-block">
@@ -72,16 +67,10 @@ const Header: FC = () => {
         </Stack>
       </div>
       <div className="header_right-block">
-        <Button
-          className="login-button"
-          variant="contained"
-          onClick={() => dispatch(userLogin(!isLogin))}
-        >
+        <Button className="login-button" variant="contained">
           Вход
         </Button>
-        <Button variant="contained" onClick={() => dispatch(userLogin(!isLogin))}>
-          Регистрация
-        </Button>
+        <Button variant="contained">Регистрация</Button>
       </div>
     </header>
   );
