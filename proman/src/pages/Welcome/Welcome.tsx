@@ -3,8 +3,11 @@ import './welcome.scss';
 import { WelcomePageText } from '../../types/enums';
 import { teamMember } from '../../constants/arrays';
 import TeamMemberCard from '../../components/TeamMemberCard/TeamMemberCard';
+import { useCookies } from 'react-cookie';
 
 const Welcome: FC = () => {
+  const [cookies] = useCookies(['login', 'password', 'token']);
+  console.log(`login: ${cookies.login}, password: ${cookies.password}, token: ${cookies.token}`);
   return (
     <div className="welcome-page">
       <div className="welcome-page__main-info">
