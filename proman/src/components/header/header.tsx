@@ -4,10 +4,11 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import './header.scss';
-
 import { styled } from '@mui/material/styles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
+import { NavLink } from 'react-router-dom';
+import { formSlice } from '../../store/reducers/formSlice';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 43,
@@ -56,10 +57,19 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 const Header: FC = () => {
+  const dispatch = useAppDispatch();
+  const { showSignUpForm } = formSlice.actions;
+
+  const handleClick = (isShowSignUpform: boolean) => {
+    dispatch(showSignUpForm(isShowSignUpform));
+  };
+
   return (
     <header>
       <div className="header_left-block">
-        <h1>Pro-Man</h1>
+        <NavLink to="./">
+          <h1>Pro-Man</h1>
+        </NavLink>
         <Stack className="language-switch" direction="row" spacing={1} alignItems="center">
           <Typography className="language-switch_left-text">RU</Typography>
           <FormControlLabel control={<MaterialUISwitch sx={{ m: 1 }} />} label="" />
@@ -67,10 +77,16 @@ const Header: FC = () => {
         </Stack>
       </div>
       <div className="header_right-block">
-        <Button className="login-button" variant="contained">
-          Вход
-        </Button>
-        <Button variant="contained">Регистрация</Button>
+        <NavLink to="./authorization">
+          <Button className="login-button" variant="contained" onClick={() => handleClick(false)}>
+            Вход
+          </Button>
+        </NavLink>
+        <NavLink to="./authorization">
+          <Button variant="contained" onClick={() => handleClick(true)}>
+            Регистрация
+          </Button>
+        </NavLink>
       </div>
     </header>
   );
