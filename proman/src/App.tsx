@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
-import { Route, Routes } from 'react-router-dom';
 import Footer from './components/footer/footer';
 import Header from './components/header/header';
-import './App.scss';
 import Welcome from './pages/Welcome/Welcome';
+import { AuthorizationPage } from './pages/Authorization/AuthorizationPage';
+import { Route, Routes } from 'react-router-dom';
+import './App.scss';
 
 const App: FC = () => {
   return (
@@ -11,10 +12,11 @@ const App: FC = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Welcome />} />
+        <Route path="/authorization" element={<AuthorizationPage />} />
       </Routes>
       <Footer />
     </div>
   );
-}; //заменить роут на welcome
+};
 
 export default App;
