@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { userSlice } from '../../store/reducers/userSlice';
 import Button from '@mui/material/Button';
@@ -10,6 +10,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import { NavLink } from 'react-router-dom';
 import { formSlice } from '../../store/reducers/formSlice';
+import { useCookies } from 'react-cookie';
+import { signInSlice } from '../../store/asyncReducers/signInSlice';
+import { signUpSlice } from '../../store/asyncReducers/signUpSlice';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 43,
@@ -61,13 +64,34 @@ const Header: FC = () => {
   const { isLogin } = useAppSelector((state) => state.userReducer);
   const dispatch = useAppDispatch();
   const { userLogin } = userSlice.actions;
+  const { removeToken } = signInSlice.actions;
+  const { clear } = signUpSlice.actions;
   const { showSignUpForm } = formSlice.actions;
+  const [cookies, removeCookie] = useCookies(['login', 'password', 'token']);
 
-  const handleClick = (isShowSignUpform: boolean) => {
-    dispatch(userLogin(!isLogin));
+  const handleLogIn = (isShowSignUpform: boolean) => {
     dispatch(showSignUpForm(isShowSignUpform));
   };
 
+  const handleLogOut = () => {
+    dispatch(removeToken());
+    dispatch(clear());
+    removeCookie('login', {});
+    removeCookie('password', {});
+    removeCookie('token', {});
+    dispatch(userLogin(false));
+  };
+
+  const isLoginUser = () => {
+    if (cookies.login && cookies.password && cookies.token) {
+      dispatch(userLogin(true));
+      console.log(`${cookies.login}`);
+    }
+  };
+
+  useEffect(() => {
+    isLoginUser();
+  }, []);
   return (
     <header>
       <div className="header_left-block">
@@ -81,16 +105,33 @@ const Header: FC = () => {
         </Stack>
       </div>
       <div className="header_right-block">
-        <NavLink to="./authorization">
-          <Button className="login-button" variant="contained" onClick={() => handleClick(false)}>
-            Вход
-          </Button>
-        </NavLink>
-        <NavLink to="./authorization">
-          <Button variant="contained" onClick={() => handleClick(true)}>
-            Регистрация
-          </Button>
-        </NavLink>
+        {isLogin ? (
+          <div className="login-greetings">
+            <div className="login-greetings__text">
+              Здравствуйте, <span>{`${cookies.login}`}</span>
+            </div>
+            <Button variant="contained" onClick={handleLogOut}>
+              Выйти
+            </Button>
+          </div>
+        ) : (
+          <>
+            <NavLink to="./authorization">
+              <Button
+                className="login-button"
+                variant="contained"
+                onClick={() => handleLogIn(false)}
+              >
+                Вход
+              </Button>
+            </NavLink>
+            <NavLink to="./authorization">
+              <Button variant="contained" onClick={() => handleLogIn(true)}>
+                Регистрация
+              </Button>
+            </NavLink>
+          </>
+        )}
       </div>
     </header>
   );
