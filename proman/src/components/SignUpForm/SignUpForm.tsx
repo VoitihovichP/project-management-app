@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { signIn } from '../../store/asyncReducers/signInSlice';
 import { signUp, signUpSlice } from '../../store/asyncReducers/signUpSlice';
+import { userSlice } from '../../store/reducers/userSlice';
 import { RegistrationFormInputs } from '../../types/types';
 import { InputForm } from '../InputForm/InputForm';
 
@@ -18,7 +19,8 @@ const theme = createTheme({
 export const SignUpForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const { error } = useAppSelector((state) => state.signUpSlice);
-  const [, setCookie] = useCookies(['login', 'password', 'token']);
+  const { userLogin } = userSlice.actions;
+  const [, setCookie] = useCookies(['name', 'login', 'password', 'token']);
   const {
     handleSubmit,
     control,
@@ -38,6 +40,7 @@ export const SignUpForm: React.FC = () => {
         setCookie('login', login, { path: '/', maxAge: 86400 });
         setCookie('password', password, { path: '/', maxAge: 86400 });
         setCookie('token', result.payload.token, { path: '/', maxAge: 86400 });
+        dispatch(userLogin(true));
       }
     }
   });
