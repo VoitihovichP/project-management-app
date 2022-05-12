@@ -1,4 +1,5 @@
 @import '../../scss/variables';
+@import '../../scss/mixins';
 
 .main-page {
   padding: $padding-container;
@@ -7,10 +8,34 @@
   min-height: 100vh;
   background-color: $main-color;
   &__boards {
+    display: flex;
     padding: 24px 35px;
     min-width: 50%;
     min-height: 400px;
     border: 1px solid #434548;
     border-radius: 10px;
+    &_empty {
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  &__message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  &__empty {
+    margin-bottom: 30px;
+    @include ProximaSemiboldFont;
+    font-size: 30px;
+    color: rgba(254, 229, 4, 0.418);
+  }
+  &__create {
+    border-color: #404040 !important; 
+    color: #fee304 !important;
+    &:hover {
+      background-color: rgba(116, 129, 58, 0.04) !important;
+      border-color: #797878 !important;
+    }
   }
 }

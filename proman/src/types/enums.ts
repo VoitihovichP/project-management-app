@@ -6,6 +6,7 @@ export enum WelcomePageText {
 }
 
 export enum Requests {
+  ALL_BOARDS = 'https://deploy-kanban.herokuapp.com/boards',
   SIGN_IN = 'https://deploy-kanban.herokuapp.com/signin',
   SIGN_UP = 'https://deploy-kanban.herokuapp.com/signup',
 }
