@@ -2,8 +2,10 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import signInSlice from './asyncReducers/signInSlice';
 import signUpSlice from './asyncReducers/signUpSlice';
 import formSlice from './reducers/formSlice';
+import userReducer from './reducers/userSlice';
 
 const rootReducer = combineReducers({
+  userReducer,
   signUpSlice,
   signInSlice,
   formSlice,

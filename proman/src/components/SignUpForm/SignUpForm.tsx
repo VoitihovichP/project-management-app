@@ -1,8 +1,10 @@
 import { Button, createTheme, ThemeProvider } from '@mui/material';
+import { useCookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { signIn } from '../../store/asyncReducers/signInSlice';
-import { signUp } from '../../store/asyncReducers/signUpSlice';
+import { signUp, signUpSlice } from '../../store/asyncReducers/signUpSlice';
+import { userSlice } from '../../store/reducers/userSlice';
 import { RegistrationFormInputs } from '../../types/types';
 import { InputForm } from '../InputForm/InputForm';
 
@@ -17,7 +19,8 @@ const theme = createTheme({
 export const SignUpForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const { error } = useAppSelector((state) => state.signUpSlice);
-  const { token } = useAppSelector((state) => state.signInSlice);
+  const { userLogin } = userSlice.actions;
+  const [, setCookie] = useCookies(['name', 'login', 'password', 'token']);
   const {
     handleSubmit,
     control,
@@ -27,11 +30,19 @@ export const SignUpForm: React.FC = () => {
     mode: 'onChange',
   });
 
-  const onSubmit = handleSubmit(({ name, login, password }) => {
-    dispatch(signUp({ name, login, password }));
-    token ? null : dispatch(signIn({ login, password }));
-    // продумать логику входа, сейчас ошибка из за того что name уже есть в state и делается вход, возможно сделать проверку по токену
+  const onSubmit = handleSubmit(async ({ name, login, password }) => {
+    dispatch(signUpSlice.actions.clear());
     reset();
+    const result = await dispatch(signUp({ name, login, password }));
+    if (result.meta.requestStatus === 'fulfilled') {
+      const result = await dispatch(signIn({ login, password }));
+      if (result.meta.requestStatus === 'fulfilled') {
+        setCookie('login', login, { path: '/', maxAge: 86400 });
+        setCookie('password', password, { path: '/', maxAge: 86400 });
+        setCookie('token', result.payload.token, { path: '/', maxAge: 86400 });
+        dispatch(userLogin(true));
+      }
+    }
   });
 
   return (

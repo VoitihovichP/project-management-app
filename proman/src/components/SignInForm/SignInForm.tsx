@@ -1,7 +1,9 @@
 import { Button, createTheme, ThemeProvider } from '@mui/material';
+import { useCookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { signIn } from '../../store/asyncReducers/signInSlice';
+import { userSlice } from '../../store/reducers/userSlice';
 import { RegistrationFormInputs } from '../../types/types';
 import { InputForm } from '../InputForm/InputForm';
 
@@ -16,7 +18,8 @@ const theme = createTheme({
 export const SignInForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const { error } = useAppSelector((state) => state.signUpSlice);
-  const { token } = useAppSelector((state) => state.signInSlice);
+  const { userLogin } = userSlice.actions;
+  const [, setCookie] = useCookies(['login', 'password', 'token']);
   const {
     handleSubmit,
     control,
@@ -26,8 +29,14 @@ export const SignInForm: React.FC = () => {
     mode: 'onChange',
   });
 
-  const onSubmit = handleSubmit(({ login, password }) => {
-    dispatch(signIn({ login, password }));
+  const onSubmit = handleSubmit(async ({ login, password }) => {
+    const result = await dispatch(signIn({ login, password }));
+    if (result.meta.requestStatus === 'fulfilled') {
+      setCookie('login', login, { path: '/', maxAge: 86400 });
+      setCookie('password', password, { path: '/', maxAge: 86400 });
+      setCookie('token', result.payload.token, { path: '/', maxAge: 86400 });
+      dispatch(userLogin(true));
+    }
     reset();
   });
 

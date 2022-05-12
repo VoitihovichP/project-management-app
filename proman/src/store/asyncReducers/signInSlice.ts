@@ -27,7 +27,6 @@ export const signIn = createAsyncThunk(
         login: login,
         password: password,
       });
-      console.log(response.data);
       return response.data;
     } catch (e) {
       thunkAPI.rejectWithValue('Error');
@@ -38,7 +37,11 @@ export const signIn = createAsyncThunk(
 export const signInSlice = createSlice({
   name: 'signIn',
   initialState,
-  reducers: {},
+  reducers: {
+    removeToken: (state) => {
+      state.token = '';
+    },
+  },
   extraReducers: {
     [signIn.pending.type]: (state) => {
       state.isLoading = true;

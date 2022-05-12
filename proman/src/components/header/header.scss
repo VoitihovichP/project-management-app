@@ -2,64 +2,89 @@
 @import '../../scss/mixins';
 
 header {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    padding: $padding-container; 
-    padding-top: 14px;
-    padding-bottom: 0px;
-    background-color: $main-color;
-    border-bottom: 4px #404040;
-    border-style:groove;
-    @media (max-width: 520px) {
-        flex-direction: column;
-    }
-    .header_left-block{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: $padding-container;
+  padding-top: 14px;
+  padding-bottom: 0px;
+  background-color: $main-color;
+  border-bottom: 4px #404040;
+  border-style: groove;
+
+  @media (max-width: 520px) {
+    flex-direction: column;
+  }
+
+  .header_left-block {
     display: flex;
     flex-direction: column;
     row-gap: 0px;
+
     @media (max-width: 520px) {
-         flex-direction: column;
-         align-items: center;
-        }
-    h1{
-        color: $yellow-color;
-        @include GilroyFont;
-        font-size: 2.5rem;
+      flex-direction: column;
+      align-items: center;
     }
+
+    h1 {
+      color: $yellow-color;
+      @include GilroyFont;
+      font-size: 2.5rem;
+    }
+
     .language-switch {
-    background-color: $main-color;
-    display: flex;
-    align-items: center;
-    gap: 0;
-    .language-switch_left-text {
+      background-color: $main-color;
+      display: flex;
+      align-items: center;
+      gap: 0;
+
+      &_left-text {
         color: $white-color;
         @include ProximaSemiboldFont;
         font-size: 0.9rem;
         font-weight: 600;
         margin-right: -20px;
         padding-top: 1.4%;
-        }
-    .language-switch_right-text {
+      }
+
+      &_right-text {
         padding-top: 1.4%;
-        width:10%;
-    color: $white-color;
-    @include ProximaSemiboldFont;
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-left: -10px;
-        }
-    }}
-        .header_right-block{
-        display: flex;
-         column-gap: 3%;
-        align-items: center;
-        padding-bottom: 1%;
-        @media (max-width: 520px) {
-                flex-direction: column;
-                align-items: flex-start;
-                row-gap: 1vh;
-            }
+        width: 10%;
+        color: $white-color;
+        @include ProximaSemiboldFont;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-left: -10px;
+      }
     }
+  }
+
+  .header_right-block {
+    display: flex;
+    column-gap: 3%;
+    align-items: center;
+    padding-bottom: 1%;
+
+    @media (max-width: 520px) {
+      flex-direction: column;
+      align-items: flex-start;
+      row-gap: 1vh;
+    }
+  }
+}
+
+.login-greetings {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  &__text{
+  color: #a2a0a2;
+  font-family: "Gilroy";
+  font-weight: 100;
+  margin-bottom: 10px;
+  & span {
+    color: $yellow-color;
+  }
+  }
 }
