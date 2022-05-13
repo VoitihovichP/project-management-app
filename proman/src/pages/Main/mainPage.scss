@@ -28,10 +28,10 @@
     margin-bottom: 30px;
     @include ProximaSemiboldFont;
     font-size: 30px;
-    color: rgba(254, 229, 4, 0.418);
+    color: #fee304;
   }
   &__create {
-    border-color: #404040 !important; 
+    border-color: #404040 !important;
     color: #fee304 !important;
     &:hover {
       background-color: rgba(116, 129, 58, 0.04) !important;
