@@ -14,13 +14,18 @@ type InitialState = {
   error: string;
 };
 
-type Response = Array<
+type GetResponse = Array<
   | {
       id: string;
       title: string;
     }
   | never
 >;
+
+type PostResponse = {
+  id: string;
+  title: string;
+};
 
 const initialState: InitialState = {
   isLoading: false,
@@ -33,7 +38,7 @@ export const getBoards = createAsyncThunk('Boards', async (data: { token: string
   try {
     const response = await axios.get(Requests.ALL_BOARDS, {
       headers: {
-        'Content-type': 'appLication/json',
+        'Content-type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
     });
@@ -44,6 +49,28 @@ export const getBoards = createAsyncThunk('Boards', async (data: { token: string
   }
 });
 
+export const postBoards = createAsyncThunk(
+  'CreateBoards',
+  async (data: { title: string; token: string }, thunkAPI) => {
+    const { title, token } = data;
+    try {
+      const response = await axios.post(
+        Requests.ALL_BOARDS,
+        { title: title },
+        {
+          headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (e) {
+      thunkAPI.rejectWithValue('Error');
+    }
+  }
+);
+
 export const getBoardsSlice = createSlice({
   name: 'AllBoards',
   initialState,
@@ -52,13 +79,24 @@ export const getBoardsSlice = createSlice({
     [getBoards.pending.type]: (state) => {
       state.isLoading = true;
     },
-    [getBoards.fulfilled.type]: (state, action: PayloadAction<Response>) => {
+    [getBoards.fulfilled.type]: (state, action: PayloadAction<GetResponse>) => {
       state.isLoading = false;
       state.boards = action.payload;
     },
     [getBoards.rejected.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.boards = [];
+      state.error = action.payload;
+    },
+    [postBoards.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+    [postBoards.fulfilled.type]: (state, action: PayloadAction<PostResponse>) => {
+      state.isLoading = false;
+      state.boards.push(action.payload);
+    },
+    [postBoards.rejected.type]: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
       state.error = action.payload;
     },
   },

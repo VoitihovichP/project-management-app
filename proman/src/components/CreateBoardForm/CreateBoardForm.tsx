@@ -5,6 +5,10 @@ import { TextField, Button } from '@mui/material';
 import './createBoardForm.scss';
 import CloseFormBtn from '../CloseFormBtn/CloseFormBtn';
 
+import { useCookies } from 'react-cookie';
+import { useAppDispatch } from '../../hooks/redux';
+import { postBoards } from '../../store/asyncReducers/boardSlice';
+
 type CreateBoardInput = {
   boardTitle: string;
 };
@@ -14,12 +18,16 @@ type CreateBoardFormProps = {
 };
 
 const CreateBoardForm: FC<CreateBoardFormProps> = ({ closeForm }) => {
+  const dispatch = useAppDispatch();
+  const [cookie] = useCookies(['token']);
+  const { token } = cookie;
+
   const { handleSubmit, control, reset } = useForm<CreateBoardInput>({
     mode: 'onChange',
   });
 
   const createProject = handleSubmit(async ({ boardTitle }) => {
-    console.log(boardTitle);
+    await dispatch(postBoards({ title: boardTitle, token: token }));
     reset();
   });
 

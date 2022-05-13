@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { getBoards } from '../../store/asyncReducers/getBoardSlice';
+import { getBoards } from '../../store/asyncReducers/boardSlice';
 import { Button } from '@mui/material';
 import './mainPage.scss';
 import CreateBoardForm from '../../components/CreateBoardForm/CreateBoardForm';
@@ -15,7 +15,9 @@ const MainPage: FC = () => {
   const { token } = cookie;
 
   useEffect(() => {
-    dispatch(getBoards({ token: token }));
+    if (boards.length === 0) {
+      dispatch(getBoards({ token: token }));
+    }
   }, [token]);
 
   const handleOpen = () => {
