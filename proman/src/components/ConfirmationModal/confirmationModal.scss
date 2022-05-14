@@ -1,0 +1,41 @@
+@import '../../scss/mixins';
+
+.owerlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(65, 64, 64, 0.7);
+  z-index: 100;
+  transition: 0.3s ease-in-out;
+}
+
+.confirm-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 535px;
+  height: 350px;
+  transform: translate(-50%, -50%);
+  background-color: #252628;
+  border-radius: 10px;
+  z-index: 100;
+  &__warning {
+    @include ProximaSemiboldFont;
+    text-align: center;
+    letter-spacing: 1px;
+    font-size: 35px;
+    color: #fee304;
+  }
+  &__buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+}
