@@ -5,6 +5,7 @@ import { getBoards } from '../../store/asyncReducers/boardSlice';
 import { Button } from '@mui/material';
 import './mainPage.scss';
 import CreateBoardForm from '../../components/CreateBoardForm/CreateBoardForm';
+import BoardItem from '../../components/BoardItem/BoardItem';
 
 const MainPage: FC = () => {
   const [isCreate, setIsCreate] = useState<boolean>(false);
@@ -33,7 +34,7 @@ const MainPage: FC = () => {
       {isCreate && <CreateBoardForm closeForm={handleClose} />}
       <div className={`main-page__boards ${boards.length > 0 ? '' : 'main-page__boards_empty'}`}>
         {boards.length > 0 ? (
-          <p>Exemple</p> //будующие борды
+          boards.map((item) => <BoardItem title={item.title} key={item.id} />)
         ) : (
           <div className="main-page__message">
             <p className="main-page__empty">Список ваших проектов пуст</p>

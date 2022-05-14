@@ -28,6 +28,7 @@ const CreateBoardForm: FC<CreateBoardFormProps> = ({ closeForm }) => {
 
   const createProject = handleSubmit(async ({ boardTitle }) => {
     await dispatch(postBoards({ title: boardTitle, token: token }));
+    closeForm();
     reset();
   });
 

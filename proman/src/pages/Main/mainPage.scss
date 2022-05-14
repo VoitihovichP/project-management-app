@@ -9,6 +9,8 @@
   background-color: $main-color;
   &__boards {
     display: flex;
+    flex-direction: column;
+    gap: 40px;
     padding: 24px 35px;
     min-width: 50%;
     min-height: 400px;

@@ -1,0 +1,24 @@
+@import '../../scss/mixins';
+
+.board-item {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  min-height: 70px;
+  width: 100%;
+  border: 1px solid #434548;
+  border-radius: 10px;
+  box-shadow: rgb(232 251 70 / 20%) 0px 8px 30px;
+  cursor: pointer;
+  transition: 0.3s all;
+  &:hover {
+    transform: scale(1.04);
+  }
+  &__title {
+    @include ProximaSemiboldFont;
+    font-size: 30px;
+    color: #fee304;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+}

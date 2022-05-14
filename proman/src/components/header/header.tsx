@@ -8,7 +8,7 @@ import './header.scss';
 import { styled } from '@mui/material/styles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { formSlice } from '../../store/reducers/formSlice';
 import { useCookies } from 'react-cookie';
 import { signInSlice } from '../../store/asyncReducers/signInSlice';
@@ -63,6 +63,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 const Header: FC = () => {
   const { isLogin } = useAppSelector((state) => state.userReducer);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const { userLogin } = userSlice.actions;
   const { removeToken } = signInSlice.actions;
@@ -81,6 +82,7 @@ const Header: FC = () => {
     removeCookie('password', {});
     removeCookie('token', {});
     dispatch(userLogin(false));
+    navigate('/'); // редирект на welcome при логауте
   };
 
   const isLoginUser = () => {
