@@ -7,6 +7,7 @@ import Board from './pages/Board/Board';
 import Error from './pages/Error/Error';
 import { Route, Routes } from 'react-router-dom';
 import './App.scss';
+import MainPage from './pages/Main/MainPage';
 
 const App: FC = () => {
   return (
@@ -15,6 +16,7 @@ const App: FC = () => {
       <Routes>
         <Route path="/" element={<Welcome />} />
         <Route path="/authorization" element={<AuthorizationPage />} />
+        <Route path="/main" element={<MainPage />} />
         <Route path="/board" element={<Board />} />
         <Route path="*" element={<Error />} />
       </Routes>
