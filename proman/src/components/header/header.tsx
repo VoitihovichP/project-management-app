@@ -69,7 +69,7 @@ const Header: FC = () => {
   const { removeToken } = signInSlice.actions;
   const { clear } = signUpSlice.actions;
   const { showSignUpForm } = formSlice.actions;
-  const [cookies, removeCookie] = useCookies(['login', 'password', 'token']);
+  const [cookies, , removeCookie] = useCookies(['login', 'password', 'token']);
 
   const handleLogIn = (isShowSignUpform: boolean) => {
     dispatch(showSignUpForm(isShowSignUpform));
@@ -78,9 +78,9 @@ const Header: FC = () => {
   const handleLogOut = () => {
     dispatch(removeToken());
     dispatch(clear());
-    removeCookie('login', {});
-    removeCookie('password', {});
-    removeCookie('token', {});
+    removeCookie('login');
+    removeCookie('password');
+    removeCookie('token');
     dispatch(userLogin(false));
     navigate('/'); // редирект на welcome при логауте
   };
@@ -88,13 +88,13 @@ const Header: FC = () => {
   const isLoginUser = () => {
     if (cookies.login && cookies.password && cookies.token) {
       dispatch(userLogin(true));
-      console.log(`${cookies.login}`);
     }
   };
 
   useEffect(() => {
     isLoginUser();
   }, []);
+
   return (
     <header>
       <div className="header_left-block">

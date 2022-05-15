@@ -1,13 +1,17 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { Requests } from '../../types/enums';
+import { ModalText, Requests } from '../../types/enums';
 
 type InitialState = {
   isLoading: boolean;
   id: string;
   login: string;
   name: string;
-  error: string;
+  modal: {
+    isOpen: boolean;
+    title: string;
+    message: string;
+  };
 };
 
 type Response = {
@@ -21,12 +25,16 @@ const initialState: InitialState = {
   id: '',
   login: '',
   name: '',
-  error: '',
+  modal: {
+    isOpen: false,
+    title: '',
+    message: '',
+  },
 };
 
 export const signUp = createAsyncThunk(
   'signUp',
-  async (data: { name: string; login: string; password: string }, thunkAPI) => {
+  async (data: { name: string; login: string; password: string }, { rejectWithValue }) => {
     const { name, login, password } = data;
     try {
       const response = await axios.post(Requests.SIGN_UP, {
@@ -36,7 +44,7 @@ export const signUp = createAsyncThunk(
       });
       return response.data;
     } catch (e) {
-      thunkAPI.rejectWithValue('Error');
+      return rejectWithValue(e);
     }
   }
 );
@@ -45,12 +53,16 @@ export const signUpSlice = createSlice({
   name: 'authorization',
   initialState,
   reducers: {
+    closeModal: (state) => {
+      state.modal.isOpen = false;
+      state.modal.title = '';
+      state.modal.message = '';
+    },
     clear: (state) => {
       state.isLoading = false;
       state.id = '';
       state.login = '';
       state.name = '';
-      state.error = '';
     },
   },
   extraReducers: {
@@ -62,10 +74,15 @@ export const signUpSlice = createSlice({
       state.id = action.payload.id;
       state.login = action.payload.login;
       state.name = action.payload.name;
+      state.modal.title = ModalText.SUCCESS_TITLE;
+      state.modal.message = ModalText.SUCCESSFUL_REGISTRATION_MESSAGE;
+      state.modal.isOpen = true;
     },
-    [signUp.rejected.type]: (state, action: PayloadAction<string>) => {
+    [signUp.rejected.type]: (state) => {
       state.isLoading = false;
-      state.error = action.payload;
+      state.modal.title = ModalText.ERROR_TITLE;
+      state.modal.message = ModalText.ERROR_MESSAGE;
+      state.modal.isOpen = true;
     },
   },
 });

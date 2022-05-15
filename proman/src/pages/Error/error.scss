@@ -1,0 +1,27 @@
+@import '../../scss/variables';
+@import '../../scss/mixins';
+
+.error-page {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $main-color;
+    &_title{
+      color: $yellow-color;
+    @include GilroyFont;
+        font-size: 12rem;
+    }
+    &_description__1{
+        color: $white-color;
+        @include ProximaRegularFont;
+        font-size: 4rem;
+    }
+    &_description__2 {
+        color: $blue-color;
+        @include ProximaSemiboldFont;
+        font-size: 2.5rem;
+        }
+}
+
