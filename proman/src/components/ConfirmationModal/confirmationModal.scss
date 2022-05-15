@@ -27,10 +27,10 @@
   border-radius: 10px;
   z-index: 100;
   &__warning {
-    @include ProximaSemiboldFont;
+    @include ProximaRegularFont;
     text-align: center;
     letter-spacing: 1px;
-    font-size: 35px;
+    font-size: 33px;
     color: #fee304;
   }
   &__buttons {

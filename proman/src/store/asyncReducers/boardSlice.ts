@@ -42,7 +42,6 @@ export const getBoards = createAsyncThunk('Boards', async (data: { token: string
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(response.data);
     return response.data;
   } catch (e) {
     thunkAPI.rejectWithValue('Error');
@@ -57,6 +56,46 @@ export const postBoards = createAsyncThunk(
       const response = await axios.post(
         Requests.ALL_BOARDS,
         { title: title },
+        {
+          headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (e) {
+      thunkAPI.rejectWithValue('Error');
+    }
+  }
+);
+
+export const deleteBoard = createAsyncThunk(
+  'deleteBoard',
+  async (data: { id: string; token: string }, thunkAPI) => {
+    const { id, token } = data;
+    try {
+      const response = await axios.delete(`${Requests.ALL_BOARDS}/${id}`, {
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    } catch (e) {
+      thunkAPI.rejectWithValue('Error');
+    }
+  }
+);
+
+export const updateBoard = createAsyncThunk(
+  'updateBoard',
+  async (data: { id: string; newTitle: string; token: string }, thunkAPI) => {
+    const { id, token, newTitle } = data;
+    try {
+      const response = await axios.put(
+        `${Requests.ALL_BOARDS}/${id}`,
+        { title: newTitle },
         {
           headers: {
             'Content-type': 'application/json',
@@ -96,6 +135,28 @@ export const getBoardsSlice = createSlice({
       state.boards.push(action.payload);
     },
     [postBoards.rejected.type]: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    [deleteBoard.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+    [deleteBoard.fulfilled.type]: (state) => {
+      state.isLoading = false;
+      state.boards = state.boards;
+    },
+    [deleteBoard.rejected.type]: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    [updateBoard.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+    [updateBoard.fulfilled.type]: (state) => {
+      state.isLoading = false;
+      state.boards = state.boards;
+    },
+    [updateBoard.rejected.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.error = action.payload;
     },

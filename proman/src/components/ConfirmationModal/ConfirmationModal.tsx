@@ -5,9 +5,10 @@ import './confirmationModal.scss';
 
 type ConfirmModalProps = {
   cancelDelete: () => void;
+  deleteBoard: () => void;
 };
 
-const ConfirmationModal: FC<ConfirmModalProps> = ({ cancelDelete }) => {
+const ConfirmationModal: FC<ConfirmModalProps> = ({ cancelDelete, deleteBoard }) => {
   return (
     <div className="owerlay">
       <div className="confirm-modal">
@@ -23,7 +24,12 @@ const ConfirmationModal: FC<ConfirmModalProps> = ({ cancelDelete }) => {
           >
             Нет
           </Button>
-          <Button type="submit" variant="outlined" className="main-page__create">
+          <Button
+            type="submit"
+            variant="outlined"
+            className="main-page__create"
+            onClick={() => deleteBoard()}
+          >
             Да
           </Button>
         </div>

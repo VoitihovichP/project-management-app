@@ -7,13 +7,12 @@
   padding: 0 10px;
   min-height: 70px;
   width: 100%;
-  border: 1px solid #434548;
+  background-color: #434548;
   border-radius: 10px;
-  box-shadow: rgb(232 251 70 / 20%) 0px 8px 30px;
   cursor: pointer;
   transition: 0.3s all;
   &:hover {
-    transform: scale(1.04);
+    background-color: #37393b;
   }
   &__title {
     @include ProximaSemiboldFont;
@@ -21,5 +20,50 @@
     color: #fee304;
     letter-spacing: 4px;
     text-transform: uppercase;
+  }
+  &__menu {
+    position: relative;
+    &-btn {
+      @include ProximaSemiboldFont;
+      letter-spacing: 4px;
+      font-size: 35px;
+      color: #fee304;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s all;
+      &:hover {
+        color: #030303;
+      }
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+    &-list {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      width: 120px;
+      min-height: 60px;
+      border-radius: 10px;
+      background-color: #a6abb1;
+      list-style-type: none;
+      z-index: 101;
+    }
+    &-item {
+      padding: 5px 8px 7px 8px;
+      width: 100%;
+      @include ProximaRegularFont;
+      font-size: 18px;
+      text-align: center;
+      transition: 0.3s all;
+      &:hover {
+        background-color: #969595;
+      }
+    }
   }
 }

@@ -6,8 +6,9 @@ import './createBoardForm.scss';
 import CloseFormBtn from '../CloseFormBtn/CloseFormBtn';
 
 import { useCookies } from 'react-cookie';
-import { useAppDispatch } from '../../hooks/redux';
-import { postBoards } from '../../store/asyncReducers/boardSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { getBoards, postBoards, updateBoard } from '../../store/asyncReducers/boardSlice';
+import { CreateFormBtn } from '../../types/enums';
 
 type CreateBoardInput = {
   boardTitle: string;
@@ -15,10 +16,12 @@ type CreateBoardInput = {
 
 type CreateBoardFormProps = {
   closeForm: () => void;
+  isEdit?: boolean;
 };
 
-const CreateBoardForm: FC<CreateBoardFormProps> = ({ closeForm }) => {
+const CreateBoardForm: FC<CreateBoardFormProps> = ({ closeForm, isEdit }) => {
   const dispatch = useAppDispatch();
+  const { deleteBoardId } = useAppSelector((state) => state.boardIdReducer);
   const [cookie] = useCookies(['token']);
   const { token } = cookie;
 
@@ -27,7 +30,12 @@ const CreateBoardForm: FC<CreateBoardFormProps> = ({ closeForm }) => {
   });
 
   const createProject = handleSubmit(async ({ boardTitle }) => {
-    await dispatch(postBoards({ title: boardTitle, token: token }));
+    if (isEdit) {
+      await dispatch(updateBoard({ id: deleteBoardId, newTitle: boardTitle, token: token })); //изменения борда
+      await dispatch(getBoards({ token: token })); //получение актуальных бордов
+    } else {
+      await dispatch(postBoards({ title: boardTitle, token: token }));
+    }
     closeForm();
     reset();
   });
@@ -58,7 +66,7 @@ const CreateBoardForm: FC<CreateBoardFormProps> = ({ closeForm }) => {
           rules={{ required: 'Это поле не должно быть пустым', maxLength: 15, minLength: 3 }}
         />
         <Button type="submit" variant="outlined" className="main-page__create">
-          Создать проект
+          {isEdit ? CreateFormBtn.EDIT : CreateFormBtn.CREATE}
         </Button>
       </form>
     </div>
