@@ -28,7 +28,7 @@ export const InputForm: React.FC<{
           helperText={error && (error.message || errorMessage)}
         />
       )}
-      rules={{ required: 'First name required', maxLength: maxLength, minLength: minLength }}
+      rules={{ required: 'Поле должно быть заполнено', maxLength: maxLength, minLength: minLength }}
     />
   );
 };

@@ -1,4 +1,5 @@
 import { Button, createTheme, ThemeProvider } from '@mui/material';
+import React from 'react';
 import { useCookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -7,6 +8,7 @@ import { signUp, signUpSlice } from '../../store/asyncReducers/signUpSlice';
 import { userSlice } from '../../store/reducers/userSlice';
 import { RegistrationFormInputs } from '../../types/types';
 import { InputForm } from '../InputForm/InputForm';
+import { PopUp } from '../modal/modal';
 
 const theme = createTheme({
   palette: {
@@ -18,7 +20,7 @@ const theme = createTheme({
 
 export const SignUpForm: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { error } = useAppSelector((state) => state.signUpSlice);
+  const { modal } = useAppSelector((state) => state.signUpSlice);
   const { userLogin } = userSlice.actions;
   const [, setCookie] = useCookies(['name', 'login', 'password', 'token']);
   const {
@@ -44,6 +46,8 @@ export const SignUpForm: React.FC = () => {
       }
     }
   });
+
+  const handleClose = () => dispatch(signUpSlice.actions.closeModal());
 
   return (
     <>
@@ -80,8 +84,13 @@ export const SignUpForm: React.FC = () => {
             </Button>
           </div>
         </form>
-        {error}
       </ThemeProvider>
+      <PopUp
+        open={modal.isOpen}
+        handleClose={handleClose}
+        title={modal.title}
+        message={modal.message}
+      />
     </>
   );
 };
