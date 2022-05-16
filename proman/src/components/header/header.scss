@@ -79,7 +79,7 @@ header {
   flex-direction: column;
   align-items: flex-end;
   &__text{
-  color: #a2a0a2;
+  color: $text-color;
   font-family: "Gilroy";
   font-weight: 100;
   margin-bottom: 10px;

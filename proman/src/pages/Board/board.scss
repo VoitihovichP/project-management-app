@@ -1,0 +1,13 @@
+@import '../../scss/variables.scss';
+
+.board-page {
+  position: relative;
+  background-color: $main-color;
+  height: 85.8vh;
+  overflow-y: hidden;
+  padding: 25px 35px;
+}
+// временно
+footer {
+  display: none !important;
+}
