@@ -12,16 +12,44 @@
       color: $yellow-color;
     @include GilroyFont;
         font-size: 12rem;
+    @media (max-width: 700px) {
+         font-size: 11rem;
+            }
+     @media (max-width: 600px) {
+                font-size: 9rem;
+            }
+     @media (max-width: 500px) {
+                font-size: 7rem;
+            }
     }
     &_description__1{
         color: $white-color;
+        text-align: center;
         @include ProximaRegularFont;
         font-size: 4rem;
+        @media (max-width: 700px) {
+                font-size: 3.25rem;
+            }
+        @media (max-width: 600px) {
+                font-size: 2.5rem;
+         }
+        @media (max-width:600px) {
+         font-size: 1.4rem; 
+         }
     }
     &_description__2 {
         color: $blue-color;
         @include ProximaSemiboldFont;
         font-size: 2.5rem;
+        @media (max-width: 700px) {
+                font-size: 1.5rem;
+            }
+        @media (max-width:600px) {
+            font-size: 1.4rem;
+        }
+        @media (max-width:600px) {
+        font-size: 1.2rem;
+         }
         }
 }
 

@@ -10,6 +10,10 @@ import { RegistrationFormInputs } from '../../types/types';
 import { InputForm } from '../InputForm/InputForm';
 import { PopUp } from '../modal/modal';
 
+import CloseIcon from '@mui/icons-material/Close';
+import ToggleButton from '@mui/material/ToggleButton';
+import { NavLink } from 'react-router-dom';
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -50,8 +54,18 @@ export const SignUpForm: React.FC = () => {
   const handleClose = () => dispatch(signUpSlice.actions.closeModal());
 
   return (
-    <>
+    <main style={{ display: 'grid' }}>
       <ThemeProvider theme={theme}>
+        <NavLink to="/" style={{ justifySelf: 'right' }}>
+          <ToggleButton
+            value="close"
+            sx={{
+              borderColor: '#A2A0A2',
+            }}
+          >
+            <CloseIcon sx={{ color: '#A2A0A2' }} />
+          </ToggleButton>
+        </NavLink>
         <form className="authorization-form" onSubmit={onSubmit}>
           <legend className="authorization-legend">Регистрация</legend>
           <InputForm
@@ -91,6 +105,6 @@ export const SignUpForm: React.FC = () => {
         title={modal.title}
         message={modal.message}
       />
-    </>
+    </main>
   );
 };
