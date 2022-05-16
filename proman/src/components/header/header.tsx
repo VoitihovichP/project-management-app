@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { userSlice } from '../../store/reducers/userSlice';
 import Button from '@mui/material/Button';
@@ -25,10 +25,10 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     alignItems: 'center',
     margin: '1.5%',
     padding: 0,
-    transform: 'translateX(6px)',
+    transform: 'translateX(5px)',
     '&.Mui-checked': {
       color: '#fff',
-      transform: 'translateX(17px)',
+      transform: 'translateX(17.5px)',
       '& .MuiSwitch-thumb:before': {
         content: "''",
       },
@@ -96,15 +96,20 @@ const Header: FC = () => {
   }, []);
 
   return (
-    <header>
+    <header className="header">
       <div className="header_left-block">
         <NavLink to="./">
-          <h1>Pro-Man</h1>
+          <h1 className="header_left-block_title">Pro-Man</h1>
         </NavLink>
-        <Stack className="language-switch" direction="row" spacing={1} alignItems="center">
-          <Typography className="language-switch_left-text">RU</Typography>
+        <Stack
+          className="header_left-block_language-switch"
+          direction="row"
+          spacing={1}
+          alignItems="center"
+        >
+          <Typography className="header_left-block_language-switch_left-text">RU</Typography>
           <FormControlLabel control={<MaterialUISwitch sx={{ m: 1 }} />} label="" />
-          <Typography className="language-switch_right-text">EN</Typography>
+          <Typography className="header_left-block_language-switch_right-text">EN</Typography>
         </Stack>
       </div>
       <div className="header_right-block">
@@ -113,12 +118,17 @@ const Header: FC = () => {
             <div className="login-greetings__text">
               Здравствуйте, <span>{`${cookies.login}`}</span>
             </div>
-            <Button variant="contained" onClick={handleLogOut}>
-              Выйти
-            </Button>
+            <nav className="header_right-block_nav-buttons">
+              <NavLink to="/main">
+                <Button variant="contained">К&nbsp;доскам</Button>
+              </NavLink>
+              <Button variant="contained" onClick={handleLogOut}>
+                Выйти
+              </Button>
+            </nav>
           </div>
         ) : (
-          <>
+          <nav className="header_right-block_nav-buttons">
             <NavLink to="./authorization">
               <Button
                 className="login-button"
@@ -133,7 +143,7 @@ const Header: FC = () => {
                 Регистрация
               </Button>
             </NavLink>
-          </>
+          </nav>
         )}
       </div>
     </header>

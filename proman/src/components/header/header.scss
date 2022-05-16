@@ -1,88 +1,103 @@
 @import '../../scss/variables';
 @import '../../scss/mixins';
 
-header {
+.header {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   padding: $padding-container;
-  padding-top: 14px;
-  padding-bottom: 0px;
-  background-color: $main-color;
-  border-bottom: 4px #404040;
-  border-style: groove;
+  padding-top: 12px;
+  padding-bottom: 14px;
+  background: $main-color;
+  position: sticky;
+  top: 0;
+  z-index: 101;
+ /* box-shadow: rgb(232 251 70 / 20%) 0px 8px 30px; */
+  /* border-bottom: 4px #404040;
+  border-style: groove; */
 
-  @media (max-width: 520px) {
+  @media (max-width: 540px) {
     flex-direction: column;
+    row-gap: 7.5px;
+    align-items: flex-start;
   }
 
-  .header_left-block {
+  &_left-block {
     display: flex;
     flex-direction: column;
-    row-gap: 0px;
+    justify-content: center;
+    gap: 0px;
 
     @media (max-width: 520px) {
       flex-direction: column;
-      align-items: center;
     }
 
-    h1 {
+    &_title {
       color: $yellow-color;
       @include GilroyFont;
-      font-size: 2.5rem;
+      font-size: 3rem;
     }
 
-    .language-switch {
+    &_language-switch {
       background-color: $main-color;
       display: flex;
       align-items: center;
       gap: 0;
+      height: 2.5vh;
 
-      &_left-text {
+      .header_left-block_language-switch_left-text {
         color: $white-color;
         @include ProximaSemiboldFont;
-        font-size: 0.9rem;
+        font-size: 1.1rem;
         font-weight: 600;
         margin-right: -20px;
-        padding-top: 1.4%;
+        padding-top: 1.5px;
       }
 
-      &_right-text {
-        padding-top: 1.4%;
+      .header_left-block_language-switch_right-text {
+        color: $white-color;
+        padding-top: 2px;
         width: 10%;
         color: $white-color;
         @include ProximaSemiboldFont;
-        font-size: 0.9rem;
+        font-size: 1.1rem;
         font-weight: 600;
         margin-left: -10px;
       }
     }
   }
 
-  .header_right-block {
+  &_right-block {
+    display: flex;
+    align-items: center;
+
+  &_nav-buttons {
     display: flex;
     column-gap: 3%;
     align-items: center;
-    padding-bottom: 1%;
-
     @media (max-width: 520px) {
-      flex-direction: column;
-      align-items: flex-start;
-      row-gap: 1vh;
-    }
+        flex-direction: column;
+        align-items: flex-start;
+        row-gap: 1vh;
+      }
+  }
   }
 }
 
 .login-greetings {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  row-gap: 3px;
+  align-items: center;
+  @media (max-width: 520px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   &__text{
   color: #a2a0a2;
   font-family: "Gilroy";
   font-weight: 100;
-  margin-bottom: 10px;
   & span {
     color: $yellow-color;
   }
