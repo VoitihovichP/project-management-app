@@ -14,7 +14,7 @@
   top: 0;
   z-index: 101;
   transition-duration: 0.3s;
- /* box-shadow: rgb(232 251 70 / 20%) 0px 8px 30px; */
+  /* box-shadow: rgb(232 251 70 / 20%) 0px 8px 30px; */
   /* border-bottom: 4px #404040;
   border-style: groove; */
 
@@ -29,6 +29,7 @@
     flex-direction: column;
     justify-content: center;
     gap: 0px;
+
     @media (max-width: 545px) {
       width: 100%;
       align-items: center;
@@ -69,17 +70,19 @@
       }
     }
   }
+
   &_right-block {
     display: flex;
     flex-direction: column;
     align-items: center;
     row-gap: 1.75px;
-    @media (max-width: 545px) {
-        width: 100%;
-        align-items: center;
-      }
 
-  &_login-greeting {
+    @media (max-width: 545px) {
+      width: 100%;
+      align-items: center;
+    }
+
+    &_login-greeting {
       /* display: flex;border: 2px red solid;
       flex-direction: column;
       row-gap: 3px;
@@ -87,33 +90,55 @@
       @media (max-width: 520px) {
         flex-direction: column;
         align-items: center; */
-        color: #a2a0a2;
-        font-family: "Gilroy";
-        font-weight: 100;
-          & span {
-              color: $yellow-color;
-            }
+      color: #a2a0a2;
+      font-family: "Gilroy";
+      font-weight: 100;
+
+      & span {
+        color: $yellow-color;
       }
-     &_nav-buttons {
-       display: flex;
-         column-gap: 3%;
-         align-items: center;
-        @media (max-width: 545px) {
+    }
+
+    &_nav-buttons {
+      display: flex;
+      column-gap: 3%;
+      align-items: center;
+
+      @media (max-width: 545px) {
         flex-direction: row;
         justify-content: center;
         column-gap: 1vh;
         width: 100%;
-        }
       }
     }
   }
+}
+
 .header__scrolled {
   box-shadow: rgb(232 251 70 / 20%) 0px 8px 30px;
   transition-duration: 0.3s;
   background-color: #ffffff;
   padding-bottom: 25px;
+
   .header_left-block_language-switch__scrolled {
-      color: $grey-color;
-      transition-duration: 0.3s;
+    color: $grey-color;
+    transition-duration: 0.3s;
+  }
+}
+
+.login-greetings {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  &__text {
+    color: $text-color;
+    font-family: "Gilroy";
+    font-weight: 100;
+    margin-bottom: 10px;
+
+    & span {
+      color: $yellow-color;
     }
+  }
 }

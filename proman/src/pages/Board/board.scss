@@ -1,0 +1,19 @@
+@import '../../scss/variables.scss';
+
+.board-page {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  background-color: $main-color;
+  height: 85.8vh;
+  overflow-y: hidden;
+  overflow-x: auto;
+  padding: 25px 35px;
+  &__columns {
+    display: flex;
+  }
+}
+// временно
+footer {
+  display: none !important;
+}
