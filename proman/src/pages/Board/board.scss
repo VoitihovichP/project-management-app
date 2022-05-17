@@ -5,15 +5,11 @@
   justify-content: space-between;
   position: relative;
   background-color: $main-color;
-  height: 85.8vh;
-  overflow-y: hidden;
+  height: 73vh;
+  overflow-y: hiddenы;
   overflow-x: auto;
-  padding: 25px 35px;
+  padding: 15px 35px;
   &__columns {
     display: flex;
   }
-}
-// временно
-footer {
-  display: none !important;
 }
