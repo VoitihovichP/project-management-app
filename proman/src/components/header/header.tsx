@@ -14,53 +14,69 @@ import { useCookies } from 'react-cookie';
 import { signInSlice } from '../../store/asyncReducers/signInSlice';
 import { signUpSlice } from '../../store/asyncReducers/signUpSlice';
 
-const MaterialUISwitch = styled(Switch)(({ theme }) => ({
-  width: 43,
-  height: 22,
-  padding: 7.3,
-  display: 'flex',
-  alignItems: 'center',
-  '& .MuiSwitch-switchBase': {
+const Header: FC = () => {
+  const [isScrolled, setScroll] = useState(false);
+
+  const highlightHeader = (): void => (window.pageYOffset > 0 ? setScroll(true) : setScroll(false));
+
+  useEffect(() => {
+    function watchScroll() {
+      window.addEventListener('scroll', highlightHeader);
+    }
+    watchScroll();
+    return () => {
+      window.removeEventListener('scroll', highlightHeader);
+    };
+  });
+
+  const MaterialUISwitch = styled(Switch)(({ theme }) => ({
+    width: 43,
+    height: 22,
+    padding: 7.3,
     display: 'flex',
     alignItems: 'center',
-    margin: '1.5%',
-    padding: 0,
-    transform: 'translateX(5px)',
-    '&.Mui-checked': {
-      color: '#fff',
-      transform: 'translateX(17.5px)',
-      '& .MuiSwitch-thumb:before': {
+    '& .MuiSwitch-switchBase': {
+      display: 'flex',
+      alignItems: 'center',
+      margin: '1.5%',
+      padding: 0,
+      transform: 'translateX(3.5px)',
+      '&.Mui-checked': {
+        color: '#fff',
+        transform: 'translateX(17.5px)',
+        '& .MuiSwitch-thumb:before': {
+          content: "''",
+        },
+        '& + .MuiSwitch-track': {
+          opacity: 1,
+          backgroundColor:
+            theme.palette.mode === 'dark' ? '#8796A5' : isScrolled ? '#a2a0a2' : '#ffffff',
+        },
+      },
+    },
+    '& .MuiSwitch-thumb': {
+      backgroundColor: theme.palette.mode === 'dark' ? '#003892' : '#1976d2',
+      width: 20,
+      height: 18,
+      '&:before': {
         content: "''",
-      },
-      '& + .MuiSwitch-track': {
-        opacity: 1,
-        backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#ffffff',
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        left: 0,
+        top: 0,
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
       },
     },
-  },
-  '& .MuiSwitch-thumb': {
-    backgroundColor: theme.palette.mode === 'dark' ? '#003892' : '#1976d2',
-    width: 20,
-    height: 18,
-    '&:before': {
-      content: "''",
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
-      left: 0,
-      top: 0,
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center',
+    '& .MuiSwitch-track': {
+      opacity: 1,
+      backgroundColor:
+        theme.palette.mode === 'dark' ? '#8796A5' : isScrolled ? '#a2a0a2' : '#ffffff',
+      borderRadius: 20 / 2,
     },
-  },
-  '& .MuiSwitch-track': {
-    opacity: 1,
-    backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#ffffff',
-    borderRadius: 20 / 2,
-  },
-}));
+  }));
 
-const Header: FC = () => {
   const { isLogin } = useAppSelector((state) => state.userReducer);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -96,13 +112,17 @@ const Header: FC = () => {
   }, []);
 
   return (
-    <header className="header">
+    <header className={isScrolled ? 'header header__scrolled' : 'header'}>
       <div className="header_left-block">
         <NavLink to="./">
           <h1 className="header_left-block_title">Pro-Man</h1>
         </NavLink>
         <Stack
-          className="header_left-block_language-switch"
+          className={
+            isScrolled
+              ? 'header_left-block_language-switch header_left-block_language-switch__scrolled'
+              : 'header_left-block_language-switch'
+          }
           direction="row"
           spacing={1}
           alignItems="center"
@@ -112,22 +132,22 @@ const Header: FC = () => {
           <Typography className="header_left-block_language-switch_right-text">EN</Typography>
         </Stack>
       </div>
-      <div className="header_right-block">
-        {isLogin ? (
-          <div className="login-greetings">
-            <div className="login-greetings__text">
-              Здравствуйте, <span>{`${cookies.login}`}</span>
-            </div>
-            <nav className="header_right-block_nav-buttons">
-              <NavLink to="/main">
-                <Button variant="contained">К&nbsp;доскам</Button>
-              </NavLink>
-              <Button variant="contained" onClick={handleLogOut}>
-                Выйти
-              </Button>
-            </nav>
+      {isLogin ? (
+        <div className="header_right-block">
+          <div className="header_right-block_login-greeting">
+            Здравствуйте, <span>{`${cookies.login}`}</span>
           </div>
-        ) : (
+          <nav className="header_right-block_nav-buttons">
+            <NavLink to="/main">
+              <Button variant="contained">К&nbsp;доскам</Button>
+            </NavLink>
+            <Button variant="contained" onClick={handleLogOut}>
+              Выйти
+            </Button>
+          </nav>
+        </div>
+      ) : (
+        <div className="header_right-block">
           <nav className="header_right-block_nav-buttons">
             <NavLink to="./authorization">
               <Button
@@ -144,8 +164,8 @@ const Header: FC = () => {
               </Button>
             </NavLink>
           </nav>
-        )}
-      </div>
+        </div>
+      )}
     </header>
   );
 };

@@ -13,6 +13,7 @@
   position: sticky;
   top: 0;
   z-index: 101;
+  transition-duration: 0.3s;
  /* box-shadow: rgb(232 251 70 / 20%) 0px 8px 30px; */
   /* border-bottom: 4px #404040;
   border-style: groove; */
@@ -28,9 +29,9 @@
     flex-direction: column;
     justify-content: center;
     gap: 0px;
-
-    @media (max-width: 520px) {
-      flex-direction: column;
+    @media (max-width: 545px) {
+      width: 100%;
+      align-items: center;
     }
 
     &_title {
@@ -40,14 +41,16 @@
     }
 
     &_language-switch {
-      background-color: $main-color;
+      background-color: inherit;
       display: flex;
       align-items: center;
       gap: 0;
       height: 2.5vh;
+      color: $white-color;
+      transition-duration: 0.3s;
 
       .header_left-block_language-switch_left-text {
-        color: $white-color;
+        color: inherit;
         @include ProximaSemiboldFont;
         font-size: 1.1rem;
         font-weight: 600;
@@ -56,10 +59,9 @@
       }
 
       .header_left-block_language-switch_right-text {
-        color: $white-color;
+        color: inherit;
         padding-top: 2px;
         width: 10%;
-        color: $white-color;
         @include ProximaSemiboldFont;
         font-size: 1.1rem;
         font-weight: 600;
@@ -67,39 +69,51 @@
       }
     }
   }
-
   &_right-block {
     display: flex;
+    flex-direction: column;
     align-items: center;
-
-  &_nav-buttons {
-    display: flex;
-    column-gap: 3%;
-    align-items: center;
-    @media (max-width: 520px) {
-        flex-direction: column;
-        align-items: flex-start;
-        row-gap: 1vh;
+    row-gap: 1.75px;
+    @media (max-width: 545px) {
+        width: 100%;
+        align-items: center;
       }
-  }
-  }
-}
 
-.login-greetings {
-  display: flex;
-  flex-direction: column;
-  row-gap: 3px;
-  align-items: center;
-  @media (max-width: 520px) {
+  &_login-greeting {
+      /* display: flex;border: 2px red solid;
       flex-direction: column;
-      align-items: flex-start;
+      row-gap: 3px;
+      align-items: center;
+      @media (max-width: 520px) {
+        flex-direction: column;
+        align-items: center; */
+        color: #a2a0a2;
+        font-family: "Gilroy";
+        font-weight: 100;
+          & span {
+              color: $yellow-color;
+            }
+      }
+     &_nav-buttons {
+       display: flex;
+         column-gap: 3%;
+         align-items: center;
+        @media (max-width: 545px) {
+        flex-direction: row;
+        justify-content: center;
+        column-gap: 1vh;
+        width: 100%;
+        }
+      }
     }
-  &__text{
-  color: #a2a0a2;
-  font-family: "Gilroy";
-  font-weight: 100;
-  & span {
-    color: $yellow-color;
   }
-  }
+.header__scrolled {
+  box-shadow: rgb(232 251 70 / 20%) 0px 8px 30px;
+  transition-duration: 0.3s;
+  background-color: #ffffff;
+  padding-bottom: 25px;
+  .header_left-block_language-switch__scrolled {
+      color: $grey-color;
+      transition-duration: 0.3s;
+    }
 }
