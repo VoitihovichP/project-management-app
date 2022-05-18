@@ -31,6 +31,9 @@
       row-gap: 2px;
       width: 130%;
       margin-top: -5.25vh;
+      @media (max-width: 430px) {
+            margin-top: -2.75vh;
+         }
       &_image {
          border: 0.5px #1976d2 solid;
          border-radius: 75px;
