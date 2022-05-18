@@ -78,10 +78,10 @@ const Header: FC = () => {
   }));
 
   const [state, setState] = React.useState({
-    switched: false,
+    englishVersion: false,
   });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLangSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setState({
       ...state,
       [event.target.name]: event.target.checked,
@@ -142,9 +142,9 @@ const Header: FC = () => {
           <FormControlLabel
             control={
               <MaterialUISwitch
-                checked={state.switched}
-                onChange={handleChange}
-                name="langSwitch"
+                checked={state.englishVersion}
+                onChange={handleLangSwitch}
+                name="englishVersion"
                 sx={{ m: 1 }}
               />
             }
