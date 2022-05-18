@@ -77,6 +77,19 @@ const Header: FC = () => {
     },
   }));
 
+  const [state, setState] = React.useState({
+    gilad: true,
+    jason: false,
+    antoine: true,
+  });
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
   const { isLogin } = useAppSelector((state) => state.userReducer);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -128,7 +141,17 @@ const Header: FC = () => {
           alignItems="center"
         >
           <Typography className="header_left-block_language-switch_left-text">RU</Typography>
-          <FormControlLabel control={<MaterialUISwitch sx={{ m: 1 }} />} label="" />
+          <FormControlLabel
+            control={
+              <MaterialUISwitch
+                checked={state.jason}
+                onChange={handleChange}
+                name="jason"
+                sx={{ m: 1 }}
+              />
+            }
+            label=""
+          />
           <Typography className="header_left-block_language-switch_right-text">EN</Typography>
         </Stack>
       </div>

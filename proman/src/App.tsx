@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import Footer from './components/footer/footer';
-import Header from './components/header/header';
+import Footer from './components/Footer/Footer';
+import Header from './components/Header/Header';
 import Welcome from './pages/Welcome/Welcome';
 import { AuthorizationPage } from './pages/Authorization/AuthorizationPage';
 import Board from './pages/Board/Board';
