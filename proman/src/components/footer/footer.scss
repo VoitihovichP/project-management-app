@@ -5,244 +5,137 @@
    display: flex;
    justify-content: space-between;
    align-items: center;
-<<<<<<< HEAD
    padding: 3% 2.5% 3% 4%;
    background-color: $main-color;
-   color: $white-color;
-=======
-   padding-top: 30px;
-   padding-right: 60px;
-   padding-left: 60px;
-   padding-bottom: 30px;
-   background-color: $main-color;
    color: $title-color;
-   height: 7vh;
->>>>>>> ac34a72c00c262406f63367bf2835bdc937463ca
    width: 100%;
    height: fit-content;
    @include GilroyFont;
-<<<<<<< HEAD
    @media (max-width: 1040px) {
-         padding: 3% 2.5% 3% 2%;
-      }
+      padding: 3% 2.5% 3% 2%;
+   }
    @media (max-width: 600px) {
-         padding: 3% 2.5% 3% 0px;
-      }
+      padding: 3% 2.5% 3% 0px;
+   }
    @media (max-width: 400px) {
-         margin-left: -15px;
-      }
+      margin-left: -15px;
+   }
+
    &_rss-logo-block {
-         display: flex;
-         flex-direction: column;
-         align-items: center;
-         justify-content: center;
-         font-weight: 600;
-         color: $grey-color;
-         row-gap: 2px;
-         width: 130%;
-         margin-top: -5.25vh;
-         &_image {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: $grey-color;
+      row-gap: 2px;
+      width: 130%;
+      margin-top: -5.25vh;
+      &_image {
          border: 0.5px #1976d2 solid;
          border-radius: 75px;
          display: flex;
          width: 90%;
          @media (max-width: 1000px) {
-               width: 80%;
-            }
-            @media (max-width: 600px) {
-               width: 70%;
-            }
-         
-            @media (max-width: 500px) {
-               width: 60%;
-            }
-           @media (max-width: 400px) {
-                width: 50%;
-            }
+            width: 80%;
          }
-         &_label {
-            font-size: 1.1rem;
-            margin-top: -55px;
-            width: fit-content;
-            text-align: center;
-            display: block;
-            justify-self: center;
-            cursor: pointer;
-            @media (max-width: 1000px) {
-                  font-size: 1rem;
-                  margin-top: -50px;
-               }
-               @media (max-width: 600px) {
-                  font-size: 0.9rem;
-                  margin-top: -45.5px;
-               }
-               @media (max-width: 500px) {
-                  font-size: 0.75rem;
-                  margin-top: -38px;
-               }
-              @media (max-width: 400px) {
-                  font-size: 0.575rem;
-                margin-top: -29px;
-                   }
+         @media (max-width: 600px) {
+            width: 70%;
+         }
+         @media (max-width: 500px) {
+            width: 60%;
+         }
+         @media (max-width: 400px) {
+            width: 50%;
          }
       }
-      &_yearmark-label{
+      &_label {
+         font-size: 1.1rem;
+         margin-top: -55px;
+         width: fit-content;
+         text-align: center;
+         display: block;
+         justify-self: center;
+         cursor: pointer;
+         @media (max-width: 1000px) {
+            font-size: 1rem;
+            margin-top: -50px;
+         }
+         @media (max-width: 600px) {
+            font-size: 0.9rem;
+            margin-top: -45.5px;
+         }
+         @media (max-width: 500px) {
+            font-size: 0.75rem;
+            margin-top: -38px;
+         }
+         @media (max-width: 400px) {
+            font-size: 0.575rem;
+            margin-top: -29px;
+         }
+      }
+   }
+   &_yearmark-label {
       display: flex;
       align-content: flex-end;
       align-items: flex-end;
       vertical-align: bottom;
       font-size: 2.3rem;
-=======
-   a {
-      text-decoration: none;
-   }
-
-   &_rss-logo-block {
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: $text-color;
-      row-gap: 0.75vh;
-      background-image: url('../../assets/svg/rs-school-logo_inverted.svg');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position-x: -10px;
-      background-position-y: center;
-      padding-top: 65%;
-      width: 100%;
-      padding-right: 15px;
-
-      @media (max-width: 1000px) {
-         font-size: 1.1rem;
-         background-position-x: -10px;
-      }
-
+      color: $yellow-color;
       @media (max-width: 600px) {
-         font-size: 1rem;
-      }
-
-      @media (max-width: 500px) {
-         width: 100%;
-         font-size: 0.9rem;
-         padding-top: 50%;
-         background-position-x: -8px;
-      }
-   }
-
-   .footer_yearmark-block {
-      display: flex;
-      align-content: center;
-      align-items: center;
-      vertical-align: middle;
-      font-size: 1.5rem;
->>>>>>> ac34a72c00c262406f63367bf2835bdc937463ca
-      width: fit-content;
-      color: $text-color_2;
-
-      @media (max-width: 600px) {
-         font-size: 2rem;
-      }
-
+            font-size: 2rem;
+         }
       @media (max-width: 550px) {
-         font-size: 1.7rem;
-      }
-
+            font-size: 1.7rem;
+         }
       @media (max-width: 500px) {
-         font-size: 1.3rem;
-      }
-
+            font-size: 1.3rem;
+         }
       @media (max-width: 350px) {
-         font-size: 1.2rem;
+            font-size: 1.2rem;
+         }
       }
-<<<<<<< HEAD
-            }
-      &_github-block {
-      list-style: none;
-      width: min-content;
-      display: flex;
-      flex-direction: column;
-      row-gap: 1.25vh;
-      height: min-content;
-       &_item{
-       color: $grey-color;
-       width: 100%;
-       display: flex;
-       align-items: center;
-       column-gap: 4.5px;
-       @media (max-width: 600px) {
-       font-size: 0.8rem;
-                }
-       @media (max-width: 500px) {
-       font-size: 0.6rem;
-                }
-      &_image {
-         width: 38.5px;
-         @media (max-width: 1000px) {
-               width: 35px;
-            }
-         @media (max-width: 600px) {
-            width: 30px;
-            }
-         @media (max-width: 500px) {
-               width: 25px;
-            }
-        @media (max-width: 400px) {
-              width: 20px;
-           }
-        @media (max-width: 350px) {
-             width:17.5px;
-           }
-      }
-      &_label {
-       cursor: pointer; 
-=======
-   }
-
-   .footer_github-block {
-      list-style: none;
-      width: 180px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      @media (max-width: 600px) {
-         width: 150px;
-      }
-
-      @media (max-width: 500px) {
-         width: 105px;
-         height: 10vh;
-      }
-
-      @media (max-width: 400px) {
-         height: 9.5vh;
-      }
-
-      li {
-         color: $text-color;
-         background-image: url(../../assets/svg/github-logo.svg);
-         background-repeat: no-repeat;
-         background-size: contain;
-         background-position-y: center;
-         background-position-x: 0%;
-         padding-left: 10%;
-         height: 1.5vh;
-         width: 100%;
+   &_github-block {
+         list-style: none;
+         width: min-content;
          display: flex;
-         align-items: center;
-         margin-bottom: 7px;
-         @media (max-width: 600px) {
-            font-size: 0.8rem;
-            padding-left: 21%;
-         }
+         flex-direction: column;
+         row-gap: 1.25vh;
+         height: min-content;
+         &_item {
+            color: $grey-color;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            column-gap: 4.5px;
+            @media (max-width: 600px) {
+               font-size: 0.8rem;
+            }
 
-         @media (max-width: 500px) {
-            font-size: 0.6rem;
-            background-size: 17%;
+            @media (max-width: 500px) {
+               font-size: 0.6rem;
+            }
+            &_image {
+               width: 38.5px;
+               @media (max-width: 1000px) {
+                  width: 35px;
+               }
+               @media (max-width: 600px) {
+                  width: 30px;
+               }
+               @media (max-width: 500px) {
+                  width: 25px;
+               }
+               @media (max-width: 400px) {
+                  width: 20px;
+               }
+               @media (max-width: 350px) {
+                  width: 17.5px;
+               }
+            }
+            &_label {
+               cursor: pointer;
+            }
+            }
          }
->>>>>>> ac34a72c00c262406f63367bf2835bdc937463ca
       }
-     }
-   }
-}
