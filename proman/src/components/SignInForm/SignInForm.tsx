@@ -7,8 +7,7 @@ import { userSlice } from '../../store/reducers/userSlice';
 import { RegistrationFormInputs } from '../../types/types';
 import { InputForm } from '../InputForm/InputForm';
 import { PopUp } from '../modal/modal';
-
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from '@material-ui/icons/Close';
 import ToggleButton from '@mui/material/ToggleButton';
 import { NavLink } from 'react-router-dom';
 
@@ -56,7 +55,7 @@ export const SignInForm: React.FC = () => {
             borderColor: '#A2A0A2',
           }}
         >
-          <CloseIcon sx={{ color: '#A2A0A2' }} />
+          <CloseIcon style={{ color: '#A2A0A2' }} />
         </ToggleButton>
       </NavLink>
       <ThemeProvider theme={theme}>

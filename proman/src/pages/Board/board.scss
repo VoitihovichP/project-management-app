@@ -1,0 +1,15 @@
+@import '../../scss/variables.scss';
+
+.board-page {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  background-color: $main-color;
+  height: 73vh;
+  overflow-y: hiddenы;
+  overflow-x: auto;
+  padding: 15px 35px;
+  &__columns {
+    display: flex;
+  }
+}
