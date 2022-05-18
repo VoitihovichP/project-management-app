@@ -1,5 +1,13 @@
+@import './scss/mixins';
+@import './scss/variables';
+
+.body {
+  background-color: $main-color;
+}
+
 .App {
   text-align: center;
+  background-color: $main-color;
 }
 
 .App-logo {

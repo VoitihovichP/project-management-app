@@ -14,7 +14,7 @@
   top: 0;
   z-index: 101;
   transition-duration: 0.3s;
-  @media (max-width: 540px) {
+  @media (max-width: 545px) {
     flex-direction: column;
     row-gap: 7.5px;
     align-items: flex-start;
@@ -77,23 +77,14 @@
       width: 100%;
       align-items: center;
     }
-  &_login-greeting {
+    &_login-greeting {
         color: #a2a0a2;
         font-family: "Gilroy";
         font-weight: 100;
-          & span {
+        & span {
               color: $yellow-color;
             }
-    &_login-greeting {
-      color: #a2a0a2;
-      font-family: "Gilroy";
-      font-weight: 100;
-
-      & span {
-        color: $yellow-color;
       }
-    }
-
     &_nav-buttons {
       display: flex;
       column-gap: 3%;
@@ -108,34 +99,19 @@
     }
   }
 }
-}
 
 .header__scrolled {
   box-shadow: rgb(232 251 70 / 20%) 0px 8px 30px;
   transition-duration: 0.3s;
   background-color: #ffffff;
   padding-bottom: 25px;
+  @media (max-width: 545px) {
+    padding-bottom: 18px;
+  }
 
   .header_left-block_language-switch__scrolled {
     color: $grey-color;
     transition-duration: 0.3s;
-  }
-}
-
-.login-greetings {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-
-  &__text {
-    color: $text-color;
-    font-family: "Gilroy";
-    font-weight: 100;
-    margin-bottom: 10px;
-
-    & span {
-      color: $yellow-color;
-    }
   }
 }
 

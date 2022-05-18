@@ -11,7 +11,7 @@ import MainPage from './pages/Main/MainPage';
 
 const App: FC = () => {
   return (
-    <body>
+    <div className="body">
       <Header />
       <Routes>
         <Route path="/" element={<Welcome />} />
@@ -21,7 +21,7 @@ const App: FC = () => {
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
-    </body>
+    </div>
   );
 };
 
