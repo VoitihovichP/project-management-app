@@ -45,49 +45,41 @@
   &__greeting {
     @include GilroyFont;
     font-size: 3rem;
-    line-height: 40px;
+    line-height: 1.25;
     letter-spacing: 3px;
     color: #a2a0a2;
     span {
       color: #fee304;
     }
     @media (max-width: 1520px) {
-      line-height: 50px;
       font-size: 2.85rem;
     }
     @media (max-width: 1390px) {
-      line-height: 40px;
       font-size: 2.55rem;
     }
     @media (max-width: 1023px) {
-      font-size: 2.4rem;
+      font-size: 1.8rem;
       margin-bottom: 30px;
     }
     @media (max-width: 567px) {
-      margin-bottom: 20px;
-      line-height: 35px;
+      margin-bottom: 15px;
     }
   }
   &__descr {
     @include ProximaRegularFont;
-    font-size: 2rem;
-    line-height: 40px;
-    letter-spacing: 2px;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    letter-spacing: 1px;
     color: #a2a0a2;
     span {
       color: #fee304;
     }
-    @media (max-width: 1520px) {
-      font-size: 1.75rem;
-      line-height: 35px;
-    }
     @media (max-width: 1390px) {
-      font-size: 1.45rem;
-      line-height: 30px;
+      font-size: 1.3rem;
     }
     @media (max-width: 1023px) {
-      font-size: 1.3rem;
-      line-height: 25px;
+      font-size: 1.1rem;
+      text-align: center;
     }
   }
   &__team {
@@ -101,7 +93,7 @@
     &-subtitle {
       margin-bottom: 50px;
       @include GilroyFont;
-      font-size: 2.65rem;
+      font-size: 2.4rem;
       line-height: 50px;
       letter-spacing: 3px;
       color: #a2a0a2;
