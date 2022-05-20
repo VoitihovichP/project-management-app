@@ -5,8 +5,10 @@ import boardReducer from './asyncReducers/boardSlice';
 import formSlice from './reducers/formSlice';
 import userReducer from './reducers/userSlice';
 import boardIdReducer from './reducers/boardIdSlice';
+import columnSlice from './asyncReducers/columnsSlice';
 
 const rootReducer = combineReducers({
+  columnSlice,
   boardIdReducer,
   boardReducer,
   userReducer,

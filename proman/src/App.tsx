@@ -1,17 +1,17 @@
 import React, { FC } from 'react';
-import Footer from './components/Footer/Footer';
-import Header from './components/Header/Header';
+import Footer from './components/footer/Footer';
+import Header from './components/header/Header';
 import Welcome from './pages/Welcome/Welcome';
 import { AuthorizationPage } from './pages/Authorization/AuthorizationPage';
 import Board from './pages/Board/Board';
 import Error from './pages/Error/Error';
 import { Route, Routes } from 'react-router-dom';
-import './App.scss';
 import MainPage from './pages/Main/MainPage';
+import './App.scss';
 
 const App: FC = () => {
   return (
-    <div className="body">
+    <>
       <Header />
       <Routes>
         <Route path="/" element={<Welcome />} />
@@ -21,7 +21,7 @@ const App: FC = () => {
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
-    </div>
+    </>
   );
 };
 

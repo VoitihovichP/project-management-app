@@ -46,17 +46,29 @@
     justify-content: space-between;
     align-items: center;
 
-    &-title {
+    &-title, .nameColumn  {
       border: none;
       outline: none;
       background-color: transparent;
-
       display: inline-block;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
       color: $title-color;
       @include ProximaSemiboldFont;
+      &::hover {
+        display: none;
+        border-bottom: 1px solid  $text-color !important;
+      }
+      &::before {
+        display: none;
+        border-bottom: 1px solid  $text-color !important;
+      }
+      &::after {
+        display: none;
+        border-bottom: 1px solid $text-color_2;
+      }
     }
   }
 }
+
