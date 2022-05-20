@@ -1,5 +1,7 @@
 import React, { FC, useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/redux';
+import { columnSlice } from '../../store/asyncReducers/columnsSlice';
 import { boardIdSlice } from '../../store/reducers/boardIdSlice';
 
 import './boardItem.scss';
@@ -23,9 +25,9 @@ const menuListItem = [
 ];
 
 const BoardItem: FC<BoardItemProps> = ({ title, boardId, openConfirm, openEdit }) => {
+  const navigate = useNavigate();
   const [isOpenMenu, setOpenMenu] = useState<boolean>(false);
   const select = useRef(null);
-
   const dispatch = useAppDispatch();
   const { changeBoardId } = boardIdSlice.actions;
 
@@ -50,6 +52,11 @@ const BoardItem: FC<BoardItemProps> = ({ title, boardId, openConfirm, openEdit }
     }
   };
 
+  const handleClickBoardItem = () => {
+    navigate('/board');
+    localStorage.setItem('boardId', boardId);
+  };
+
   useEffect(() => {
     window.addEventListener('click', handleOutsideClick);
 
@@ -59,7 +66,7 @@ const BoardItem: FC<BoardItemProps> = ({ title, boardId, openConfirm, openEdit }
   }, []);
 
   return (
-    <div className="board-item">
+    <div onClick={handleClickBoardItem} className="board-item">
       <h3 className="board-item__title">{title}</h3>
       <div className="board-item__menu">
         <button ref={select} className="board-item__menu-btn" onClick={() => handleOpenMenu()}>

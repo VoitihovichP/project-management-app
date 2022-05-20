@@ -33,20 +33,23 @@ const initialState: InitialState = {
   error: '',
 };
 
-export const getBoards = createAsyncThunk('Boards', async (data: { token: string }, thunkAPI) => {
-  const { token } = data;
-  try {
-    const response = await axios.get(Requests.ALL_BOARDS, {
-      headers: {
-        'Content-type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
-  } catch (e) {
-    thunkAPI.rejectWithValue('Error');
+export const getBoards = createAsyncThunk(
+  'Boards',
+  async (data: { token: string }, { rejectWithValue }) => {
+    const { token } = data;
+    try {
+      const response = await axios.get(Requests.ALL_BOARDS, {
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    } catch (e) {
+      rejectWithValue(e);
+    }
   }
-});
+);
 
 export const postBoards = createAsyncThunk(
   'CreateBoards',

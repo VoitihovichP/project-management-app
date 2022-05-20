@@ -37,7 +37,6 @@ export const SignUpForm: React.FC = () => {
 
   const onSubmit = handleSubmit(async ({ name, login, password }) => {
     dispatch(signUpSlice.actions.clear());
-    reset();
     const result = await dispatch(signUp({ name, login, password }));
     if (result.meta.requestStatus === 'fulfilled') {
       const result = await dispatch(signIn({ login, password }));
@@ -48,6 +47,7 @@ export const SignUpForm: React.FC = () => {
         dispatch(userLogin(true));
       }
     }
+    reset();
   });
 
   const handleClose = () => dispatch(signUpSlice.actions.closeModal());

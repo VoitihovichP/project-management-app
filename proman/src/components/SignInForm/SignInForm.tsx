@@ -83,7 +83,6 @@ export const SignInForm: React.FC = () => {
             </Button>
           </div>
         </form>
-        {/* {error} */}
       </ThemeProvider>
       <PopUp
         open={modal.isOpen}

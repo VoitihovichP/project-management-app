@@ -6,12 +6,12 @@ import { AuthorizationPage } from './pages/Authorization/AuthorizationPage';
 import Board from './pages/Board/Board';
 import Error from './pages/Error/Error';
 import { Route, Routes } from 'react-router-dom';
-import './App.scss';
 import MainPage from './pages/Main/MainPage';
+import './App.scss';
 
 const App: FC = () => {
   return (
-    <body>
+    <>
       <Header />
       <Routes>
         <Route path="/" element={<Welcome />} />
@@ -21,7 +21,7 @@ const App: FC = () => {
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
-    </body>
+    </>
   );
 };
 
