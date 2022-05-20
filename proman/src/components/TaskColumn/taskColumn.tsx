@@ -2,11 +2,9 @@ import { Button, IconButton, TextField } from '@mui/material';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import './taskColumn.scss';
-import { TaskBlock } from '../taskBlock/taskBlock';
 import { useAppDispatch } from '../../hooks/redux';
 import { useCookies } from 'react-cookie';
 import { changeColumn, deleteColumn, getAllColumns } from '../../store/asyncReducers/columnsSlice';
-import { SyntheticEvent } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 type RegistrationFormInputs = {
