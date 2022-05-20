@@ -1,4 +1,4 @@
-@import '../../scss/mixins'; 
+@import '../../scss/mixins';
 
 .team-card {
   padding: 15px 20px;
@@ -24,7 +24,7 @@
   &__name {
     margin: 6px 0 15px 0;
     @include ProximaSemiboldFont;
-    font-size: 2rem;
+    font-size: 1.7rem;
     color: #fee304;
     @media (max-width: 1390px) {
       font-size: 1.5rem;
@@ -32,7 +32,7 @@
   }
   &__descr {
     @include ProximaRegularFont;
-    font-size: 1.65rem;
+    font-size: 1.5rem;
     color: #a2a0a2;
     @media (max-width: 1390px) {
       font-size: 1.15rem;
@@ -52,7 +52,7 @@
     }
     &-url {
       @include ProximaRegularFont;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       color: #fee304;
       text-decoration: none;
       transition: 0.3s all;

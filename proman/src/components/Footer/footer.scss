@@ -1,0 +1,144 @@
+@import '../../scss/variables';
+@import '../../scss/mixins';
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3% 2.5% 3% 4%;
+  background-color: $main-color;
+  color: $title-color;
+  width: 100%;
+  height: fit-content;
+  @include GilroyFont;
+  @media (max-width: 1040px) {
+    padding: 3% 2.5% 3% 2%;
+  }
+  @media (max-width: 600px) {
+    padding: 3% 2.5% 3% 0px;
+  }
+  @media (max-width: 400px) {
+    margin-left: -15px;
+  }
+
+  &_rss-logo-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: $grey-color;
+    row-gap: 2px;
+    width: 130%;
+    margin-top: -5.25vh;
+    @media (max-width: 430px) {
+      margin-top: -2.75vh;
+    }
+    &_image {
+      border: 0.5px #1976d2 solid;
+      border-radius: 75px;
+      display: flex;
+      width: 90%;
+      @media (max-width: 1000px) {
+        width: 80%;
+      }
+      @media (max-width: 600px) {
+        width: 70%;
+      }
+      @media (max-width: 500px) {
+        width: 60%;
+      }
+      @media (max-width: 400px) {
+        width: 50%;
+      }
+    }
+    &_label {
+      font-size: 1.1rem;
+      margin-top: -55px;
+      width: fit-content;
+      text-align: center;
+      display: block;
+      justify-self: center;
+      cursor: pointer;
+      @media (max-width: 1000px) {
+        font-size: 1rem;
+        margin-top: -50px;
+      }
+      @media (max-width: 600px) {
+        font-size: 0.9rem;
+        margin-top: -45.5px;
+      }
+      @media (max-width: 500px) {
+        font-size: 0.75rem;
+        margin-top: -38px;
+      }
+      @media (max-width: 400px) {
+        font-size: 0.575rem;
+        margin-top: -29px;
+      }
+    }
+  }
+  &_yearmark-label {
+    display: flex;
+    align-content: flex-end;
+    align-items: flex-end;
+    vertical-align: bottom;
+    font-size: 1.7rem;
+    color: $yellow-color;
+    @media (max-width: 600px) {
+      font-size: 1.5rem;
+    }
+    @media (max-width: 550px) {
+      font-size: 1.2rem;
+    }
+    @media (max-width: 500px) {
+      font-size: 1.3rem;
+    }
+    /* @media (max-width: 350px) {
+            font-size: 1.2rem;
+         } */
+  }
+  &_github-block {
+    list-style: none;
+    width: min-content;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.25vh;
+    height: min-content;
+    &_item {
+      color: $grey-color;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      column-gap: 4.5px;
+      @media (max-width: 600px) {
+        font-size: 0.8rem;
+      }
+
+      @media (max-width: 500px) {
+        font-size: 0.6rem;
+      }
+      &_image {
+        width: 38.5px;
+        @media (max-width: 1000px) {
+          width: 35px;
+        }
+        @media (max-width: 600px) {
+          width: 30px;
+        }
+        @media (max-width: 500px) {
+          width: 25px;
+        }
+        @media (max-width: 400px) {
+          width: 20px;
+        }
+        @media (max-width: 350px) {
+          width: 17.5px;
+        }
+      }
+      &_label {
+        cursor: pointer;
+      }
+    }
+  }
+}
