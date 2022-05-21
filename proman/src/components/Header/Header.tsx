@@ -1,14 +1,15 @@
 import React, { FC, useState, useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { userSlice } from '../../store/reducers/userSlice';
-import LangSwitch from '../LangSwitch/LangSwitch';
-import Button from '@mui/material/Button';
-import './header.scss';
-import { NavLink, useNavigate } from 'react-router-dom';
 import { formSlice } from '../../store/reducers/formSlice';
 import { useCookies } from 'react-cookie';
 import { signInSlice } from '../../store/asyncReducers/signInSlice';
 import { signUpSlice } from '../../store/asyncReducers/signUpSlice';
+import LangSwitch from '../LangSwitch/LangSwitch';
+import Button from '@mui/material/Button';
+import ProManLogo from '../../assets/svg/pro-man-logo2.svg';
+import './header.scss';
 
 const Header: FC = () => {
   const [isScrolled, setScroll] = useState(false);
@@ -63,7 +64,8 @@ const Header: FC = () => {
     <header className={isScrolled ? 'header header__scrolled' : 'header'}>
       <div className="header_left-block">
         <NavLink to="./">
-          <h1 className="header_left-block_title">Pro-Man</h1>
+          <img alt="Pro-Man App" src={ProManLogo}></img>
+          {/* <h1 className="header_left-block_title">Pro-Man</h1> */}
         </NavLink>
         <LangSwitch />
       </div>
