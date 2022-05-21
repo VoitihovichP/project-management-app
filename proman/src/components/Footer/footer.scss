@@ -1,0 +1,96 @@
+@import '../../scss/variables';
+@import '../../scss/mixins';
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 30px;
+  background-color: $main-color;
+  color: $title-color;
+  width: 100%;
+  height: 150px;
+  @include GilroyFont;
+  @media (max-width: 767px) {
+    padding: 32px 10px;
+  }
+  &__rss-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  &_rss-logo-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: $grey-color;
+    row-gap: 2px;
+    width: 130%;
+    margin-top: -5.25vh;
+    @media (max-width: 430px) {
+      margin-top: -2.75vh;
+    }
+    &_image {
+      width: 150px;
+      @media (max-width: 767px) {
+        width: 100px;
+      }
+    }
+  }
+  &_yearmark-label {
+    display: flex;
+    align-content: flex-end;
+    align-items: flex-end;
+    vertical-align: bottom;
+    font-size: 1.6rem;
+    color: $yellow-color;
+    @media (max-width: 500px) {
+      font-size: 1rem;
+    }
+  }
+  &_github {
+    &-link {
+      display: flex;
+      align-items: center;
+      column-gap: 4.5px;
+      color: $grey-color;
+      transition: 0.3s all;
+      &:hover {
+        color: #5e5e5e;
+      }
+      @media (max-width: 600px) {
+        font-size: 0.8rem;
+      }
+
+      @media (max-width: 500px) {
+        font-size: 0.6rem;
+      }
+    }
+    &-block {
+      list-style: none;
+      width: min-content;
+      display: flex;
+      flex-direction: column;
+      row-gap: 1.25vh;
+      height: min-content;
+      &_item {
+        &_image {
+          width: 25px;
+          @media (max-width: 400px) {
+            width: 20px;
+          }
+          @media (max-width: 350px) {
+            width: 17.5px;
+          }
+        }
+        &_label {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

@@ -78,12 +78,10 @@ const Header: FC = () => {
   }));
 
   const [state, setState] = React.useState({
-    gilad: true,
-    jason: false,
-    antoine: true,
+    englishVersion: false,
   });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLangSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setState({
       ...state,
       [event.target.name]: event.target.checked,
@@ -144,9 +142,9 @@ const Header: FC = () => {
           <FormControlLabel
             control={
               <MaterialUISwitch
-                checked={state.jason}
-                onChange={handleChange}
-                name="jason"
+                checked={state.englishVersion}
+                onChange={handleLangSwitch}
+                name="englishVersion"
                 sx={{ m: 1 }}
               />
             }

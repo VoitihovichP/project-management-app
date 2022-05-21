@@ -14,11 +14,7 @@
   top: 0;
   z-index: 101;
   transition-duration: 0.3s;
-<<<<<<< HEAD
-=======
->>>>>>> ac34a72c00c262406f63367bf2835bdc937463ca
-
-  @media (max-width: 540px) {
+  @media (max-width: 545px) {
     flex-direction: column;
     row-gap: 7.5px;
     align-items: flex-start;
@@ -81,34 +77,14 @@
       width: 100%;
       align-items: center;
     }
-
-<<<<<<< HEAD
-  &_login-greeting {
-        color: #a2a0a2;
-        font-family: "Gilroy";
-        font-weight: 100;
-          & span {
-              color: $yellow-color;
-            }
-=======
     &_login-greeting {
-      /* display: flex;border: 2px red solid;
-      flex-direction: column;
-      row-gap: 3px;
-      align-items: center;
-      @media (max-width: 520px) {
-        flex-direction: column;
-        align-items: center; */
       color: #a2a0a2;
-      font-family: "Gilroy";
+      font-family: 'Gilroy';
       font-weight: 100;
-
       & span {
         color: $yellow-color;
->>>>>>> ac34a72c00c262406f63367bf2835bdc937463ca
       }
     }
-
     &_nav-buttons {
       display: flex;
       column-gap: 3%;
@@ -129,30 +105,12 @@
   transition-duration: 0.3s;
   background-color: #ffffff;
   padding-bottom: 25px;
+  @media (max-width: 545px) {
+    padding-bottom: 18px;
+  }
 
   .header_left-block_language-switch__scrolled {
     color: $grey-color;
     transition-duration: 0.3s;
   }
 }
-
-.login-greetings {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-
-  &__text {
-    color: $text-color;
-    font-family: "Gilroy";
-    font-weight: 100;
-    margin-bottom: 10px;
-
-    & span {
-      color: $yellow-color;
-    }
-<<<<<<< HEAD
-}
-=======
-  }
-}
->>>>>>> ac34a72c00c262406f63367bf2835bdc937463ca
