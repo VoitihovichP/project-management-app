@@ -6,6 +6,9 @@ import { useAppDispatch } from '../../hooks/redux';
 import { useCookies } from 'react-cookie';
 import { changeColumn, deleteColumn, getAllColumns } from '../../store/asyncReducers/columnsSlice';
 import { Controller, useForm } from 'react-hook-form';
+import { TaskBlock } from '../taskBlock/taskBlock';
+import { useDrag } from 'react-dnd';
+import { ItemTypes } from '../../utils/dragAndDropTypes';
 
 type RegistrationFormInputs = {
   [nameColumn: string]: string;
@@ -41,6 +44,13 @@ export const TaskColumn: React.FC<{ columnId: string; title: string; order: numb
       }
     }
   });
+
+  const [{ isDragging }, dragRef] = useDrag(() => ({
+    type: ItemTypes.TICKET,
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
 
   return (
     <div className="task-column">
@@ -85,7 +95,9 @@ export const TaskColumn: React.FC<{ columnId: string; title: string; order: numb
           <DeleteIcon style={{ color: '#a2a0a2' }} />
         </IconButton>
       </div>
-      <div className="task-column__list"></div>
+      <div className="task-column__list">
+        <TaskBlock dragRef={dragRef} />
+      </div>
       <Button style={{ color: '#a2a0a2', textTransform: 'none' }}>
         <AddIcon className="task-column__addTask-btn" style={{ color: '#a2a0a2' }} />
         Добавить задачу

@@ -2,11 +2,16 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { IconButton } from '@mui/material';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PersonIcon from '@material-ui/icons/Person';
+import { ConnectDragSource } from 'react-dnd';
 import './taskBlock.scss';
 
-export const TaskBlock: React.FC = () => {
+type TaskBlockProps = {
+  dragRef: ConnectDragSource;
+};
+
+export const TaskBlock: React.FC<TaskBlockProps> = ({ dragRef }) => {
   return (
-    <div className="taskBlock">
+    <div ref={dragRef} className="taskBlock">
       <div className="taskBlock-header">
         <div className="taskBlock-header">
           <IconButton className="taskBlock-header__status" aria-label="task status">
