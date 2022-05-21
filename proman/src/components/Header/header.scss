@@ -41,7 +41,7 @@
   &_right-block {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     row-gap: 1.75px;
 
     @media (max-width: 545px) {
@@ -58,7 +58,7 @@
       }
     &_nav-buttons {
       display: flex;
-      column-gap: 3%;
+      column-gap: 1%;
       align-items: center;
 
       @media (max-width: 545px) {
