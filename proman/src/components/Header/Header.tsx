@@ -60,12 +60,12 @@ const Header: FC = () => {
   }, []);
 
   return (
-    <header className={isLogin && isScrolled ? 'header header__scrolled' : 'header'}>
+    <header className={isScrolled ? 'header header__scrolled' : 'header'}>
       <div className="header_left-block">
         <NavLink to="./">
           <h1 className="header_left-block_title">Pro-Man</h1>
         </NavLink>
-        <LangSwitch></LangSwitch>
+        <LangSwitch />
       </div>
       {isLogin ? (
         <div className="header_right-block">
@@ -74,7 +74,10 @@ const Header: FC = () => {
           </div>
           <nav className="header_right-block_nav-buttons">
             <NavLink to="/main">
-              <Button variant="contained">К&nbsp;доскам</Button>
+              <Button variant="contained">Перейти&nbsp;к&nbsp;доскам</Button>
+            </NavLink>
+            <NavLink to="/profile">
+              <Button variant="contained">Редактировать&nbsp;профиль</Button>
             </NavLink>
             <Button variant="contained" onClick={handleLogOut}>
               Выйти

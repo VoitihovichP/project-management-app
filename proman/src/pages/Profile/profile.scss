@@ -1,0 +1,17 @@
+@import '../../scss/variables';
+@import '../../scss/mixins';
+
+.profile-page {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $main-color;
+
+    &_title {
+        color: $yellow-color;
+        @include GilroyFont;
+        font-size: 5rem;
+    }
+}
