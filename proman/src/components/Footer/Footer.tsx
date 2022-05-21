@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import './footer.scss';
-import RsSchoolLogo from '../../assets/svg/rs-school-logo_inverted.svg';
+import RsSchoolLogo from '../../assets/svg/rs-school-logo_inverted-cropped.svg';
 import GitHubLogo from '../../assets/svg/github-logo.svg';
 import { teamMember } from '../../constants/arrays';
 
