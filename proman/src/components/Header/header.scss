@@ -9,6 +9,7 @@
   padding: $padding-container;
   padding-top: 12px;
   padding-bottom: 14px;
+  max-height: 100px;
   background: $main-color;
   top: 0;
   z-index: 101;
@@ -49,13 +50,13 @@
       align-items: center;
     }
     &_login-greeting {
-        color: #a2a0a2;
-        font-family: "Gilroy";
-        font-weight: 100;
-        & span {
-              color: $yellow-color;
-            }
+      color: #a2a0a2;
+      font-family: 'Gilroy';
+      font-weight: 100;
+      & span {
+        color: $yellow-color;
       }
+    }
     &_nav-buttons {
       display: flex;
       column-gap: 1%;
@@ -79,4 +80,3 @@
   @media (max-width: 545px) {
   }
 }
-
