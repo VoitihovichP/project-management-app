@@ -53,12 +53,12 @@ export const getBoards = createAsyncThunk(
 
 export const postBoards = createAsyncThunk(
   'CreateBoards',
-  async (data: { title: string; token: string }, thunkAPI) => {
+  async (data: { title: string; token: string }, { rejectWithValue }) => {
     const { title, token } = data;
     try {
       const response = await axios.post(
         Requests.ALL_BOARDS,
-        { title: title },
+        { title: title, description: 'test' },
         {
           headers: {
             'Content-type': 'application/json',
@@ -68,14 +68,14 @@ export const postBoards = createAsyncThunk(
       );
       return response.data;
     } catch (e) {
-      thunkAPI.rejectWithValue('Error');
+      rejectWithValue(e);
     }
   }
 );
 
 export const deleteBoard = createAsyncThunk(
   'deleteBoard',
-  async (data: { id: string; token: string }, thunkAPI) => {
+  async (data: { id: string; token: string }, { rejectWithValue }) => {
     const { id, token } = data;
     try {
       const response = await axios.delete(`${Requests.ALL_BOARDS}/${id}`, {
@@ -86,14 +86,14 @@ export const deleteBoard = createAsyncThunk(
       });
       return response.data;
     } catch (e) {
-      thunkAPI.rejectWithValue('Error');
+      rejectWithValue(e);
     }
   }
 );
 
 export const updateBoard = createAsyncThunk(
   'updateBoard',
-  async (data: { id: string; newTitle: string; token: string }, thunkAPI) => {
+  async (data: { id: string; newTitle: string; token: string }, { rejectWithValue }) => {
     const { id, token, newTitle } = data;
     try {
       const response = await axios.put(
@@ -108,7 +108,7 @@ export const updateBoard = createAsyncThunk(
       );
       return response.data;
     } catch (e) {
-      thunkAPI.rejectWithValue('Error');
+      rejectWithValue(e);
     }
   }
 );
