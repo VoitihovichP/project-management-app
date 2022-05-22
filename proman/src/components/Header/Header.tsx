@@ -64,7 +64,7 @@ const Header: FC = () => {
     <header className={isScrolled ? 'header header__scrolled' : 'header'}>
       <div className="header_left-block">
         <NavLink to="./">
-          <img alt="Pro-Man App" src={ProManLogo}></img>
+          <img alt="Pro-Man App" src={ProManLogo} className="header__logo" />
           {/* <h1 className="header_left-block_title">Pro-Man</h1> */}
         </NavLink>
         <LangSwitch />
