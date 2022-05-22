@@ -8,6 +8,7 @@ import CreateBoardForm from '../../components/CreateBoardForm/CreateBoardForm';
 import BoardItem from '../../components/BoardItem/BoardItem';
 import ConfirmationModal from '../../components/ConfirmationModal/ConfirmationModal';
 import { boardIdSlice } from '../../store/reducers/boardIdSlice';
+import Loader from '../../components/Loader/Loader';
 
 const MainPage: FC = () => {
   const [isConfirm, setIsConfirm] = useState<boolean>(false);
@@ -15,7 +16,7 @@ const MainPage: FC = () => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
-  const { boards } = useAppSelector((state) => state.boardReducer);
+  const { boards, isLoading } = useAppSelector((state) => state.boardReducer);
   const { deleteBoardId } = useAppSelector((state) => state.boardIdReducer);
   const { changeBoardId } = boardIdSlice.actions;
   const [cookie] = useCookies(['token']);
@@ -58,7 +59,9 @@ const MainPage: FC = () => {
     handleCloseConfirm();
   };
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div className="main-page">
       {isConfirm && (
         <ConfirmationModal cancelDelete={handleCloseConfirm} deleteBoard={handleDeleteBoard} />
