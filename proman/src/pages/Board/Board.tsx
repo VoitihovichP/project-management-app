@@ -2,11 +2,11 @@ import React, { FC, useEffect, useState } from 'react';
 import { IconButton, TextField } from '@mui/material';
 import AddIcon from '@material-ui/icons/Add';
 import { TaskColumn } from '../../components/TaskColumn/taskColumn';
-import './board.scss';
 import { Controller, useForm } from 'react-hook-form';
 import { useCookies } from 'react-cookie';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { createColumn, getAllColumns } from '../../store/asyncReducers/columnsSlice';
+import './board.scss';
 
 type RegistrationFormInputs = {
   [nameColumn: string]: string;

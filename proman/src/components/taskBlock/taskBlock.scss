@@ -33,3 +33,24 @@
     width: 100%;
   }
 }
+
+.nameColumn  {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: $title-color;
+  @include ProximaSemiboldFont;
+  &::hover {
+    border-bottom: 1px solid  $text-color !important;
+  }
+  &::before {
+    border-bottom: 1px solid  $text-color !important;
+  }
+  &::after {
+    border-bottom: 1px solid $text-color_2 !important;
+  }
+}

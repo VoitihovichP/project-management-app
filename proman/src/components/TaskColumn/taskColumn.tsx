@@ -1,11 +1,13 @@
 import { Button, IconButton, TextField } from '@mui/material';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
-import './taskColumn.scss';
 import { useAppDispatch } from '../../hooks/redux';
 import { useCookies } from 'react-cookie';
 import { changeColumn, deleteColumn, getAllColumns } from '../../store/asyncReducers/columnsSlice';
 import { Controller, useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { TaskBlock } from '../taskBlock/taskBlock';
+import './taskColumn.scss';
 
 type RegistrationFormInputs = {
   [nameColumn: string]: string;
@@ -16,6 +18,7 @@ export const TaskColumn: React.FC<{ columnId: string; title: string; order: numb
   title,
   order,
 }) => {
+  const [isShowTemplateTask, setIsShowTemplateTask] = useState(false);
   const { handleSubmit, control } = useForm<RegistrationFormInputs>();
   const dispatch = useAppDispatch();
   const [cookies] = useCookies(['token']);
@@ -41,6 +44,10 @@ export const TaskColumn: React.FC<{ columnId: string; title: string; order: numb
       }
     }
   });
+
+  const handleCreationTask = () => {
+    setIsShowTemplateTask(true);
+  };
 
   return (
     <div className="task-column">
@@ -71,13 +78,6 @@ export const TaskColumn: React.FC<{ columnId: string; title: string; order: numb
             }}
           />
         </form>
-        {/* <form onSubmit={handleChangeColumn}>
-          <input
-            className="task-column__settings-title"
-            placeholder="Column Name"
-            defaultValue={title}
-          ></input>
-        </form> */}
         <IconButton style={{ color: '#a2a0a2', textTransform: 'none' }} aria-label="add task">
           <AddIcon style={{ color: '#a2a0a2' }} />
         </IconButton>
@@ -85,8 +85,8 @@ export const TaskColumn: React.FC<{ columnId: string; title: string; order: numb
           <DeleteIcon style={{ color: '#a2a0a2' }} />
         </IconButton>
       </div>
-      <div className="task-column__list"></div>
-      <Button style={{ color: '#a2a0a2', textTransform: 'none' }}>
+      <div className="task-column__list">{isShowTemplateTask && <TaskBlock />}</div>
+      <Button onClick={handleCreationTask} style={{ color: '#a2a0a2', textTransform: 'none' }}>
         <AddIcon className="task-column__addTask-btn" style={{ color: '#a2a0a2' }} />
         Добавить задачу
       </Button>
