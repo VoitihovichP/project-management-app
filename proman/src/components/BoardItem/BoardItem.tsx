@@ -32,17 +32,20 @@ const BoardItem: FC<BoardItemProps> = ({ title, boardId, description, openConfir
   const dispatch = useAppDispatch();
   const { changeBoardId } = boardIdSlice.actions;
 
-  const handleOpenMenu = () => {
+  const handleOpenMenu = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
     setOpenMenu(!isOpenMenu);
     dispatch(changeBoardId(!isOpenMenu ? boardId : ''));
   };
 
-  const openEditForm = () => {
+  const openEditForm = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+    e.stopPropagation();
     openEdit();
     setOpenMenu(false);
   };
 
-  const openConfirmModal = () => {
+  const openConfirmModal = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+    e.stopPropagation();
     openConfirm(boardId);
     setOpenMenu(false);
   };
@@ -73,16 +76,16 @@ const BoardItem: FC<BoardItemProps> = ({ title, boardId, description, openConfir
         <p className="board-item__descr">{description}</p>
       </div>
       <div className="board-item__menu">
-        <button ref={select} className="board-item__menu-btn" onClick={() => handleOpenMenu()}>
+        <button ref={select} className="board-item__menu-btn" onClick={(e) => handleOpenMenu(e)}>
           ...
         </button>
         {isOpenMenu && (
-          <ul className="board-item__menu-list">
+          <ul className="board-item__menu-list" onClick={(e) => e.stopPropagation()}>
             {menuListItem.map(({ id, text }) => (
               <li
                 key={id}
                 className="board-item__menu-item"
-                onClick={() => (id === menuListItem[0].id ? openEditForm() : openConfirmModal())}
+                onClick={(e) => (id === menuListItem[0].id ? openEditForm(e) : openConfirmModal(e))}
               >
                 {text}
               </li>
