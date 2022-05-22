@@ -52,13 +52,12 @@ export const createColumn = createAsyncThunk(
     data: { nameColumn: string; order: number; token: string; boardId: string },
     { rejectWithValue }
   ) => {
-    const { nameColumn, order, token, boardId } = data;
+    const { nameColumn, token, boardId } = data;
     try {
       const response = await axios.post(
         `${Requests.ALL_BOARDS}/${boardId}/columns`,
         {
           title: nameColumn,
-          order: order,
         },
         {
           headers: {
