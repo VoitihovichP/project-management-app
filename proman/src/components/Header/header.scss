@@ -2,14 +2,12 @@
 @import '../../scss/mixins';
 
 .header {
+  padding: 10px 30px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: $padding-container;
-  padding-top: 2.5vh;
-  padding-bottom: 18vh;
-  max-height: 100px;
+  max-height: 112px;
   background: $main-color;
   top: 0;
   z-index: 101;
@@ -19,13 +17,16 @@
     row-gap: 7.5px;
     align-items: flex-start;
   }
+  &__logo {
+    width: 250px;
+  }
 
   &_left-block {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    gap: 0px;
+    gap: 6px;
 
     @media (max-width: 545px) {
       width: 100%;
@@ -37,12 +38,13 @@
       @include GilroyFont;
       font-size: 3rem;
     }
-}
+  }
 
   &_right-block {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    gap: 6px;
 
     @media (max-width: 545px) {
       width: 100%;
