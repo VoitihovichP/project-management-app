@@ -12,7 +12,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 0 20px;
+    padding: 50px 20px 30px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -21,6 +21,11 @@
     min-height: 260px;
     background: #45474b;
     border-radius: 10px;
+    &-inputs {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
   }
   &__title {
     margin-bottom: 50px !important;

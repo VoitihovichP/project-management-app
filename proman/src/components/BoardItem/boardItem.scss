@@ -1,4 +1,5 @@
 @import '../../scss/mixins';
+@import '../../scss/variables';
 
 .board-item {
   display: flex;
@@ -14,12 +15,23 @@
   &:hover {
     background-color: #37393b;
   }
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
   &__title {
     @include ProximaSemiboldFont;
-    font-size: 30px;
-    color: #fee304;
+    font-size: 28px;
+    color: $text-color_2;
     letter-spacing: 4px;
     text-transform: uppercase;
+  }
+  &__descr {
+    @include ProximaRegularFont;
+    font-size: 18px;
+    color: $title-color;
+    letter-spacing: 2px;
   }
   &__menu {
     position: relative;
@@ -27,7 +39,7 @@
       @include ProximaSemiboldFont;
       letter-spacing: 4px;
       font-size: 35px;
-      color: #fee304;
+      color: $text-color_2;
       background: none;
       border: none;
       cursor: pointer;
