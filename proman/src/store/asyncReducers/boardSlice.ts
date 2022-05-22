@@ -8,6 +8,7 @@ type InitialState = {
     | {
         id: string;
         title: string;
+        description: string;
       }
     | never
   >;
@@ -18,6 +19,7 @@ type GetResponse = Array<
   | {
       id: string;
       title: string;
+      description: string;
     }
   | never
 >;
@@ -25,6 +27,7 @@ type GetResponse = Array<
 type PostResponse = {
   id: string;
   title: string;
+  description: string;
 };
 
 const initialState: InitialState = {
@@ -53,12 +56,12 @@ export const getBoards = createAsyncThunk(
 
 export const postBoards = createAsyncThunk(
   'CreateBoards',
-  async (data: { title: string; token: string }, { rejectWithValue }) => {
-    const { title, token } = data;
+  async (data: { title: string; description: string; token: string }, { rejectWithValue }) => {
+    const { title, description, token } = data;
     try {
       const response = await axios.post(
         Requests.ALL_BOARDS,
-        { title: title, description: 'test' },
+        { title: title, description: description },
         {
           headers: {
             'Content-type': 'application/json',
@@ -93,12 +96,15 @@ export const deleteBoard = createAsyncThunk(
 
 export const updateBoard = createAsyncThunk(
   'updateBoard',
-  async (data: { id: string; newTitle: string; token: string }, { rejectWithValue }) => {
-    const { id, token, newTitle } = data;
+  async (
+    data: { id: string; newTitle: string; newDescr: string; token: string },
+    { rejectWithValue }
+  ) => {
+    const { id, token, newTitle, newDescr } = data;
     try {
       const response = await axios.put(
         `${Requests.ALL_BOARDS}/${id}`,
-        { title: newTitle },
+        { title: newTitle, description: newDescr },
         {
           headers: {
             'Content-type': 'application/json',

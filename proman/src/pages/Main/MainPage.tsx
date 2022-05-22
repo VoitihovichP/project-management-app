@@ -70,10 +70,11 @@ const MainPage: FC = () => {
       {isCreate && <CreateBoardForm closeForm={handleCloseCreate} />}
       <div className={`main-page__boards ${boards.length > 0 ? '' : 'main-page__boards_empty'}`}>
         {boards.length > 0 ? (
-          boards.map(({ title, id }) => (
+          boards.map(({ title, id, description }) => (
             <BoardItem
               title={title}
               boardId={id}
+              description={description}
               openConfirm={handleOpenConfirm}
               openEdit={handleOpenEditForm}
               key={id}

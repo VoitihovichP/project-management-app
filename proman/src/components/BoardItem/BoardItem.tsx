@@ -9,6 +9,7 @@ import './boardItem.scss';
 type BoardItemProps = {
   title: string;
   boardId: string;
+  description: string;
   openConfirm: (id: string) => void;
   openEdit: () => void;
 };
@@ -24,7 +25,7 @@ const menuListItem = [
   },
 ];
 
-const BoardItem: FC<BoardItemProps> = ({ title, boardId, openConfirm, openEdit }) => {
+const BoardItem: FC<BoardItemProps> = ({ title, boardId, description, openConfirm, openEdit }) => {
   const navigate = useNavigate();
   const [isOpenMenu, setOpenMenu] = useState<boolean>(false);
   const select = useRef(null);
@@ -67,7 +68,10 @@ const BoardItem: FC<BoardItemProps> = ({ title, boardId, openConfirm, openEdit }
 
   return (
     <div onClick={handleClickBoardItem} className="board-item">
-      <h3 className="board-item__title">{title}</h3>
+      <div className="board-item__text">
+        <h3 className="board-item__title">{title}</h3>
+        <p className="board-item__descr">{description}</p>
+      </div>
       <div className="board-item__menu">
         <button ref={select} className="board-item__menu-btn" onClick={() => handleOpenMenu()}>
           ...
