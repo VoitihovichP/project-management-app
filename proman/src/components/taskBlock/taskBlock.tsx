@@ -2,14 +2,19 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { IconButton } from '@mui/material';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PersonIcon from '@material-ui/icons/Person';
+import { useDrag } from 'react-dnd';
+import { ItemTypes } from '../../utils/dragAndDropTypes';
 import { ConnectDragSource } from 'react-dnd';
 import './taskBlock.scss';
 
-type TaskBlockProps = {
-  dragRef: ConnectDragSource;
-};
+export const TaskBlock: React.FC = () => {
+  const [{ isDragging }, dragRef] = useDrag(() => ({
+    type: ItemTypes.TICKET,
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
 
-export const TaskBlock: React.FC<TaskBlockProps> = ({ dragRef }) => {
   return (
     <div ref={dragRef} className="taskBlock">
       <div className="taskBlock-header">

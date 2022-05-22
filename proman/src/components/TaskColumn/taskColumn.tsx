@@ -7,7 +7,7 @@ import { useCookies } from 'react-cookie';
 import { changeColumn, deleteColumn, getAllColumns } from '../../store/asyncReducers/columnsSlice';
 import { Controller, useForm } from 'react-hook-form';
 import { TaskBlock } from '../taskBlock/taskBlock';
-import { useDrag } from 'react-dnd';
+import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from '../../utils/dragAndDropTypes';
 
 type RegistrationFormInputs = {
@@ -45,11 +45,9 @@ export const TaskColumn: React.FC<{ columnId: string; title: string; order: numb
     }
   });
 
-  const [{ isDragging }, dragRef] = useDrag(() => ({
-    type: ItemTypes.TICKET,
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
+  const [, dropRef] = useDrop(() => ({
+    accept: ItemTypes.TICKET,
+    drop: () => console.log(columnId),
   }));
 
   return (
@@ -95,8 +93,8 @@ export const TaskColumn: React.FC<{ columnId: string; title: string; order: numb
           <DeleteIcon style={{ color: '#a2a0a2' }} />
         </IconButton>
       </div>
-      <div className="task-column__list">
-        <TaskBlock dragRef={dragRef} />
+      <div ref={dropRef} className="task-column__list">
+        <TaskBlock />
       </div>
       <Button style={{ color: '#a2a0a2', textTransform: 'none' }}>
         <AddIcon className="task-column__addTask-btn" style={{ color: '#a2a0a2' }} />
