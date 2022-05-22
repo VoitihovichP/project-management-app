@@ -122,7 +122,13 @@ export const updateBoard = createAsyncThunk(
 export const getBoardsSlice = createSlice({
   name: 'AllBoards',
   initialState,
-  reducers: {},
+  reducers: {
+    clearBoards: (state) => {
+      state.isLoading = false;
+      state.boards = [];
+      state.error = '';
+    },
+  },
   extraReducers: {
     [getBoards.pending.type]: (state) => {
       state.isLoading = true;

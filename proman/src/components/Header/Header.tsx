@@ -6,6 +6,7 @@ import { formSlice } from '../../store/reducers/formSlice';
 import { useCookies } from 'react-cookie';
 import { signInSlice } from '../../store/asyncReducers/signInSlice';
 import { signUpSlice } from '../../store/asyncReducers/signUpSlice';
+import { getBoardsSlice } from '../../store/asyncReducers/boardSlice';
 import LangSwitch from '../LangSwitch/LangSwitch';
 import Button from '@mui/material/Button';
 import ProManLogo from '../../assets/svg/pro-man-logo2.svg';
@@ -34,6 +35,7 @@ const Header: FC = () => {
   const { removeToken } = signInSlice.actions;
   const { clear } = signUpSlice.actions;
   const { showSignUpForm } = formSlice.actions;
+  const { clearBoards } = getBoardsSlice.actions;
   const [cookies, , removeCookie] = useCookies(['login', 'password', 'token']);
 
   const handleLogIn = (isShowSignUpform: boolean) => {
@@ -43,6 +45,7 @@ const Header: FC = () => {
   const handleLogOut = () => {
     dispatch(removeToken());
     dispatch(clear());
+    dispatch(clearBoards());
     removeCookie('login');
     removeCookie('password');
     removeCookie('token');
