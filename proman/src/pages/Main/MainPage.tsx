@@ -14,6 +14,8 @@ const MainPage: FC = () => {
   const [isConfirm, setIsConfirm] = useState<boolean>(false);
   const [isCreate, setIsCreate] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [activeBoardTitle, setActiveBoardTitle] = useState<string>('');
+  const [activeBoardDescr, setActiveBoardDescr] = useState<string>('');
 
   const dispatch = useAppDispatch();
   const { boards, isLoading } = useAppSelector((state) => state.boardReducer);
@@ -44,12 +46,16 @@ const MainPage: FC = () => {
     setIsConfirm(false);
   };
 
-  const handleOpenEditForm = () => {
+  const handleOpenEditForm = (currTitle: string, currDescr: string) => {
+    setActiveBoardTitle(currTitle);
+    setActiveBoardDescr(currDescr);
     setIsEdit(true);
   };
 
   const handleCloseEditForm = () => {
     setIsEdit(false);
+    setActiveBoardTitle('');
+    setActiveBoardDescr('');
   };
 
   const handleDeleteBoard = async () => {
@@ -66,7 +72,14 @@ const MainPage: FC = () => {
       {isConfirm && (
         <ConfirmationModal cancelDelete={handleCloseConfirm} deleteBoard={handleDeleteBoard} />
       )}
-      {isEdit && <CreateBoardForm closeForm={handleCloseEditForm} isEdit={true} />}
+      {isEdit && (
+        <CreateBoardForm
+          closeForm={handleCloseEditForm}
+          isEdit={true}
+          prevTitle={activeBoardTitle}
+          prevDescr={activeBoardDescr}
+        />
+      )}
       {isCreate && <CreateBoardForm closeForm={handleCloseCreate} />}
       <div className={`main-page__boards ${boards.length > 0 ? '' : 'main-page__boards_empty'}`}>
         {boards.length > 0 ? (

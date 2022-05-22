@@ -58,7 +58,7 @@ const CreateBoardForm: FC<CreateBoardFormProps> = ({ closeForm, isEdit, prevDesc
           <Controller
             name="boardTitle"
             control={control}
-            defaultValue=""
+            defaultValue={prevTitle ? prevTitle : ''}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <TextField
                 id="outlined-basic"
@@ -79,7 +79,7 @@ const CreateBoardForm: FC<CreateBoardFormProps> = ({ closeForm, isEdit, prevDesc
           <Controller
             name="description"
             control={control}
-            defaultValue=""
+            defaultValue={prevDescr ? prevDescr : ''}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <TextField
                 id="outlined-basic"

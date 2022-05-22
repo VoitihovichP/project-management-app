@@ -11,7 +11,7 @@ type BoardItemProps = {
   boardId: string;
   description: string;
   openConfirm: (id: string) => void;
-  openEdit: () => void;
+  openEdit: (currTitle: string, currDescr: string) => void;
 };
 
 const menuListItem = [
@@ -40,7 +40,7 @@ const BoardItem: FC<BoardItemProps> = ({ title, boardId, description, openConfir
 
   const openEditForm = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     e.stopPropagation();
-    openEdit();
+    openEdit(title, description);
     setOpenMenu(false);
   };
 
