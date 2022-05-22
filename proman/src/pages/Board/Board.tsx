@@ -7,6 +7,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useCookies } from 'react-cookie';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { createColumn, getAllColumns } from '../../store/asyncReducers/columnsSlice';
+import Loader from '../../components/Loader/Loader';
 
 type RegistrationFormInputs = {
   [nameColumn: string]: string;
@@ -17,7 +18,7 @@ const Board: FC = () => {
   const [cookies] = useCookies(['token']);
   const { handleSubmit, control, reset } = useForm<RegistrationFormInputs>();
   const dispatch = useAppDispatch();
-  const { columns } = useAppSelector((state) => state.columnSlice);
+  const { columns, isLoading } = useAppSelector((state) => state.columnSlice);
 
   const handleCreateColumn = handleSubmit(({ nameColumn }) => {
     const boardId = localStorage.getItem('boardId');
@@ -46,7 +47,9 @@ const Board: FC = () => {
     getColumns();
   }, []);
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div className="board-page">
       <div className="board-page__columns">
         {columns.map((columnn) => (
