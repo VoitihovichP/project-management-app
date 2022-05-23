@@ -26,6 +26,17 @@
       flex-direction: column;
       width: 100%;
     }
+    @media (max-width: 1023px) {
+      padding-bottom: 20px;
+      max-width: 430px;
+    }
+    @media (max-width: 767px) {
+      max-width: 380px;
+    }
+    @media (max-width: 575px) {
+      padding-top: 35px;
+      max-width: 280px;
+    }
   }
   &__title {
     margin-bottom: 50px !important;
