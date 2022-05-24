@@ -8,6 +8,7 @@ import { signInSlice } from '../../store/asyncReducers/signInSlice';
 import { signUpSlice } from '../../store/asyncReducers/signUpSlice';
 import { getBoardsSlice } from '../../store/asyncReducers/boardSlice';
 import LangSwitch from '../LangSwitch/LangSwitch';
+import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import Button from '@mui/material/Button';
 import ProManLogo from '../../assets/svg/pro-man-logo2.svg';
 import './header.scss';
@@ -61,14 +62,13 @@ const Header: FC = () => {
 
   useEffect(() => {
     isLoginUser();
-  }, []);
+  });
 
   return (
     <header className={isScrolled ? 'header header__scrolled' : 'header'}>
       <div className="header_left-block">
         <NavLink to="./">
           <img alt="Pro-Man App" src={ProManLogo} className="header__logo" />
-          {/* <h1 className="header_left-block_title">Pro-Man</h1> */}
         </NavLink>
         <LangSwitch />
       </div>
@@ -77,24 +77,51 @@ const Header: FC = () => {
           <div className="header_right-block_login-greeting">
             Здравствуйте, <span>{`${cookies.login}`}</span>
           </div>
-          <nav className="header_right-block_nav-buttons">
+          <nav className="header_right-block_nav-buttons header_right-block_nav-buttons__logged-in">
+            <BurgerMenu />
             <NavLink to="/main">
-              <Button variant="contained">Перейти&nbsp;к&nbsp;доскам</Button>
+              <Button
+                className="header_right-block_nav-buttons_button"
+                variant="contained"
+                sx={{ whiteSpace: 'nowrap' }}
+              >
+                Перейти к проектам
+              </Button>
+            </NavLink>
+            <NavLink to="/main">
+              <Button
+                className="header_right-block_nav-buttons_button"
+                variant="contained"
+                sx={{ whiteSpace: 'nowrap', width: '100%' }}
+              >
+                Добавить проект
+              </Button>
             </NavLink>
             <NavLink to="/profile">
-              <Button variant="contained">Редактировать&nbsp;профиль</Button>
+              <Button
+                className="header_right-block_nav-buttons_button"
+                variant="contained"
+                sx={{ whiteSpace: 'nowrap' }}
+              >
+                Редактировать профиль
+              </Button>
             </NavLink>
-            <Button variant="contained" onClick={handleLogOut}>
+            <Button
+              className="header_right-block_nav-buttons_button"
+              variant="contained"
+              sx={{ whiteSpace: 'nowrap' }}
+              onClick={handleLogOut}
+            >
               Выйти
             </Button>
           </nav>
         </div>
       ) : (
         <div className="header_right-block">
-          <nav className="header_right-block_nav-buttons">
+          <nav className="header_right-block_nav-buttons__logged-out">
             <NavLink to="./authorization">
               <Button
-                className="login-button"
+                className="header_right-block_nav-buttons__logged-out_button"
                 variant="contained"
                 onClick={() => handleLogIn(false)}
               >
@@ -102,7 +129,11 @@ const Header: FC = () => {
               </Button>
             </NavLink>
             <NavLink to="./authorization">
-              <Button variant="contained" onClick={() => handleLogIn(true)}>
+              <Button
+                className="header_right-block_nav-buttons__logged-out_button"
+                variant="contained"
+                onClick={() => handleLogIn(true)}
+              >
                 Регистрация
               </Button>
             </NavLink>
