@@ -9,12 +9,13 @@ export const InputForm: React.FC<{
   errorMessage: string;
   maxLength: number;
   minLength: number;
-}> = ({ control, name, label, errorMessage, maxLength, minLength }) => {
+  defaultValue: string;
+}> = ({ control, name, label, errorMessage, maxLength, minLength, defaultValue }) => {
   return (
     <Controller
       name={name}
       control={control}
-      defaultValue=""
+      defaultValue={defaultValue}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <TextField
           id="outlined-basic"
@@ -28,7 +29,11 @@ export const InputForm: React.FC<{
           helperText={error && (error.message || errorMessage)}
         />
       )}
-      rules={{ required: 'Поле должно быть заполнено', maxLength: maxLength, minLength: minLength }}
+      rules={{
+        required: 'Поле должно быть заполнено',
+        maxLength: maxLength,
+        minLength: minLength,
+      }}
     />
   );
 };

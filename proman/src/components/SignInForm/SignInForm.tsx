@@ -68,6 +68,7 @@ export const SignInForm: React.FC = () => {
             errorMessage="Длинна имени должна быть от 4 до 12 символов"
             maxLength={12}
             minLength={4}
+            defaultValue=""
           />
           <InputForm
             control={control}
@@ -76,6 +77,7 @@ export const SignInForm: React.FC = () => {
             errorMessage="Длинна имени должна быть от 4 до 8 символов"
             maxLength={8}
             minLength={4}
+            defaultValue=""
           />
           <div>
             <Button type="submit" variant="contained" color="primary" disabled={!isValid}>
