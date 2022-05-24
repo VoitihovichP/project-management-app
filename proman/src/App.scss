@@ -1,8 +1,9 @@
 @import './scss/mixins';
 @import './scss/variables';
 
-.body {
+.app-wrapper {
   background-color: $main-color;
+  scroll-behavior: smooth;
 }
 
 .App {

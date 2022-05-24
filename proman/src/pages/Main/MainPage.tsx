@@ -8,14 +8,17 @@ import CreateBoardForm from '../../components/CreateBoardForm/CreateBoardForm';
 import BoardItem from '../../components/BoardItem/BoardItem';
 import ConfirmationModal from '../../components/ConfirmationModal/ConfirmationModal';
 import { boardIdSlice } from '../../store/reducers/boardIdSlice';
+import Loader from '../../components/Loader/Loader';
 
 const MainPage: FC = () => {
   const [isConfirm, setIsConfirm] = useState<boolean>(false);
   const [isCreate, setIsCreate] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [activeBoardTitle, setActiveBoardTitle] = useState<string>('');
+  const [activeBoardDescr, setActiveBoardDescr] = useState<string>('');
 
   const dispatch = useAppDispatch();
-  const { boards } = useAppSelector((state) => state.boardReducer);
+  const { boards, isLoading } = useAppSelector((state) => state.boardReducer);
   const { deleteBoardId } = useAppSelector((state) => state.boardIdReducer);
   const { changeBoardId } = boardIdSlice.actions;
   const [cookie] = useCookies(['token']);
@@ -43,12 +46,16 @@ const MainPage: FC = () => {
     setIsConfirm(false);
   };
 
-  const handleOpenEditForm = () => {
+  const handleOpenEditForm = (currTitle: string, currDescr: string) => {
+    setActiveBoardTitle(currTitle);
+    setActiveBoardDescr(currDescr);
     setIsEdit(true);
   };
 
   const handleCloseEditForm = () => {
     setIsEdit(false);
+    setActiveBoardTitle('');
+    setActiveBoardDescr('');
   };
 
   const handleDeleteBoard = async () => {
@@ -58,19 +65,29 @@ const MainPage: FC = () => {
     handleCloseConfirm();
   };
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div className="main-page">
       {isConfirm && (
         <ConfirmationModal cancelDelete={handleCloseConfirm} deleteBoard={handleDeleteBoard} />
       )}
-      {isEdit && <CreateBoardForm closeForm={handleCloseEditForm} isEdit={true} />}
+      {isEdit && (
+        <CreateBoardForm
+          closeForm={handleCloseEditForm}
+          isEdit={true}
+          prevTitle={activeBoardTitle}
+          prevDescr={activeBoardDescr}
+        />
+      )}
       {isCreate && <CreateBoardForm closeForm={handleCloseCreate} />}
       <div className={`main-page__boards ${boards.length > 0 ? '' : 'main-page__boards_empty'}`}>
         {boards.length > 0 ? (
-          boards.map(({ title, id }) => (
+          boards.map(({ title, id, description }) => (
             <BoardItem
               title={title}
               boardId={id}
+              description={description}
               openConfirm={handleOpenConfirm}
               openEdit={handleOpenEditForm}
               key={id}

@@ -1,0 +1,32 @@
+@import '../../scss/variables';
+
+.loader {
+  position: relative;
+  width: 100vw;
+  height: calc(100vh - 262px);
+  background-color: $main-color;
+  &__content {
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fee304;
+    box-sizing: border-box;
+    animation: flipX 1s linear infinite;
+  }
+}
+
+@keyframes flipX {
+  0% {
+    transform: perspective(200px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(200px) rotateX(-180deg) rotateY(0deg);
+  }
+  100% {
+    transform: perspective(200px) rotateX(-180deg) rotateY(-180deg);
+  }
+}

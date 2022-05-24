@@ -14,9 +14,9 @@ export enum ModalText {
 }
 
 export enum Requests {
-  ALL_BOARDS = 'https://deploy-kanban.herokuapp.com/boards',
-  SIGN_IN = 'https://deploy-kanban.herokuapp.com/signin',
-  SIGN_UP = 'https://deploy-kanban.herokuapp.com/signup',
+  ALL_BOARDS = 'https://rs-school-back.herokuapp.com/boards',
+  SIGN_IN = 'https://rs-school-back.herokuapp.com/signin',
+  SIGN_UP = 'https://rs-school-back.herokuapp.com/signup',
 }
 
 export enum CreateFormBtn {

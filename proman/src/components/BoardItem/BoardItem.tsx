@@ -9,8 +9,9 @@ import './boardItem.scss';
 type BoardItemProps = {
   title: string;
   boardId: string;
+  description: string;
   openConfirm: (id: string) => void;
-  openEdit: () => void;
+  openEdit: (currTitle: string, currDescr: string) => void;
 };
 
 const menuListItem = [
@@ -24,24 +25,27 @@ const menuListItem = [
   },
 ];
 
-const BoardItem: FC<BoardItemProps> = ({ title, boardId, openConfirm, openEdit }) => {
+const BoardItem: FC<BoardItemProps> = ({ title, boardId, description, openConfirm, openEdit }) => {
   const navigate = useNavigate();
   const [isOpenMenu, setOpenMenu] = useState<boolean>(false);
   const select = useRef(null);
   const dispatch = useAppDispatch();
   const { changeBoardId } = boardIdSlice.actions;
 
-  const handleOpenMenu = () => {
+  const handleOpenMenu = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
     setOpenMenu(!isOpenMenu);
     dispatch(changeBoardId(!isOpenMenu ? boardId : ''));
   };
 
-  const openEditForm = () => {
-    openEdit();
+  const openEditForm = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+    e.stopPropagation();
+    openEdit(title, description);
     setOpenMenu(false);
   };
 
-  const openConfirmModal = () => {
+  const openConfirmModal = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+    e.stopPropagation();
     openConfirm(boardId);
     setOpenMenu(false);
   };
@@ -67,18 +71,21 @@ const BoardItem: FC<BoardItemProps> = ({ title, boardId, openConfirm, openEdit }
 
   return (
     <div onClick={handleClickBoardItem} className="board-item">
-      <h3 className="board-item__title">{title}</h3>
+      <div className="board-item__text">
+        <h3 className="board-item__title">{title}</h3>
+        <p className="board-item__descr">{description}</p>
+      </div>
       <div className="board-item__menu">
-        <button ref={select} className="board-item__menu-btn" onClick={() => handleOpenMenu()}>
+        <button ref={select} className="board-item__menu-btn" onClick={(e) => handleOpenMenu(e)}>
           ...
         </button>
         {isOpenMenu && (
-          <ul className="board-item__menu-list">
+          <ul className="board-item__menu-list" onClick={(e) => e.stopPropagation()}>
             {menuListItem.map(({ id, text }) => (
               <li
                 key={id}
                 className="board-item__menu-item"
-                onClick={() => (id === menuListItem[0].id ? openEditForm() : openConfirmModal())}
+                onClick={(e) => (id === menuListItem[0].id ? openEditForm(e) : openConfirmModal(e))}
               >
                 {text}
               </li>

@@ -5,8 +5,10 @@ import { useAppDispatch } from '../../hooks/redux';
 import { useCookies } from 'react-cookie';
 import { changeColumn, deleteColumn, getAllColumns } from '../../store/asyncReducers/columnsSlice';
 import { Controller, useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TaskBlock } from '../taskBlock/taskBlock';
+import { useDrag, useDrop } from 'react-dnd';
+import { ItemTypes } from '../../utils/dragAndDropTypes';
 import './taskColumn.scss';
 
 type RegistrationFormInputs = {
@@ -45,9 +47,29 @@ export const TaskColumn: React.FC<{ columnId: string; title: string; order: numb
     }
   });
 
-  const handleCreationTask = () => {
+  const handleOpenTemplateTask = () => {
     setIsShowTemplateTask(true);
   };
+
+  const handleCloseTemplateTask = (event: MouseEvent) => {
+    const target = event.target as HTMLDivElement;
+    if (!target.closest('.create_task') && !target.classList.contains('create_task')) {
+      setIsShowTemplateTask(false);
+    }
+  };
+
+  const [, dropRef] = useDrop(() => ({
+    accept: ItemTypes.TICKET,
+    drop: () => console.log(columnId),
+  }));
+
+  useEffect(() => {
+    window.addEventListener('click', handleCloseTemplateTask);
+
+    return () => {
+      window.removeEventListener('click', handleCloseTemplateTask);
+    };
+  }, []);
 
   return (
     <div className="task-column">
@@ -62,7 +84,7 @@ export const TaskColumn: React.FC<{ columnId: string; title: string; order: numb
                 id="outlined-basic"
                 size="small"
                 variant="standard"
-                autoComplete="on"
+                autoComplete="off"
                 value={value}
                 onChange={onChange}
                 error={!!error}
@@ -85,8 +107,16 @@ export const TaskColumn: React.FC<{ columnId: string; title: string; order: numb
           <DeleteIcon style={{ color: '#a2a0a2' }} />
         </IconButton>
       </div>
-      <div className="task-column__list">{isShowTemplateTask && <TaskBlock />}</div>
-      <Button onClick={handleCreationTask} style={{ color: '#a2a0a2', textTransform: 'none' }}>
+
+      <div className="task-column__list">
+        {isShowTemplateTask && <TaskBlock columnId={columnId} isTemplate={true} />}
+      </div>
+
+      <Button
+        className="create_task"
+        onClick={handleOpenTemplateTask}
+        style={{ color: '#a2a0a2', textTransform: 'none' }}
+      >
         <AddIcon className="task-column__addTask-btn" style={{ color: '#a2a0a2' }} />
         Добавить задачу
       </Button>

@@ -4,18 +4,28 @@ import { Requests } from '../../types/enums';
 
 type InitialState = {
   isLoading: boolean;
-  columns: Array<
+  tasks: Array<
     | {
         id: string;
         title: string;
         order: number;
+        description: string;
+        userId: string;
+        boardId: string;
+        columnId: string;
+        files: [
+          {
+            filename: string;
+            fileSize: number;
+          }
+        ];
       }
     | never
   >;
   error: string;
 };
 
-type ResponseColumn = {
+type ResponseTask = {
   id: string;
   title: string;
   order: number;
@@ -23,16 +33,16 @@ type ResponseColumn = {
 
 const initialState: InitialState = {
   isLoading: false,
-  columns: [],
+  tasks: [],
   error: '',
 };
 
-export const getAllColumns = createAsyncThunk(
-  'allColumns',
+export const getAllTasks = createAsyncThunk(
+  'alltasks',
   async (data: { token: string; boardId: string }, { rejectWithValue }) => {
     const { token, boardId } = data;
     try {
-      const response = await axios.get(`${Requests.ALL_BOARDS}/${boardId}/columns`, {
+      const response = await axios.get(`${Requests.ALL_BOARDS}/${boardId}/tasks`, {
         headers: {
           'Content-type': 'application/json',
           Authorization: `Bearer ${token}`,
@@ -46,18 +56,27 @@ export const getAllColumns = createAsyncThunk(
   }
 );
 
-export const createColumn = createAsyncThunk(
-  'createColumn',
+export const createTask = createAsyncThunk(
+  'createtask',
   async (
-    data: { nameColumn: string; order: number; token: string; boardId: string },
+    data: {
+      nameTask: string;
+      token: string;
+      boardId: string;
+      columnId: string;
+      description: string;
+      userId: string;
+    },
     { rejectWithValue }
   ) => {
-    const { nameColumn, token, boardId } = data;
+    const { nameTask, token, boardId, columnId, description, userId } = data;
     try {
       const response = await axios.post(
-        `${Requests.ALL_BOARDS}/${boardId}/columns`,
+        `${Requests.ALL_BOARDS}/${boardId}/columns/${columnId}/tasks`,
         {
-          title: nameColumn,
+          title: nameTask,
+          description: description,
+          userId: userId,
         },
         {
           headers: {
@@ -74,12 +93,12 @@ export const createColumn = createAsyncThunk(
   }
 );
 
-export const deleteColumn = createAsyncThunk(
-  'deleteColumn',
-  async (data: { token: string; boardId: string; columnId: string }, { rejectWithValue }) => {
-    const { token, boardId, columnId } = data;
+export const deleteTask = createAsyncThunk(
+  'deletetask',
+  async (data: { token: string; boardId: string; taskId: string }, { rejectWithValue }) => {
+    const { token, boardId, taskId } = data;
     try {
-      const response = await axios.delete(`${Requests.ALL_BOARDS}/${boardId}/columns/${columnId}`, {
+      const response = await axios.delete(`${Requests.ALL_BOARDS}/${boardId}/tasks/${taskId}`, {
         headers: {
           'Content-type': 'application/json',
           Authorization: `Bearer ${token}`,
@@ -93,18 +112,18 @@ export const deleteColumn = createAsyncThunk(
   }
 );
 
-export const changeColumn = createAsyncThunk(
-  'changeColumn',
+export const changeTask = createAsyncThunk(
+  'changetask',
   async (
-    data: { token: string; boardId: string; columnId: string; order: number; nameColumn: string },
+    data: { token: string; boardId: string; taskId: string; order: number; nametask: string },
     { rejectWithValue }
   ) => {
-    const { token, boardId, columnId, order, nameColumn } = data;
+    const { token, boardId, taskId, order, nametask } = data;
     try {
       const response = await axios.put(
-        `${Requests.ALL_BOARDS}/${boardId}/columns/${columnId}`,
+        `${Requests.ALL_BOARDS}/${boardId}/tasks/${taskId}`,
         {
-          title: nameColumn,
+          title: nametask,
           order: order,
         },
         {
@@ -122,50 +141,48 @@ export const changeColumn = createAsyncThunk(
   }
 );
 
-export const columnSlice = createSlice({
-  name: 'AllColumns',
+export const taskSlice = createSlice({
+  name: 'Alltasks',
   initialState,
   reducers: {},
   extraReducers: {
-    [getAllColumns.pending.type]: (state) => {
+    [getAllTasks.pending.type]: (state) => {
       state.isLoading = true;
     },
-    [getAllColumns.fulfilled.type]: (state, action: PayloadAction<ResponseColumn[]>) => {
-      state.isLoading = false;
-      state.columns = action.payload;
-    },
-    [getAllColumns.rejected.type]: (state) => {
+    [getAllTasks.fulfilled.type]: (state, action: PayloadAction<ResponseTask[]>) => {
       state.isLoading = false;
     },
-    [createColumn.pending.type]: (state) => {
+    [getAllTasks.rejected.type]: (state) => {
+      state.isLoading = false;
+    },
+    [createTask.pending.type]: (state) => {
       state.isLoading = true;
     },
-    [createColumn.fulfilled.type]: (state, action: PayloadAction<ResponseColumn>) => {
-      state.isLoading = false;
-      state.columns = [...state.columns, action.payload];
-    },
-    [createColumn.rejected.type]: (state) => {
+    [createTask.fulfilled.type]: (state, action: PayloadAction<ResponseTask>) => {
       state.isLoading = false;
     },
-    [deleteColumn.pending.type]: (state) => {
+    [createTask.rejected.type]: (state) => {
+      state.isLoading = false;
+    },
+    [deleteTask.pending.type]: (state) => {
       state.isLoading = true;
     },
-    [deleteColumn.fulfilled.type]: (state) => {
+    [deleteTask.fulfilled.type]: (state) => {
       state.isLoading = false;
     },
-    [changeColumn.rejected.type]: (state) => {
+    [changeTask.rejected.type]: (state) => {
       state.isLoading = false;
     },
-    [deleteColumn.pending.type]: (state) => {
+    [deleteTask.pending.type]: (state) => {
       state.isLoading = true;
     },
-    [changeColumn.fulfilled.type]: (state) => {
+    [changeTask.fulfilled.type]: (state) => {
       state.isLoading = false;
     },
-    [changeColumn.rejected.type]: (state) => {
+    [changeTask.rejected.type]: (state) => {
       state.isLoading = false;
     },
   },
 });
 
-export default columnSlice.reducer;
+export default taskSlice.reducer;

@@ -7,6 +7,9 @@
   justify-content: center;
   min-height: 100vh;
   background-color: $main-color;
+  @media (max-width: 575px) {
+    padding: 30px;
+  }
   &__boards {
     display: flex;
     flex-direction: column;
@@ -17,6 +20,11 @@
     box-shadow: rgb(232 251 70 / 20%) 0px 8px 30px;
     border: 1px solid #434548;
     border-radius: 10px;
+    @media (max-width: 1200px) {
+      padding: 24px;
+      gap: 25px;
+      min-width: 65%;
+    }
     &_empty {
       justify-content: center;
       align-items: center;
@@ -36,6 +44,7 @@
   &__create {
     border-color: #404040 !important;
     color: #fee304 !important;
+    text-transform: lowercase !important;
     &:hover {
       background-color: rgba(116, 129, 58, 0.04) !important;
       border-color: #797878 !important;

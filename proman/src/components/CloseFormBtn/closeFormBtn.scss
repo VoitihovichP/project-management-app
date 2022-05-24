@@ -41,4 +41,13 @@
       transform: scale(1);
     }
   }
+  @media (max-width: 575px) {
+    width: 25px;
+    height: 25px;
+    &::before {
+      top: -2px;
+      left: 4px;
+      font-size: 30px;
+    }
+  }
 }

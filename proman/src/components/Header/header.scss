@@ -2,13 +2,12 @@
 @import '../../scss/mixins';
 
 .header {
+  padding: 10px 30px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: $padding-container;
-  padding-top: 12px;
-  padding-bottom: 14px;
+  max-height: 112px;
   background: $main-color;
   top: 0;
   z-index: 101;
@@ -18,13 +17,16 @@
     row-gap: 7.5px;
     align-items: flex-start;
   }
+  &__logo {
+    width: 250px;
+  }
 
   &_left-block {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    gap: 0px;
+    gap: 6px;
 
     @media (max-width: 545px) {
       width: 100%;
@@ -36,29 +38,29 @@
       @include GilroyFont;
       font-size: 3rem;
     }
-}
+  }
 
   &_right-block {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    row-gap: 1.75px;
+    align-items: flex-end;
+    gap: 6px;
 
     @media (max-width: 545px) {
       width: 100%;
       align-items: center;
     }
     &_login-greeting {
-        color: #a2a0a2;
-        font-family: "Gilroy";
-        font-weight: 100;
-        & span {
-              color: $yellow-color;
-            }
+      color: #a2a0a2;
+      font-family: 'Gilroy';
+      font-weight: 100;
+      & span {
+        color: $yellow-color;
       }
+    }
     &_nav-buttons {
       display: flex;
-      column-gap: 3%;
+      column-gap: 1%;
       align-items: center;
 
       @media (max-width: 545px) {
@@ -79,4 +81,3 @@
   @media (max-width: 545px) {
   }
 }
-
