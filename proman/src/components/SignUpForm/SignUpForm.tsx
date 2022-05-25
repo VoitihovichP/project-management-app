@@ -74,22 +74,25 @@ export const SignUpForm: React.FC = () => {
             errorMessage="Длинна имени должна быть от 3 до 12 символов"
             maxLength={12}
             minLength={3}
+            defaultValue=""
           />
           <InputForm
             control={control}
             name="login"
             label="Логин"
-            errorMessage="Длинна имени должна быть от 4 до 12 символов"
+            errorMessage="Длинна логина должна быть от 4 до 12 символов"
             maxLength={12}
             minLength={4}
+            defaultValue=""
           />
           <InputForm
             control={control}
             name="password"
             label="Пароль"
-            errorMessage="Длинна имени должна быть от 4 до 8 символов"
+            errorMessage="Длинна пароля должна быть от 4 до 8 символов"
             maxLength={8}
             minLength={4}
+            defaultValue=""
           />
           <div>
             <Button type="submit" variant="contained" color="primary" disabled={!isValid}>
