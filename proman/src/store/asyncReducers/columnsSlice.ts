@@ -2,20 +2,46 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Requests } from '../../types/enums';
 
+type Board = {
+  id: string;
+  title: string;
+  description: string;
+  columns: Array<Column>;
+};
+
+type Column = {
+  id: string;
+  title: string;
+  order: number;
+  tasks: Tasks;
+};
+
+type Tasks = Array<Task>;
+
+type Task = {
+  id: string;
+  title: string;
+  order: number;
+  done: boolean;
+  description: string;
+  userId: string;
+  columnId?: string;
+  files: [
+    {
+      filename: string;
+      fileSize: number;
+    }
+  ];
+};
+
 type InitialState = {
   isLoading: boolean;
-  columns: Array<
-    | {
-        id: string;
-        title: string;
-        order: number;
-      }
-    | never
-  >;
+  board: Board;
+  newTaskId: string;
   error: string;
 };
 
-type ResponseColumn = {
+type ColumnResponse = {
   id: string;
   title: string;
   order: number;
@@ -23,22 +49,28 @@ type ResponseColumn = {
 
 const initialState: InitialState = {
   isLoading: false,
-  columns: [],
+  board: {
+    id: '',
+    title: '',
+    description: '',
+    columns: [],
+  },
+  newTaskId: '',
   error: '',
 };
 
-export const getAllColumns = createAsyncThunk(
-  'allColumns',
+export const getAllData = createAsyncThunk(
+  'allData',
   async (data: { token: string; boardId: string }, { rejectWithValue }) => {
     const { token, boardId } = data;
     try {
-      const response = await axios.get(`${Requests.ALL_BOARDS}/${boardId}/columns`, {
+      const response = await axios.get(`${Requests.ALL_BOARDS}/${boardId}`, {
         headers: {
           'Content-type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
       });
-
+      console.log(response.data);
       return response.data;
     } catch (e) {
       return rejectWithValue(e);
@@ -66,7 +98,6 @@ export const createColumn = createAsyncThunk(
           },
         }
       );
-
       return response.data;
     } catch (e) {
       return rejectWithValue(e);
@@ -79,14 +110,13 @@ export const deleteColumn = createAsyncThunk(
   async (data: { token: string; boardId: string; columnId: string }, { rejectWithValue }) => {
     const { token, boardId, columnId } = data;
     try {
-      const response = await axios.delete(`${Requests.ALL_BOARDS}/${boardId}/columns/${columnId}`, {
+      await axios.delete(`${Requests.ALL_BOARDS}/${boardId}/columns/${columnId}`, {
         headers: {
           'Content-type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
       });
-
-      return response.data;
+      return columnId;
     } catch (e) {
       return rejectWithValue(e);
     }
@@ -100,6 +130,7 @@ export const changeColumn = createAsyncThunk(
     { rejectWithValue }
   ) => {
     const { token, boardId, columnId, order, nameColumn } = data;
+    console.log(order);
     try {
       const response = await axios.put(
         `${Requests.ALL_BOARDS}/${boardId}/columns/${columnId}`,
@@ -114,7 +145,131 @@ export const changeColumn = createAsyncThunk(
           },
         }
       );
+      return response.data;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
+  }
+);
 
+export const createTask = createAsyncThunk(
+  'createtask',
+  async (
+    data: {
+      nameTask: string;
+      token: string;
+      boardId: string;
+      columnId: string;
+      description: string;
+      userId: string;
+    },
+    { rejectWithValue }
+  ) => {
+    const { nameTask, token, boardId, columnId, description, userId } = data;
+    try {
+      const response = await axios
+        .post(
+          `${Requests.ALL_BOARDS}/${boardId}/columns/${columnId}/tasks`,
+          {
+            title: nameTask,
+            description: description,
+            userId: userId,
+          },
+          {
+            headers: {
+              'Content-type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then(async (response) => {
+          const task: Task = response.data;
+          const res = await axios.get(
+            `${Requests.ALL_BOARDS}/${boardId}/columns/${columnId}/tasks/${task.id}`,
+            {
+              headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          return res;
+        });
+      return response.data;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
+  }
+);
+
+export const deleteTask = createAsyncThunk(
+  'deletetask',
+  async (
+    data: { token: string; boardId: string; columnId: string; taskId: string },
+    { rejectWithValue }
+  ) => {
+    const { token, boardId, columnId, taskId } = data;
+    try {
+      const response = await axios
+        .delete(`${Requests.ALL_BOARDS}/${boardId}/columns/${columnId}/tasks/${taskId}`, {
+          headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(async () => {
+          const response = await axios.get(
+            `${Requests.ALL_BOARDS}/${boardId}/columns/${columnId}`,
+            {
+              headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          return response;
+        });
+      return response.data;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
+  }
+);
+
+export const changeTask = createAsyncThunk(
+  'changetask',
+  async (
+    data: {
+      token: string;
+      boardId: string;
+      columnId: string;
+      taskId: string;
+      order: number;
+      nameTask: string;
+      description: string;
+      userId: string;
+    },
+    { rejectWithValue }
+  ) => {
+    const { token, boardId, columnId, taskId, order, nameTask, description, userId } = data;
+    try {
+      const response = await axios.put(
+        `${Requests.ALL_BOARDS}/${boardId}/columns/${columnId}/tasks/${taskId}`,
+        {
+          title: nameTask,
+          order: order,
+          description: description,
+          userId: userId,
+          boardId: boardId,
+          columnId: columnId,
+        },
+        {
+          headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       return response.data;
     } catch (e) {
       return rejectWithValue(e);
@@ -127,22 +282,22 @@ export const columnSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [getAllColumns.pending.type]: (state) => {
+    [getAllData.pending.type]: (state) => {
       state.isLoading = true;
     },
-    [getAllColumns.fulfilled.type]: (state, action: PayloadAction<ResponseColumn[]>) => {
+    [getAllData.fulfilled.type]: (state, action: PayloadAction<Board>) => {
       state.isLoading = false;
-      state.columns = action.payload;
+      state.board = action.payload;
     },
-    [getAllColumns.rejected.type]: (state) => {
+    [getAllData.rejected.type]: (state) => {
       state.isLoading = false;
     },
     [createColumn.pending.type]: (state) => {
       state.isLoading = true;
     },
-    [createColumn.fulfilled.type]: (state, action: PayloadAction<ResponseColumn>) => {
+    [createColumn.fulfilled.type]: (state, action: PayloadAction<Column>) => {
       state.isLoading = false;
-      state.columns = [...state.columns, action.payload];
+      state.board.columns.push({ ...action.payload, tasks: [] });
     },
     [createColumn.rejected.type]: (state) => {
       state.isLoading = false;
@@ -150,19 +305,71 @@ export const columnSlice = createSlice({
     [deleteColumn.pending.type]: (state) => {
       state.isLoading = true;
     },
-    [deleteColumn.fulfilled.type]: (state) => {
+    [deleteColumn.fulfilled.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
+      state.board.columns = state.board.columns.filter((elem) => elem.id !== action.payload);
+    },
+    [deleteColumn.rejected.type]: (state) => {
+      state.isLoading = false;
+    },
+    [changeColumn.pending.type]: (state) => {
+      state.isLoading = false;
+    },
+    [changeColumn.fulfilled.type]: (state, action: PayloadAction<ColumnResponse>) => {
+      state.isLoading = false;
+      const columnIndex = state.board.columns.findIndex(
+        (column) => column.id === action.payload.id
+      );
+      if (columnIndex > -1) {
+        state.board.columns[columnIndex].title = action.payload.title;
+        state.board.columns[columnIndex].order = action.payload.order;
+      }
     },
     [changeColumn.rejected.type]: (state) => {
       state.isLoading = false;
     },
-    [deleteColumn.pending.type]: (state) => {
+    [createTask.pending.type]: (state) => {
       state.isLoading = true;
     },
-    [changeColumn.fulfilled.type]: (state) => {
+    [createTask.fulfilled.type]: (state, action: PayloadAction<Task>) => {
+      state.isLoading = false;
+      state.board.columns.forEach((column) => {
+        column.id === action.payload.columnId ? column.tasks.push(action.payload) : null;
+      });
+    },
+    [createTask.rejected.type]: (state) => {
       state.isLoading = false;
     },
-    [changeColumn.rejected.type]: (state) => {
+    [deleteTask.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+    [deleteTask.fulfilled.type]: (state, action: PayloadAction<Column>) => {
+      state.isLoading = false;
+      state.board.columns.forEach((column, index) => {
+        if (column.id === action.payload.id) {
+          state.board.columns[index] = action.payload;
+        }
+      });
+    },
+    [deleteTask.rejected.type]: (state) => {
+      state.isLoading = false;
+    },
+    [changeTask.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+    [changeTask.fulfilled.type]: (state, action: PayloadAction<Task>) => {
+      state.isLoading = false;
+      const columnIndex = state.board.columns.findIndex(
+        (column) => column.id === action.payload.columnId
+      );
+      if (columnIndex > -1) {
+        const taskIndex = state.board.columns[columnIndex].tasks.findIndex(
+          (task) => task.id === action.payload.id
+        );
+        if (taskIndex) state.board.columns[columnIndex].tasks[taskIndex] = action.payload;
+      }
+    },
+    [changeTask.rejected.type]: (state) => {
       state.isLoading = false;
     },
   },
