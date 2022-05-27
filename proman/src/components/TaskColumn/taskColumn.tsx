@@ -3,23 +3,25 @@ import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useAppDispatch } from '../../hooks/redux';
 import { useCookies } from 'react-cookie';
-import { changeColumn, deleteColumn, getAllColumns } from '../../store/asyncReducers/columnsSlice';
+import { changeColumn, deleteColumn } from '../../store/asyncReducers/columnsSlice';
 import { Controller, useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { TaskBlock } from '../taskBlock/taskBlock';
 import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from '../../utils/dragAndDropTypes';
+import { Task } from '../../types/types';
 import './taskColumn.scss';
 
 type RegistrationFormInputs = {
   [nameColumn: string]: string;
 };
 
-export const TaskColumn: React.FC<{ columnId: string; title: string; order: number }> = ({
-  columnId,
-  title,
-  order,
-}) => {
+export const TaskColumn: React.FC<{
+  columnId: string;
+  title: string;
+  order: number;
+  tasks: Task[];
+}> = ({ columnId, title, order, tasks }) => {
   const [isShowTemplateTask, setIsShowTemplateTask] = useState(false);
   const { handleSubmit, control } = useForm<RegistrationFormInputs>();
   const dispatch = useAppDispatch();
@@ -29,21 +31,15 @@ export const TaskColumn: React.FC<{ columnId: string; title: string; order: numb
     const boardId = localStorage.getItem('boardId');
     const token = cookies.token;
     if (columnId && boardId && token) {
-      const result = await dispatch(deleteColumn({ token, boardId, columnId }));
-      if (result.meta.requestStatus === 'fulfilled') {
-        dispatch(getAllColumns({ token, boardId }));
-      }
+      dispatch(deleteColumn({ token, boardId, columnId }));
     }
   };
 
-  const handleChangeColumn = handleSubmit(async ({ nameColumn }) => {
+  const handleChangeColumn = handleSubmit(({ nameColumn }) => {
     const boardId = localStorage.getItem('boardId');
     const token = cookies.token;
     if (columnId && boardId && token) {
-      const result = await dispatch(changeColumn({ token, boardId, columnId, order, nameColumn }));
-      if (result.meta.requestStatus === 'fulfilled') {
-        dispatch(getAllColumns({ token, boardId }));
-      }
+      dispatch(changeColumn({ token, boardId, columnId, order, nameColumn }));
     }
   });
 
@@ -65,7 +61,6 @@ export const TaskColumn: React.FC<{ columnId: string; title: string; order: numb
 
   useEffect(() => {
     window.addEventListener('click', handleCloseTemplateTask);
-
     return () => {
       window.removeEventListener('click', handleCloseTemplateTask);
     };
@@ -109,6 +104,20 @@ export const TaskColumn: React.FC<{ columnId: string; title: string; order: numb
       </div>
 
       <div className="task-column__list">
+        {tasks.map((task) => {
+          return (
+            <TaskBlock
+              key={task.id}
+              title={task.title}
+              description={task.description}
+              boardId={task.boardId}
+              columnId={columnId}
+              taskId={task.id}
+              order={task.order}
+              isTemplate={false}
+            />
+          );
+        })}
         {isShowTemplateTask && <TaskBlock columnId={columnId} isTemplate={true} />}
       </div>
 

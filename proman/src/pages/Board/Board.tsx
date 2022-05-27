@@ -5,7 +5,7 @@ import { TaskColumn } from '../../components/TaskColumn/taskColumn';
 import { Controller, useForm } from 'react-hook-form';
 import { useCookies } from 'react-cookie';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { createColumn, getAllColumns } from '../../store/asyncReducers/columnsSlice';
+import { createColumn, getAllData } from '../../store/asyncReducers/columnsSlice';
 import Loader from '../../components/Loader/Loader';
 import './board.scss';
 
@@ -18,9 +18,20 @@ const Board: FC = () => {
   const [cookies] = useCookies(['token']);
   const { handleSubmit, control, reset } = useForm<RegistrationFormInputs>();
   const dispatch = useAppDispatch();
-  const { columns, isLoading } = useAppSelector((state) => state.columnSlice);
+  const {
+    board: { columns },
+    isLoading,
+  } = useAppSelector((state) => state.columnSlice);
 
-  const handleCreateColumn = handleSubmit(({ nameColumn }) => {
+  const getData = async () => {
+    const boardId = localStorage.getItem('boardId');
+    const token = cookies.token;
+    if (token && boardId) {
+      dispatch(getAllData({ token, boardId }));
+    }
+  };
+
+  const handleCreateColumn = handleSubmit(async ({ nameColumn }) => {
     const boardId = localStorage.getItem('boardId');
     const order = columns.length + 1;
     if (cookies.token && boardId) {
@@ -31,20 +42,12 @@ const Board: FC = () => {
     setIsShowInput(false);
   });
 
-  const getColumns = async () => {
-    const boardId = localStorage.getItem('boardId');
-    const token = cookies.token;
-    if (token && boardId) {
-      dispatch(getAllColumns({ token, boardId }));
-    }
-  };
-
   const handleClickAddColumn = () => {
     setIsShowInput(true);
   };
 
   useEffect(() => {
-    getColumns();
+    getData();
   }, []);
 
   return isLoading ? (
@@ -52,12 +55,13 @@ const Board: FC = () => {
   ) : (
     <div className="board-page">
       <div className="board-page__columns">
-        {columns.map((columnn) => (
+        {columns.map((column) => (
           <TaskColumn
-            key={columnn.id}
-            columnId={columnn.id}
-            title={columnn.title}
-            order={columnn.order}
+            key={column.id}
+            columnId={column.id}
+            title={column.title}
+            order={column.order}
+            tasks={column.tasks}
           />
         ))}
       </div>

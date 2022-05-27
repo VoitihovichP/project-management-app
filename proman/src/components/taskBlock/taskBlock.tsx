@@ -9,39 +9,62 @@ import './taskBlock.scss';
 import { Controller, useForm } from 'react-hook-form';
 import { useCookies } from 'react-cookie';
 import jwtDecode, { JwtPayload } from 'jwt-decode';
+import { useAppDispatch } from '../../hooks/redux';
+import { changeTask, createTask, deleteTask } from '../../store/asyncReducers/columnsSlice';
+
 type RegistrationFormInputs = {
   [nameTask: string]: string;
   descriptionTask: string;
 };
 
-export const TaskBlock: React.FC<{ columnId: string; isTemplate?: boolean }> = ({
-  columnId,
-  isTemplate,
-}) => {
+export const TaskBlock: React.FC<{
+  title?: string;
+  description?: string;
+  boardId?: string;
+  order?: number;
+  columnId: string;
+  isTemplate?: boolean;
+  taskId?: string;
+}> = ({ columnId, isTemplate, taskId, description, title, order }) => {
   const { handleSubmit, control } = useForm<RegistrationFormInputs>();
   const [cookies] = useCookies(['token']);
-
+  const dispatch = useAppDispatch();
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: ItemTypes.TICKET,
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
   }));
+  const token = cookies.token;
 
-  const handleChangeName = handleSubmit(async ({ nameTask, descriptionTask }) => {
+  const handleSubmitTemplateTask = handleSubmit(async ({ nameTask, description }) => {
+    const boardId = localStorage.getItem('boardId');
+    const decoded: {
+      iat?: number;
+      login?: string;
+      userId?: string;
+    } = jwtDecode<JwtPayload>(token);
     if (isTemplate) {
-      const boardId = localStorage.getItem('boardId');
-      const token = cookies.token;
-      const decoded: {
-        iat?: number;
-        login?: string;
-        userId?: string;
-      } = jwtDecode<JwtPayload>(token);
-      if (nameTask && boardId && decoded.userId && columnId && descriptionTask) {
-        console.log(nameTask, boardId, decoded.userId, descriptionTask);
+      if (nameTask && boardId && decoded.userId && columnId && description) {
+        const userId: string = decoded.userId;
+        dispatch(createTask({ nameTask, token, boardId, columnId, description, userId }));
+      }
+    } else {
+      if (token && boardId && columnId && taskId && order && description && decoded.userId) {
+        const userId: string = decoded.userId;
+        dispatch(
+          changeTask({ token, boardId, columnId, taskId, order, description, userId, nameTask })
+        );
       }
     }
   });
+
+  const handleDeleteTask = async () => {
+    const boardId = localStorage.getItem('boardId');
+    if (boardId && columnId && taskId && token) {
+      dispatch(deleteTask({ token, boardId, columnId, taskId }));
+    }
+  };
 
   return (
     <div ref={dragRef} className="taskBlock create_task">
@@ -53,11 +76,11 @@ export const TaskBlock: React.FC<{ columnId: string; isTemplate?: boolean }> = (
             </IconButton>
           )}
           <div className="taskBlock-header_options-name">
-            <form onSubmit={handleChangeName}>
+            <form onSubmit={handleSubmitTemplateTask}>
               <Controller
                 name="nameTask"
                 control={control}
-                defaultValue="Название задачи"
+                defaultValue={title ? title : 'Название задачи'}
                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                   <TextField
                     id="outlined-basic"
@@ -79,9 +102,9 @@ export const TaskBlock: React.FC<{ columnId: string; isTemplate?: boolean }> = (
                 }}
               />
               <Controller
-                name="descriptionTask"
+                name="description"
                 control={control}
-                defaultValue="Описание"
+                defaultValue={description ? description : 'Описание'}
                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                   <TextField
                     id="outlined-multiline-static"
@@ -103,11 +126,15 @@ export const TaskBlock: React.FC<{ columnId: string; isTemplate?: boolean }> = (
                   required: 'Поле должно быть заполнено',
                 }}
               />
-              <Button type="submit">создать</Button>
+              {isTemplate ? <Button type="submit">создать</Button> : null}
             </form>
           </div>
           {isTemplate ? null : (
-            <IconButton className="taskBlock-header_options-delete" aria-label="delete task">
+            <IconButton
+              onClick={handleDeleteTask}
+              className="taskBlock-header_options-delete"
+              aria-label="delete task"
+            >
               <DeleteIcon style={{ color: '#a2a0a2' }} />
             </IconButton>
           )}
