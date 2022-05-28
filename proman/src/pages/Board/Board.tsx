@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { IconButton, TextField } from '@mui/material';
 import AddIcon from '@material-ui/icons/Add';
-import { TaskColumn } from '../../components/TaskColumn/taskColumn';
+import { TaskColumn } from '../../components/Column/Column';
 import { Controller, useForm } from 'react-hook-form';
 import { useCookies } from 'react-cookie';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';

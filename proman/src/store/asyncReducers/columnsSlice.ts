@@ -70,7 +70,6 @@ export const getAllData = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response.data);
       return response.data;
     } catch (e) {
       return rejectWithValue(e);
@@ -287,7 +286,11 @@ export const columnSlice = createSlice({
     },
     [getAllData.fulfilled.type]: (state, action: PayloadAction<Board>) => {
       state.isLoading = false;
-      state.board = action.payload;
+      const columns = action.payload.columns.sort((a, b) => {
+        return a.order - b.order;
+      });
+      const board = { ...action.payload, columns };
+      state.board = board;
     },
     [getAllData.rejected.type]: (state) => {
       state.isLoading = false;

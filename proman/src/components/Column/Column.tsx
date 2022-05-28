@@ -6,11 +6,11 @@ import { useCookies } from 'react-cookie';
 import { changeColumn, deleteColumn } from '../../store/asyncReducers/columnsSlice';
 import { Controller, useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import { TaskBlock } from '../taskBlock/taskBlock';
+import { TaskBlock } from '../Task/Task';
 import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from '../../utils/dragAndDropTypes';
 import { Task } from '../../types/types';
-import './taskColumn.scss';
+import './column.scss';
 
 type RegistrationFormInputs = {
   [nameColumn: string]: string;
