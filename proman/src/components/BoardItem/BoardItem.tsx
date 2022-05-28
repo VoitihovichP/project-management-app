@@ -6,6 +6,8 @@ import { boardIdSlice } from '../../store/reducers/boardIdSlice';
 
 import './boardItem.scss';
 
+import { FormattedMessage } from 'react-intl';
+
 type BoardItemProps = {
   title: string;
   boardId: string;
@@ -17,11 +19,11 @@ type BoardItemProps = {
 const menuListItem = [
   {
     id: 1,
-    text: 'изменить',
+    text: <FormattedMessage id="EDIT_PROJECT" />,
   },
   {
     id: 2,
-    text: 'удалить',
+    text: <FormattedMessage id="DELETE_PROJECT" />,
   },
 ];
 

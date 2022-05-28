@@ -5,5 +5,7 @@ import './authorizationPage.scss';
 
 export const AuthorizationPage: React.FC = () => {
   const { isShowSignUp } = useAppSelector((state) => state.formSlice);
-  return <div className="authrization-page">{isShowSignUp ? <SignUpForm /> : <SignInForm />}</div>;
+  return (
+    <main className="authrization-page">{isShowSignUp ? <SignUpForm /> : <SignInForm />}</main>
+  );
 };

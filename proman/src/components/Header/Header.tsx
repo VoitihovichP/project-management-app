@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, ChangeEventHandler } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { userSlice } from '../../store/reducers/userSlice';
@@ -13,7 +13,13 @@ import Button from '@mui/material/Button';
 import ProManLogo from '../../assets/svg/pro-man-logo2.svg';
 import './header.scss';
 
-const Header: FC = () => {
+import { LOCALES } from '../../i18n/locales';
+import { injectIntl, FormattedMessage } from 'react-intl';
+
+const Header: FC<{
+  currentLocale: string;
+  handleChange: ChangeEventHandler<HTMLSelectElement>;
+}> = ({ currentLocale, handleChange }) => {
   const [isScrolled, setScroll] = useState(false);
 
   const highlightHeader = (): void => (window.pageYOffset > 0 ? setScroll(true) : setScroll(false));
@@ -64,18 +70,30 @@ const Header: FC = () => {
     isLoginUser();
   });
 
+  const languages = [
+    { name: 'Русский', code: LOCALES.RUSSIAN },
+    { name: 'English', code: LOCALES.ENGLISH },
+  ];
+
   return (
     <header className={isScrolled ? 'header header__scrolled' : 'header'}>
       <div className="header_left-block">
         <NavLink to="./">
           <img alt="Pro-Man App" src={ProManLogo} className="header__logo" />
         </NavLink>
-        <LangSwitch />
+        {/* <LangSwitch /> */}
+        <select onChange={handleChange} value={currentLocale}>
+          {languages.map(({ name, code }) => (
+            <option key={code} value={code}>
+              {name}
+            </option>
+          ))}
+        </select>
       </div>
       {isLogin ? (
         <div className="header_right-block">
           <div className="header_right-block_login-greeting">
-            Здравствуйте, <span>{`${cookies.login}`}</span>
+            <FormattedMessage id="HELLO_USER" /> <span>{`${cookies.login}`}</span>
           </div>
           <nav className="header_right-block_nav-buttons header_right-block_nav-buttons__logged-in">
             <BurgerMenu />
@@ -85,7 +103,7 @@ const Header: FC = () => {
                 variant="contained"
                 sx={{ whiteSpace: 'nowrap' }}
               >
-                Перейти к проектам
+                <FormattedMessage id="MY_PROJECTS" />
               </Button>
             </NavLink>
             <NavLink to="/main">
@@ -94,7 +112,7 @@ const Header: FC = () => {
                 variant="contained"
                 sx={{ whiteSpace: 'nowrap', width: '100%' }}
               >
-                Добавить проект
+                <FormattedMessage id="ADD_PROJECT" />
               </Button>
             </NavLink>
             <NavLink to="/profile">
@@ -103,7 +121,7 @@ const Header: FC = () => {
                 variant="contained"
                 sx={{ whiteSpace: 'nowrap' }}
               >
-                Редактировать профиль
+                <FormattedMessage id="EDIT_PROFILE" />
               </Button>
             </NavLink>
             <Button
@@ -112,7 +130,7 @@ const Header: FC = () => {
               sx={{ whiteSpace: 'nowrap' }}
               onClick={handleLogOut}
             >
-              Выйти
+              <FormattedMessage id="LOG_OUT" />
             </Button>
           </nav>
         </div>
@@ -124,8 +142,9 @@ const Header: FC = () => {
                 className="header_right-block_nav-buttons__logged-out_button"
                 variant="contained"
                 onClick={() => handleLogIn(false)}
+                sx={{ whiteSpace: 'pre' }}
               >
-                Вход
+                <FormattedMessage id="SIGN_IN" />
               </Button>
             </NavLink>
             <NavLink to="./authorization">
@@ -133,8 +152,9 @@ const Header: FC = () => {
                 className="header_right-block_nav-buttons__logged-out_button"
                 variant="contained"
                 onClick={() => handleLogIn(true)}
+                sx={{ whiteSpace: 'pre' }}
               >
-                Регистрация
+                <FormattedMessage id="SIGN_UP" />
               </Button>
             </NavLink>
           </nav>

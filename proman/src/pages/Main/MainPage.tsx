@@ -10,6 +10,8 @@ import ConfirmationModal from '../../components/ConfirmationModal/ConfirmationMo
 import { boardIdSlice } from '../../store/reducers/boardIdSlice';
 import Loader from '../../components/Loader/Loader';
 
+import { FormattedMessage } from 'react-intl';
+
 const MainPage: FC = () => {
   const [isConfirm, setIsConfirm] = useState<boolean>(false);
   const [isCreate, setIsCreate] = useState<boolean>(false);
@@ -99,7 +101,7 @@ const MainPage: FC = () => {
           </div>
         )}
         <Button variant="outlined" className="main-page__create" onClick={() => handleOpenCreate()}>
-          Добавить проект
+          <FormattedMessage id="ADD_PROJECT" />
         </Button>
       </div>
     </div>

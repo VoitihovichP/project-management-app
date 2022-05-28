@@ -11,6 +11,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import ToggleButton from '@mui/material/ToggleButton';
 import { NavLink } from 'react-router-dom';
 
+import { injectIntl, FormattedMessage } from 'react-intl';
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -19,7 +21,7 @@ const theme = createTheme({
   },
 });
 
-export const SignInForm: React.FC = () => {
+export const SignInForm: React.FC = injectIntl(({ intl }) => {
   const dispatch = useAppDispatch();
   const { modal } = useAppSelector((state) => state.signInSlice);
   const { userLogin } = userSlice.actions;
@@ -60,12 +62,14 @@ export const SignInForm: React.FC = () => {
       </NavLink>
       <ThemeProvider theme={theme}>
         <form className="authorization-form" onSubmit={onSubmit}>
-          <legend className="authorization-legend">Вход</legend>
+          <legend className="authorization-legend">
+            <FormattedMessage id="SIGN_IN_FORM_HEADER" />
+          </legend>
           <InputForm
             control={control}
             name="login"
-            label="Логин"
-            errorMessage="Длинна имени должна быть от 4 до 12 символов"
+            label={intl.formatMessage({ id: 'SIGN_UP_FORM_LOGIN_PLACEHOLDER' })}
+            errorMessage={intl.formatMessage({ id: 'SIGN_IN_FOR_LOGIN_ERROR' })}
             maxLength={12}
             minLength={4}
             defaultValue=""
@@ -73,15 +77,15 @@ export const SignInForm: React.FC = () => {
           <InputForm
             control={control}
             name="password"
-            label="Пароль"
-            errorMessage="Длинна имени должна быть от 4 до 8 символов"
+            label={intl.formatMessage({ id: 'SIGN_UP_FORM_PASSWORD_PLACEHOLDER' })}
+            errorMessage={intl.formatMessage({ id: 'SIGN_IN_FOR_PASSWORD_ERROR' })}
             maxLength={8}
             minLength={4}
             defaultValue=""
           />
           <div>
             <Button type="submit" variant="contained" color="primary" disabled={!isValid}>
-              Войти
+              <FormattedMessage id="SIGN_IN_FORM_BUTTON" />
             </Button>
           </div>
         </form>
@@ -94,4 +98,4 @@ export const SignInForm: React.FC = () => {
       />
     </main>
   );
-};
+});

@@ -4,6 +4,7 @@
 .app-wrapper {
   background-color: $main-color;
   scroll-behavior: smooth;
+  min-height: 100vh;
 }
 
 .App {

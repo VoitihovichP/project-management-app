@@ -13,6 +13,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import ToggleButton from '@mui/material/ToggleButton';
 import { NavLink } from 'react-router-dom';
 
+import { injectIntl, FormattedMessage } from 'react-intl';
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -21,7 +23,7 @@ const theme = createTheme({
   },
 });
 
-export const SignUpForm: React.FC = () => {
+export const SignUpForm: React.FC = injectIntl(({ intl }) => {
   const dispatch = useAppDispatch();
   const { modal } = useAppSelector((state) => state.signUpSlice);
   const { userLogin } = userSlice.actions;
@@ -66,12 +68,14 @@ export const SignUpForm: React.FC = () => {
           </ToggleButton>
         </NavLink>
         <form className="authorization-form" onSubmit={onSubmit}>
-          <legend className="authorization-legend">Регистрация</legend>
+          <legend className="authorization-legend">
+            <FormattedMessage id="SIGN_UP_FORM_HEADER" />
+          </legend>
           <InputForm
             control={control}
             name="name"
-            label="Имя"
-            errorMessage="Длинна имени должна быть от 3 до 12 символов"
+            label={intl.formatMessage({ id: 'SIGN_UP_FORM_USERNAME_PLACEHOLDER' })}
+            errorMessage={intl.formatMessage({ id: 'SIGN_UP_FORM_USERNAME_ERROR' })}
             maxLength={12}
             minLength={3}
             defaultValue=""
@@ -79,8 +83,8 @@ export const SignUpForm: React.FC = () => {
           <InputForm
             control={control}
             name="login"
-            label="Логин"
-            errorMessage="Длинна логина должна быть от 4 до 12 символов"
+            label={intl.formatMessage({ id: 'SIGN_UP_FORM_LOGIN_PLACEHOLDER' })}
+            errorMessage={intl.formatMessage({ id: 'SIGN_UP_FORM_LOGIN_ERROR' })}
             maxLength={12}
             minLength={4}
             defaultValue=""
@@ -88,15 +92,15 @@ export const SignUpForm: React.FC = () => {
           <InputForm
             control={control}
             name="password"
-            label="Пароль"
-            errorMessage="Длинна пароля должна быть от 4 до 8 символов"
+            label={intl.formatMessage({ id: 'SIGN_UP_FORM_PASSWORD_PLACEHOLDER' })}
+            errorMessage={intl.formatMessage({ id: 'SIGN_UP_FORM_PASSWORD_ERROR' })}
             maxLength={8}
             minLength={4}
             defaultValue=""
           />
           <div>
             <Button type="submit" variant="contained" color="primary" disabled={!isValid}>
-              Зарегестрироваться
+              <FormattedMessage id="SIGN_UP_FORM_BUTTON" />
             </Button>
           </div>
         </form>
@@ -109,4 +113,4 @@ export const SignUpForm: React.FC = () => {
       />
     </main>
   );
-};
+});
