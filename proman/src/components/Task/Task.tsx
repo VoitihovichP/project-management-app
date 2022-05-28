@@ -17,7 +17,7 @@ type RegistrationFormInputs = {
   descriptionTask: string;
 };
 
-export const TaskBlock: React.FC<{
+export const Task: React.FC<{
   title?: string;
   description?: string;
   boardId?: string;

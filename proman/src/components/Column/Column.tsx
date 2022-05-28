@@ -6,21 +6,21 @@ import { useCookies } from 'react-cookie';
 import { changeColumn, deleteColumn } from '../../store/asyncReducers/boardSlice';
 import { Controller, useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import { TaskBlock } from '../Task/Task';
+import { Task } from '../Task/Task';
 import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from '../../utils/dragAndDropTypes';
-import { Task } from '../../types/types';
+import { TaskType } from '../../types/types';
 import './column.scss';
 
 type RegistrationFormInputs = {
   [nameColumn: string]: string;
 };
 
-export const TaskColumn: React.FC<{
+export const Column: React.FC<{
   columnId: string;
   title: string;
   order: number;
-  tasks: Task[];
+  tasks: TaskType[];
 }> = ({ columnId, title, order, tasks }) => {
   const [isShowTemplateTask, setIsShowTemplateTask] = useState(false);
   const { handleSubmit, control } = useForm<RegistrationFormInputs>();
@@ -106,7 +106,7 @@ export const TaskColumn: React.FC<{
       <div className="task-column__list">
         {tasks.map((task) => {
           return (
-            <TaskBlock
+            <Task
               key={task.id}
               title={task.title}
               description={task.description}
@@ -118,7 +118,7 @@ export const TaskColumn: React.FC<{
             />
           );
         })}
-        {isShowTemplateTask && <TaskBlock columnId={columnId} isTemplate={true} />}
+        {isShowTemplateTask && <Task columnId={columnId} isTemplate={true} />}
       </div>
 
       <Button
