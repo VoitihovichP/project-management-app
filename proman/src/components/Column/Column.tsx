@@ -11,6 +11,7 @@ import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from '../../utils/dragAndDropTypes';
 import { TaskType } from '../../types/types';
 import './column.scss';
+import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 
 type RegistrationFormInputs = {
   [nameColumn: string]: string;
@@ -23,16 +24,26 @@ export const Column: React.FC<{
   tasks: TaskType[];
 }> = ({ columnId, title, order, tasks }) => {
   const [isShowTemplateTask, setIsShowTemplateTask] = useState(false);
+  const [isShowModal, setIsShowModal] = useState(false);
   const { handleSubmit, control } = useForm<RegistrationFormInputs>();
   const dispatch = useAppDispatch();
   const [cookies] = useCookies(['token']);
 
+  const handleClickDeleteColumn = () => {
+    setIsShowModal(true);
+  };
+
   const handleDeleteColumn = async () => {
+    setIsShowModal(false);
     const boardId = localStorage.getItem('boardId');
     const token = cookies.token;
     if (columnId && boardId && token) {
       dispatch(deleteColumn({ token, boardId, columnId }));
     }
+  };
+
+  const handleCancelDeleteColumn = () => {
+    setIsShowModal(false);
   };
 
   const handleChangeColumn = handleSubmit(({ nameColumn }) => {
@@ -68,6 +79,12 @@ export const Column: React.FC<{
 
   return (
     <div className="task-column">
+      {isShowModal ? (
+        <ConfirmationModal
+          cancelDelete={handleCancelDeleteColumn}
+          deleteBoard={handleDeleteColumn}
+        />
+      ) : null}
       <div className="task-column__settings">
         <form onSubmit={handleChangeColumn}>
           <Controller
@@ -98,7 +115,7 @@ export const Column: React.FC<{
         <IconButton style={{ color: '#a2a0a2', textTransform: 'none' }} aria-label="add task">
           <AddIcon style={{ color: '#a2a0a2' }} />
         </IconButton>
-        <IconButton aria-label="delete column" onClick={handleDeleteColumn}>
+        <IconButton aria-label="delete column" onClick={handleClickDeleteColumn}>
           <DeleteIcon style={{ color: '#a2a0a2' }} />
         </IconButton>
       </div>
