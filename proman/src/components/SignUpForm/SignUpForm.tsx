@@ -27,7 +27,7 @@ export const SignUpForm: React.FC = injectIntl(({ intl }) => {
   const dispatch = useAppDispatch();
   const { modal } = useAppSelector((state) => state.signUpSlice);
   const { userLogin } = userSlice.actions;
-  const [, setCookie] = useCookies(['name', 'login', 'password', 'token']);
+  const [cookies, setCookie] = useCookies(['name', 'login', 'password', 'token']);
   const {
     handleSubmit,
     control,
