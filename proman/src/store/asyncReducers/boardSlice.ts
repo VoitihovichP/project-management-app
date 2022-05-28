@@ -282,10 +282,15 @@ export const boardSlice = createSlice({
     },
     [getAllData.fulfilled.type]: (state, action: PayloadAction<Board>) => {
       state.isLoading = false;
-      const columns = action.payload.columns.sort((a, b) => {
+      const board = action.payload;
+      board.columns.sort((a, b) => {
         return a.order - b.order;
       });
-      const board = { ...action.payload, columns };
+      board.columns.forEach((column) => {
+        column.tasks.sort((a, b) => {
+          return a.order - b.order;
+        });
+      });
       state.board = board;
     },
     [getAllData.rejected.type]: (state) => {
@@ -365,7 +370,7 @@ export const boardSlice = createSlice({
         const taskIndex = state.board.columns[columnIndex].tasks.findIndex(
           (task) => task.id === action.payload.id
         );
-        if (taskIndex) state.board.columns[columnIndex].tasks[taskIndex] = action.payload;
+        if (taskIndex > -1) state.board.columns[columnIndex].tasks[taskIndex] = action.payload;
       }
     },
     [changeTask.rejected.type]: (state) => {

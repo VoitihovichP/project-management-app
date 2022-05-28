@@ -6,33 +6,44 @@ import { useCookies } from 'react-cookie';
 import { changeColumn, deleteColumn } from '../../store/asyncReducers/boardSlice';
 import { Controller, useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import { TaskBlock } from '../Task/Task';
+import { Task } from '../Task/Task';
 import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from '../../utils/dragAndDropTypes';
-import { Task } from '../../types/types';
+import { TaskType } from '../../types/types';
 import './column.scss';
+import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 
 type RegistrationFormInputs = {
   [nameColumn: string]: string;
 };
 
-export const TaskColumn: React.FC<{
+export const Column: React.FC<{
   columnId: string;
   title: string;
   order: number;
-  tasks: Task[];
+  tasks: TaskType[];
 }> = ({ columnId, title, order, tasks }) => {
   const [isShowTemplateTask, setIsShowTemplateTask] = useState(false);
+  const [isShowModal, setIsShowModal] = useState(false);
   const { handleSubmit, control } = useForm<RegistrationFormInputs>();
   const dispatch = useAppDispatch();
   const [cookies] = useCookies(['token']);
 
+  const handleClickDeleteColumn = () => {
+    setIsShowModal(true);
+  };
+
   const handleDeleteColumn = async () => {
+    setIsShowModal(false);
     const boardId = localStorage.getItem('boardId');
     const token = cookies.token;
     if (columnId && boardId && token) {
       dispatch(deleteColumn({ token, boardId, columnId }));
     }
+  };
+
+  const handleCancelDeleteColumn = () => {
+    setIsShowModal(false);
   };
 
   const handleChangeColumn = handleSubmit(({ nameColumn }) => {
@@ -68,6 +79,12 @@ export const TaskColumn: React.FC<{
 
   return (
     <div className="task-column">
+      {isShowModal ? (
+        <ConfirmationModal
+          cancelDelete={handleCancelDeleteColumn}
+          deleteBoard={handleDeleteColumn}
+        />
+      ) : null}
       <div className="task-column__settings">
         <form onSubmit={handleChangeColumn}>
           <Controller
@@ -98,7 +115,7 @@ export const TaskColumn: React.FC<{
         <IconButton style={{ color: '#a2a0a2', textTransform: 'none' }} aria-label="add task">
           <AddIcon style={{ color: '#a2a0a2' }} />
         </IconButton>
-        <IconButton aria-label="delete column" onClick={handleDeleteColumn}>
+        <IconButton aria-label="delete column" onClick={handleClickDeleteColumn}>
           <DeleteIcon style={{ color: '#a2a0a2' }} />
         </IconButton>
       </div>
@@ -106,7 +123,7 @@ export const TaskColumn: React.FC<{
       <div className="task-column__list">
         {tasks.map((task) => {
           return (
-            <TaskBlock
+            <Task
               key={task.id}
               title={task.title}
               description={task.description}
@@ -118,7 +135,7 @@ export const TaskColumn: React.FC<{
             />
           );
         })}
-        {isShowTemplateTask && <TaskBlock columnId={columnId} isTemplate={true} />}
+        {isShowTemplateTask && <Task columnId={columnId} isTemplate={true} />}
       </div>
 
       <Button

@@ -11,13 +11,15 @@ import jwtDecode, { JwtPayload } from 'jwt-decode';
 import { useAppDispatch } from '../../hooks/redux';
 import { changeTask, createTask, deleteTask } from '../../store/asyncReducers/boardSlice';
 import './task.scss';
+import { useState } from 'react';
+import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 
 type RegistrationFormInputs = {
   [nameTask: string]: string;
   descriptionTask: string;
 };
 
-export const TaskBlock: React.FC<{
+export const Task: React.FC<{
   title?: string;
   description?: string;
   boardId?: string;
@@ -27,6 +29,7 @@ export const TaskBlock: React.FC<{
   taskId?: string;
 }> = ({ columnId, isTemplate, taskId, description, title, order }) => {
   const { handleSubmit, control } = useForm<RegistrationFormInputs>();
+  const [isShowModal, setIsShowModal] = useState(false);
   const [cookies] = useCookies(['token']);
   const dispatch = useAppDispatch();
   const [{ isDragging }, dragRef] = useDrag(() => ({
@@ -59,15 +62,27 @@ export const TaskBlock: React.FC<{
     }
   });
 
+  const handleClickDeleteTask = () => {
+    setIsShowModal(true);
+  };
+
   const handleDeleteTask = async () => {
+    setIsShowModal(false);
     const boardId = localStorage.getItem('boardId');
     if (boardId && columnId && taskId && token) {
       dispatch(deleteTask({ token, boardId, columnId, taskId }));
     }
   };
 
+  const handleCancelDeleteTask = () => {
+    setIsShowModal(false);
+  };
+
   return (
     <div ref={dragRef} className="taskBlock create_task">
+      {isShowModal ? (
+        <ConfirmationModal cancelDelete={handleCancelDeleteTask} deleteBoard={handleDeleteTask} />
+      ) : null}
       <div className="taskBlock-header">
         <div className="taskBlock-header_options">
           {isTemplate ? null : (
@@ -80,7 +95,7 @@ export const TaskBlock: React.FC<{
               <Controller
                 name="nameTask"
                 control={control}
-                defaultValue={title ? title : 'Название задачи'}
+                defaultValue={title ? title : ''}
                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                   <TextField
                     id="outlined-basic"
@@ -88,6 +103,7 @@ export const TaskBlock: React.FC<{
                     variant="standard"
                     autoComplete="off"
                     value={value}
+                    placeholder="Название задачи"
                     onChange={onChange}
                     error={!!error}
                     helperText={error && error.message}
@@ -104,7 +120,7 @@ export const TaskBlock: React.FC<{
               <Controller
                 name="description"
                 control={control}
-                defaultValue={description ? description : 'Описание'}
+                defaultValue={description ? description : ''}
                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                   <TextField
                     id="outlined-multiline-static"
@@ -112,6 +128,7 @@ export const TaskBlock: React.FC<{
                     rows={1}
                     variant="outlined"
                     autoComplete="off"
+                    placeholder={'Описание'}
                     value={value}
                     onChange={onChange}
                     error={!!error}
@@ -131,7 +148,7 @@ export const TaskBlock: React.FC<{
           </div>
           {isTemplate ? null : (
             <IconButton
-              onClick={handleDeleteTask}
+              onClick={handleClickDeleteTask}
               className="taskBlock-header_options-delete"
               aria-label="delete task"
             >

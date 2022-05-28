@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { IconButton, TextField } from '@mui/material';
 import AddIcon from '@material-ui/icons/Add';
-import { TaskColumn } from '../../components/Column/Column';
+import { Column } from '../../components/Column/Column';
 import { Controller, useForm } from 'react-hook-form';
 import { useCookies } from 'react-cookie';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -56,7 +56,7 @@ const Board: FC = () => {
     <div className="board-page">
       <div className="board-page__columns">
         {columns.map((column) => (
-          <TaskColumn
+          <Column
             key={column.id}
             columnId={column.id}
             title={column.title}

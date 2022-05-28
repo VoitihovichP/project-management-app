@@ -4,7 +4,7 @@ export type RegistrationFormInputs = {
   password: string;
 };
 
-export type Task = {
+export type TaskType = {
   id: string;
   title: string;
   order: number;
