@@ -80,7 +80,7 @@ export const TaskBlock: React.FC<{
               <Controller
                 name="nameTask"
                 control={control}
-                defaultValue={title ? title : 'Название задачи'}
+                defaultValue={title ? title : ''}
                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                   <TextField
                     id="outlined-basic"
@@ -88,6 +88,7 @@ export const TaskBlock: React.FC<{
                     variant="standard"
                     autoComplete="off"
                     value={value}
+                    placeholder="Название задачи"
                     onChange={onChange}
                     error={!!error}
                     helperText={error && error.message}
@@ -104,7 +105,7 @@ export const TaskBlock: React.FC<{
               <Controller
                 name="description"
                 control={control}
-                defaultValue={description ? description : 'Описание'}
+                defaultValue={description ? description : ''}
                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                   <TextField
                     id="outlined-multiline-static"
@@ -112,6 +113,7 @@ export const TaskBlock: React.FC<{
                     rows={1}
                     variant="outlined"
                     autoComplete="off"
+                    placeholder={'Описание'}
                     value={value}
                     onChange={onChange}
                     error={!!error}
