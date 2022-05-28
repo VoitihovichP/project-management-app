@@ -4,20 +4,26 @@ import { WelcomePageText } from '../../types/enums';
 import { teamMember } from '../../constants/arrays';
 import TeamMemberCard from '../../components/TeamMemberCard/TeamMemberCard';
 
-const Welcome: FC = () => {
+import { injectIntl, FormattedMessage } from 'react-intl';
+
+const Welcome: FC = injectIntl(({ intl }) => {
   return (
-    <div className="welcome-page">
+    <main className="welcome-page">
       <div className="welcome-page__main-info">
         <div className="welcome-page__poster"></div>
         <div className="welcome-page__text">
           <h1 className="welcome-page__greeting">
-            {WelcomePageText.GREETING_FIRST_PART} <span>{WelcomePageText.APP_TITLE}</span>!
+            {intl.formatMessage({ id: 'MAIN_GREETING' })} <span>{WelcomePageText.APP_TITLE}</span>!
           </h1>
-          <p className="welcome-page__descr">{WelcomePageText.GREETING_SECOND_PART}</p>
+          <p className="welcome-page__descr">
+            {intl.formatMessage({ id: 'MAIN_APP_DESCRIPTION_1' })}
+          </p>
         </div>
       </div>
       <div className="welcome-page__team">
-        <h2 className="welcome-page__team-subtitle">{WelcomePageText.TEAM_SUBTITLE}</h2>
+        <h2 className="welcome-page__team-subtitle">
+          {intl.formatMessage({ id: 'MAIN_APP_DESCRIPTION_2' })}
+        </h2>
         <div className="welcome-page__team-wrapper">
           {teamMember.map((item, index) => {
             const { name, description, github_login, github_url } = item;
@@ -33,8 +39,8 @@ const Welcome: FC = () => {
           })}
         </div>
       </div>
-    </div>
+    </main>
   );
-};
+});
 
 export default Welcome;

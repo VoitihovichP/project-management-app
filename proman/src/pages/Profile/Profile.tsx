@@ -17,7 +17,9 @@ import { InputForm } from '../../components/InputForm/InputForm';
 // import ToggleButton from '@mui/material/ToggleButton';
 // import { NavLink } from 'react-router-dom';
 
-const Profile: FC = () => {
+import { injectIntl, FormattedMessage } from 'react-intl';
+
+const Profile: FC = injectIntl(({ intl }) => {
   // const dispatch = useAppDispatch();
   // const { modal } = useAppSelector((state) => state.signUpSlice);
   // const { userLogin } = userSlice.actions;
@@ -33,7 +35,7 @@ const Profile: FC = () => {
 
   return (
     <main className="profile-page">
-      <h2 className="profile-page_title">Редактировать профиль</h2>
+      <h2 className="profile-page_title">{intl.formatMessage({ id: 'PROFILE_HEADER' })}</h2>
       <Box
         component="form"
         sx={{
@@ -42,7 +44,7 @@ const Profile: FC = () => {
           alignItems: 'center',
           '& .MuiTextField-root': {
             m: 1,
-            width: '41ch',
+            width: '45ch',
             '@media (max-width: 400px)': {
               width: '32ch',
             },
@@ -54,8 +56,8 @@ const Profile: FC = () => {
         <InputForm
           control={control}
           name="name"
-          label="Введите Ваше новое имя"
-          errorMessage="Длинна имени должна быть от 3 до 12 символов"
+          label={intl.formatMessage({ id: 'PROFILE_USERNAME_PLACEHOLDER' })}
+          errorMessage={intl.formatMessage({ id: 'SIGN_UP_FORM_USERNAME_ERROR' })}
           maxLength={12}
           minLength={3}
           defaultValue={cookies.login}
@@ -63,8 +65,8 @@ const Profile: FC = () => {
         <InputForm
           control={control}
           name="login"
-          label="Введите Ваш новый логин"
-          errorMessage="Длинна логина должна быть от 4 до 12 символов"
+          label={intl.formatMessage({ id: 'PROFILE_LOGIN_PLACEHOLDER' })}
+          errorMessage={intl.formatMessage({ id: 'SIGN_UP_FORM_LOGIN_ERROR' })}
           maxLength={12}
           minLength={4}
           defaultValue={cookies.login}
@@ -72,17 +74,17 @@ const Profile: FC = () => {
         <InputForm
           control={control}
           name="password"
-          label="Введите Ваш новый пароль"
-          errorMessage="Длинна пароля должна быть от 4 до 8 символов"
+          label={intl.formatMessage({ id: 'PROFILE_PASSWORD_PLACEHOLDER' })}
+          errorMessage={intl.formatMessage({ id: 'SIGN_UP_FORM_PASSWORD_ERROR' })}
           maxLength={8}
           minLength={4}
           defaultValue={cookies.password}
         />
       </Box>
       <Button type="submit" variant="contained" color="primary" disabled={!isValid}>
-        Сохранить изменения
+        {intl.formatMessage({ id: 'PROFILE_SAVE_BUTTON' })}
       </Button>
-      <Button variant="contained">Удалить аккаунт</Button>
+      <Button variant="contained">{intl.formatMessage({ id: 'PROFILE_DELETE_BUTTON' })}</Button>
       {/*<PopUp
         open={modal.isOpen}
         handleClose={handleClose}
@@ -91,6 +93,6 @@ const Profile: FC = () => {
       />*/}
     </main>
   );
-};
+});
 
 export default Profile;
