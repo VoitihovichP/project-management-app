@@ -5,12 +5,12 @@ import PersonIcon from '@material-ui/icons/Person';
 import { useDrag } from 'react-dnd';
 import { ItemTypes } from '../../utils/dragAndDropTypes';
 import { ConnectDragSource } from 'react-dnd';
-import './taskBlock.scss';
 import { Controller, useForm } from 'react-hook-form';
 import { useCookies } from 'react-cookie';
 import jwtDecode, { JwtPayload } from 'jwt-decode';
 import { useAppDispatch } from '../../hooks/redux';
-import { changeTask, createTask, deleteTask } from '../../store/asyncReducers/columnsSlice';
+import { changeTask, createTask, deleteTask } from '../../store/asyncReducers/boardSlice';
+import './task.scss';
 
 type RegistrationFormInputs = {
   [nameTask: string]: string;

@@ -1,16 +1,16 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import signInSlice from './asyncReducers/signInSlice';
 import signUpSlice from './asyncReducers/signUpSlice';
-import boardReducer from './asyncReducers/boardSlice';
+import mainPageSlice from './asyncReducers/mainPageSlice';
 import formSlice from './reducers/formSlice';
 import userReducer from './reducers/userSlice';
 import boardIdReducer from './reducers/boardIdSlice';
-import columnSlice from './asyncReducers/columnsSlice';
+import boardSlice from './asyncReducers/boardSlice';
 
 const rootReducer = combineReducers({
-  columnSlice,
+  boardSlice,
   boardIdReducer,
-  boardReducer,
+  mainPageSlice,
   userReducer,
   signUpSlice,
   signInSlice,

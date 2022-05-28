@@ -25,7 +25,7 @@ export const InputForm: React.FC<{
           className="authorization-form__item"
           label={label}
           variant="outlined"
-          autoComplete="on"
+          autoComplete="off"
           value={value}
           onChange={onChange}
           error={!!error}
