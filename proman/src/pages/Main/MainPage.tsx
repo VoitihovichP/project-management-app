@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { deleteBoard, getBoards } from '../../store/asyncReducers/boardSlice';
+import { deleteBoard, getBoards } from '../../store/asyncReducers/mainPageSlice';
 import { Button } from '@mui/material';
 import './mainPage.scss';
 import CreateBoardForm from '../../components/CreateBoardForm/CreateBoardForm';
@@ -20,7 +20,7 @@ const MainPage: FC = () => {
   const [activeBoardDescr, setActiveBoardDescr] = useState<string>('');
 
   const dispatch = useAppDispatch();
-  const { boards, isLoading } = useAppSelector((state) => state.boardReducer);
+  const { boards, isLoading } = useAppSelector((state) => state.mainPageSlice);
   const { deleteBoardId } = useAppSelector((state) => state.boardIdReducer);
   const { changeBoardId } = boardIdSlice.actions;
   const [cookie] = useCookies(['token']);

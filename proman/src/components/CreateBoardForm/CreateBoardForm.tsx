@@ -7,7 +7,7 @@ import CloseFormBtn from '../CloseFormBtn/CloseFormBtn';
 
 import { useCookies } from 'react-cookie';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { getBoards, postBoards, updateBoard } from '../../store/asyncReducers/boardSlice';
+import { getBoards, postBoards, updateBoard } from '../../store/asyncReducers/mainPageSlice';
 import { CreateFormBtn } from '../../types/enums';
 
 type CreateBoardInput = {

@@ -5,7 +5,7 @@ import { TaskColumn } from '../../components/Column/Column';
 import { Controller, useForm } from 'react-hook-form';
 import { useCookies } from 'react-cookie';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { createColumn, getAllData } from '../../store/asyncReducers/columnsSlice';
+import { createColumn, getAllData } from '../../store/asyncReducers/boardSlice';
 import Loader from '../../components/Loader/Loader';
 import './board.scss';
 
@@ -21,7 +21,7 @@ const Board: FC = () => {
   const {
     board: { columns },
     isLoading,
-  } = useAppSelector((state) => state.columnSlice);
+  } = useAppSelector((state) => state.boardSlice);
 
   const getData = async () => {
     const boardId = localStorage.getItem('boardId');

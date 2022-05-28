@@ -1,7 +1,6 @@
 import React, { FC, useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/redux';
-import { columnSlice } from '../../store/asyncReducers/columnsSlice';
 import { boardIdSlice } from '../../store/reducers/boardIdSlice';
 
 import './boardItem.scss';

@@ -10,7 +10,7 @@ import { TaskBlock } from '../Task/Task';
 import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from '../../utils/dragAndDropTypes';
 import { Task } from '../../types/types';
-import './column.scss';
+import './taskColumn.scss';
 
 type RegistrationFormInputs = {
   [nameColumn: string]: string;

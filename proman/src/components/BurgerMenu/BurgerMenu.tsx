@@ -4,7 +4,7 @@ import { useAppDispatch } from '../../hooks/redux';
 import { userSlice } from '../../store/reducers/userSlice';
 import { signInSlice } from '../../store/asyncReducers/signInSlice';
 import { signUpSlice } from '../../store/asyncReducers/signUpSlice';
-import { getBoardsSlice } from '../../store/asyncReducers/boardSlice';
+import { mainPageSlice } from '../../store/asyncReducers/mainPageSlice';
 import { useCookies } from 'react-cookie';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
@@ -29,7 +29,7 @@ const BurgerMenu: FC = () => {
   };
   const { removeToken } = signInSlice.actions;
   const { clear } = signUpSlice.actions;
-  const { clearBoards } = getBoardsSlice.actions;
+  const { clearBoards } = mainPageSlice.actions;
   const dispatch = useAppDispatch();
   const { userLogin } = userSlice.actions;
   const navigate = useNavigate();

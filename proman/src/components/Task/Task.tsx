@@ -9,7 +9,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useCookies } from 'react-cookie';
 import jwtDecode, { JwtPayload } from 'jwt-decode';
 import { useAppDispatch } from '../../hooks/redux';
-import { changeTask, createTask, deleteTask } from '../../store/asyncReducers/columnsSlice';
+import { changeTask, createTask, deleteTask } from '../../store/asyncReducers/boardSlice';
 import './task.scss';
 
 type RegistrationFormInputs = {
