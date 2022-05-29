@@ -7,7 +7,6 @@ import { changeColumn, deleteColumn } from '../../store/asyncReducers/boardSlice
 import { Controller, useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { Task } from '../Task/Task';
-import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from '../../utils/dragAndDropTypes';
 import { TaskType } from '../../types/types';
 import './column.scss';
@@ -64,11 +63,6 @@ export const Column: React.FC<{
       setIsShowTemplateTask(false);
     }
   };
-
-  const [, dropRef] = useDrop(() => ({
-    accept: ItemTypes.TICKET,
-    drop: () => console.log(columnId),
-  }));
 
   useEffect(() => {
     window.addEventListener('click', handleCloseTemplateTask);

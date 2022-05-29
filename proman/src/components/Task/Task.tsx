@@ -2,9 +2,7 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { Button, IconButton, TextField } from '@mui/material';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PersonIcon from '@material-ui/icons/Person';
-import { useDrag } from 'react-dnd';
 import { ItemTypes } from '../../utils/dragAndDropTypes';
-import { ConnectDragSource } from 'react-dnd';
 import { Controller, useForm } from 'react-hook-form';
 import { useCookies } from 'react-cookie';
 import jwtDecode, { JwtPayload } from 'jwt-decode';
@@ -32,12 +30,6 @@ export const Task: React.FC<{
   const [isShowModal, setIsShowModal] = useState(false);
   const [cookies] = useCookies(['token']);
   const dispatch = useAppDispatch();
-  const [{ isDragging }, dragRef] = useDrag(() => ({
-    type: ItemTypes.TICKET,
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  }));
   const token = cookies.token;
 
   const handleSubmitTemplateTask = handleSubmit(async ({ nameTask, description }) => {
@@ -79,7 +71,7 @@ export const Task: React.FC<{
   };
 
   return (
-    <div ref={dragRef} className="taskBlock create_task">
+    <div className="taskBlock create_task">
       {isShowModal ? (
         <ConfirmationModal cancelDelete={handleCancelDeleteTask} deleteBoard={handleDeleteTask} />
       ) : null}
