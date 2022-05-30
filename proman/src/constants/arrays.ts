@@ -5,21 +5,20 @@ export const teamMember: Array<TeamMemberProps> = [
   {
     name: 'Павел Войтехович',
     description:
-      'Описание будет добавлено по завершению работы над проектом, а пока что этот текст для примера',
+      'разработка Welcome Route, Main Route создание функционала удаления и изменения проектов на Main Route, реализация Drag and Drop.',
     github_login: 'VoitihovichP',
     github_url: 'https://github.com/VoitihovichP',
   },
   {
     name: 'Сергей Козловский',
     description:
-      'Описание будет добавлено по завершению работы над проектом, а пока что этот текст для примера',
+      'разработка входа и регистрации на Sign In/Sign Up Route, разработка функционала создания, изменения, удаления колонок и заданий на Board Route, реализация изменения профиля.',
     github_login: 'SergeyKozlovskiy',
     github_url: 'https://github.com/SergeyKozlovskiy',
   },
   {
     name: 'Тимур Щербина',
-    description:
-      'Описание будет добавлено по завершению работы над проектом, а пока что этот текст для примера',
+    description: 'Вёрстка Header и Footer, реализация перевода приложения, вёрстка Edit Route',
     github_login: 'Stellarator85',
     github_url: 'https://github.com/Stellarator85',
   },

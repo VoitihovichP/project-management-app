@@ -3,6 +3,7 @@ import './welcome.scss';
 import { WelcomePageText } from '../../types/enums';
 import { teamMember } from '../../constants/arrays';
 import TeamMemberCard from '../../components/TeamMemberCard/TeamMemberCard';
+import Poster from '../../assets/png/main-poster.png';
 
 import { injectIntl, FormattedMessage } from 'react-intl';
 
@@ -10,7 +11,7 @@ const Welcome: FC = injectIntl(({ intl }) => {
   return (
     <main className="welcome-page">
       <div className="welcome-page__main-info">
-        <div className="welcome-page__poster"></div>
+        <img src={Poster} alt="Poster" className="welcome-page__poster" />
         <div className="welcome-page__text">
           <h1 className="welcome-page__greeting">
             {intl.formatMessage({ id: 'MAIN_GREETING' })} <span>{WelcomePageText.APP_TITLE}</span>!
