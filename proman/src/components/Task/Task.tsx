@@ -10,6 +10,7 @@ import { changeTask, createTask, deleteTask } from '../../store/asyncReducers/bo
 import './task.scss';
 import { useState } from 'react';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
+import { useIntl } from 'react-intl';
 import { Draggable } from 'react-beautiful-dnd';
 
 type RegistrationFormInputs = {
@@ -71,7 +72,92 @@ export const Task: React.FC<{
     setIsShowModal(false);
   };
 
+  const textValues = [
+    useIntl().formatMessage({
+      id: 'BOARD_TASK_TITLE_PLACEHOLDER',
+    }),
+    useIntl().formatMessage({
+      id: 'SIGN_IN_FORM_EMPTY_FIELD_ERROR',
+    }),
+    useIntl().formatMessage({
+      id: 'BOARD_TASK_DESCRIPTION_PLACEHOLDER',
+    }),
+    useIntl().formatMessage({
+      id: 'BOARD_TASK_CREATE',
+    }),
+  ];
+
   return (
+    <div ref={dragRef} className="taskBlock create_task">
+      {isShowModal ? (
+        <ConfirmationModal cancelDelete={handleCancelDeleteTask} deleteBoard={handleDeleteTask} />
+      ) : null}
+      <div className="taskBlock-header">
+        <div className="taskBlock-header_options">
+          {isTemplate ? null : (
+            <IconButton className="taskBlock-header_options-status" aria-label="task status">
+              <CheckCircleIcon style={{ color: '#a2a0a2' }} />
+            </IconButton>
+          )}
+          <div className="taskBlock-header_options-name">
+            <form onSubmit={handleSubmitTemplateTask}>
+              <Controller
+                name="nameTask"
+                control={control}
+                defaultValue={title ? title : ''}
+                render={({ field: { onChange, value }, fieldState: { error } }) => (
+                  <TextField
+                    id="outlined-basic"
+                    size="small"
+                    variant="standard"
+                    autoComplete="off"
+                    value={value}
+                    placeholder={textValues[0]}
+                    onChange={onChange}
+                    error={!!error}
+                    helperText={error && error.message}
+                    style={{ color: '#a2a0a2' }}
+                    InputProps={{
+                      className: 'nameColumn',
+                    }}
+                  />
+                )}
+                rules={{
+                  required: useIntl().formatMessage({
+                    id: 'SIGN_IN_FORM_EMPTY_FIELD_ERROR',
+                  }),
+                }}
+              />
+              <Controller
+                name="description"
+                control={control}
+                defaultValue={description ? description : ''}
+                render={({ field: { onChange, value }, fieldState: { error } }) => (
+                  <TextField
+                    id="outlined-multiline-static"
+                    multiline
+                    rows={1}
+                    variant="outlined"
+                    autoComplete="off"
+                    placeholder={textValues[2]}
+                    value={value}
+                    onChange={onChange}
+                    error={!!error}
+                    helperText={error && error.message}
+                    style={{ color: '#a2a0a2' }}
+                    InputProps={{
+                      className: 'descriptionTask',
+                    }}
+                  />
+                )}
+                rules={{
+                  required: useIntl().formatMessage({
+                    id: 'SIGN_IN_FORM_EMPTY_FIELD_ERROR',
+                  }),
+                }}
+              />
+              {isTemplate ? <Button type="submit">{textValues[3]}</Button> : null}
+            </form>
     <Draggable draggableId={taskId ? taskId : 'Task'} index={index ? index : 0}>
       {(provided) => {
         return (

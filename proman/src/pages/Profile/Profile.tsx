@@ -4,6 +4,18 @@ import { useCookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
 import { RegistrationFormInputs } from '../../types/types';
 import { InputForm } from '../../components/InputForm/InputForm';
+import { PopUp } from '../../components/modal/modal';
+import CloseIcon from '@material-ui/icons/Close';
+import ToggleButton from '@mui/material/ToggleButton';
+import { NavLink } from 'react-router-dom';
+
+import { injectIntl } from 'react-intl';
+
+const Profile: FC = injectIntl(({ intl }) => {
+  const dispatch = useAppDispatch();
+  const { modal } = useAppSelector((state) => state.signUpSlice);
+  const { userLogin } = userSlice.actions;
+  const [cookies] = useCookies(['name', 'login', 'password', 'token']);
 import { injectIntl } from 'react-intl';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { PopUp } from '../../components/Modal/modal';
@@ -84,16 +96,18 @@ const Profile: FC = injectIntl(({ intl }) => {
           control={control}
           name="name"
           label={intl.formatMessage({ id: 'PROFILE_USERNAME_PLACEHOLDER' })}
-          errorMessage={intl.formatMessage({ id: 'SIGN_UP_FORM_USERNAME_ERROR' })}
+          errorMessage1={intl.formatMessage({ id: 'SIGN_UP_FORM_USERNAME_ERROR' })}
+          errorMessage2={intl.formatMessage({ id: 'SIGN_IN_FORM_EMPTY_FIELD_ERROR' })}
           maxLength={12}
           minLength={3}
-          defaultValue={cookies.login}
+          defaultValue={cookies.name}
         />
         <InputForm
           control={control}
           name="login"
           label={intl.formatMessage({ id: 'PROFILE_LOGIN_PLACEHOLDER' })}
-          errorMessage={intl.formatMessage({ id: 'SIGN_UP_FORM_LOGIN_ERROR' })}
+          errorMessage1={intl.formatMessage({ id: 'SIGN_UP_FORM_LOGIN_ERROR' })}
+          errorMessage2={intl.formatMessage({ id: 'SIGN_IN_FORM_EMPTY_FIELD_ERROR' })}
           maxLength={12}
           minLength={4}
           defaultValue={cookies.login}
@@ -102,7 +116,8 @@ const Profile: FC = injectIntl(({ intl }) => {
           control={control}
           name="password"
           label={intl.formatMessage({ id: 'PROFILE_PASSWORD_PLACEHOLDER' })}
-          errorMessage={intl.formatMessage({ id: 'SIGN_UP_FORM_PASSWORD_ERROR' })}
+          errorMessage1={intl.formatMessage({ id: 'SIGN_UP_FORM_PASSWORD_ERROR' })}
+          errorMessage2={intl.formatMessage({ id: 'SIGN_IN_FORM_EMPTY_FIELD_ERROR' })}
           maxLength={8}
           minLength={4}
           defaultValue={cookies.password}

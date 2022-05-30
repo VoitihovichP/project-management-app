@@ -1,5 +1,4 @@
 import { TeamMemberProps } from './../components/TeamMemberCard/TeamMemberCard';
-import { injectIntl, FormattedMessage } from 'react-intl';
 
 export const teamMember: Array<TeamMemberProps> = [
   {

@@ -26,7 +26,7 @@ export const SignInForm: React.FC = injectIntl(({ intl }) => {
   const dispatch = useAppDispatch();
   const { modal } = useAppSelector((state) => state.signInSlice);
   const { userLogin } = userSlice.actions;
-  const [, setCookie] = useCookies(['login', 'password', 'token']);
+  const [, setCookie] = useCookies(['name', 'login', 'password', 'token']);
   const {
     handleSubmit,
     control,
@@ -39,6 +39,7 @@ export const SignInForm: React.FC = injectIntl(({ intl }) => {
   const onSubmit = handleSubmit(async ({ login, password }) => {
     const result = await dispatch(signIn({ login, password }));
     if (result.meta.requestStatus === 'fulfilled') {
+      setCookie('name', name, { path: '/', maxAge: 86400 });
       setCookie('login', login, { path: '/', maxAge: 86400 });
       setCookie('password', password, { path: '/', maxAge: 86400 });
       setCookie('token', result.payload.token, { path: '/', maxAge: 86400 });
@@ -82,7 +83,8 @@ export const SignInForm: React.FC = injectIntl(({ intl }) => {
             control={control}
             name="login"
             label={intl.formatMessage({ id: 'SIGN_UP_FORM_LOGIN_PLACEHOLDER' })}
-            errorMessage={intl.formatMessage({ id: 'SIGN_IN_FOR_LOGIN_ERROR' })}
+            errorMessage1={intl.formatMessage({ id: 'SIGN_IN_FORM_LOGIN_ERROR' })}
+            errorMessage2={intl.formatMessage({ id: 'SIGN_IN_FORM_EMPTY_FIELD_ERROR' })}
             maxLength={12}
             minLength={4}
             defaultValue=""
@@ -91,7 +93,8 @@ export const SignInForm: React.FC = injectIntl(({ intl }) => {
             control={control}
             name="password"
             label={intl.formatMessage({ id: 'SIGN_UP_FORM_PASSWORD_PLACEHOLDER' })}
-            errorMessage={intl.formatMessage({ id: 'SIGN_IN_FOR_PASSWORD_ERROR' })}
+            errorMessage1={intl.formatMessage({ id: 'SIGN_IN_FORM_PASSWORD_ERROR' })}
+            errorMessage2={intl.formatMessage({ id: 'SIGN_IN_FORM_EMPTY_FIELD_ERROR' })}
             maxLength={8}
             minLength={4}
             defaultValue=""
