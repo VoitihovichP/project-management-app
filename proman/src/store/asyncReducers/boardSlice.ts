@@ -16,7 +16,7 @@ type Column = {
   tasks: Tasks;
 };
 
-type Tasks = Array<Task>;
+type Tasks = Array<Task | never>;
 
 type Task = {
   id: string;
@@ -275,7 +275,23 @@ export const changeTask = createAsyncThunk(
 export const boardSlice = createSlice({
   name: 'AllColumns',
   initialState,
-  reducers: {},
+  reducers: {
+    updateTicketsInColum(state, action: PayloadAction<{ columnIndex: number; newArr: Tasks }>) {
+      state.board.columns[action.payload.columnIndex].tasks = action.payload.newArr;
+    },
+    updateTicket(
+      state,
+      action: PayloadAction<{
+        sourceIndex: number;
+        destIndex: number;
+        sourceTasks: Tasks;
+        destTasks: Tasks;
+      }>
+    ) {
+      state.board.columns[action.payload.sourceIndex].tasks = action.payload.sourceTasks;
+      state.board.columns[action.payload.destIndex].tasks = action.payload.destTasks;
+    },
+  },
   extraReducers: {
     [getAllData.pending.type]: (state) => {
       state.isLoading = true;

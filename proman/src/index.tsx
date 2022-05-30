@@ -11,13 +11,11 @@ const store = setupStore();
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  <React.StrictMode>
-    <CookiesProvider>
-      <HashRouter>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </HashRouter>
-    </CookiesProvider>
-  </React.StrictMode>
+  <CookiesProvider>
+    <HashRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </HashRouter>
+  </CookiesProvider>
 );

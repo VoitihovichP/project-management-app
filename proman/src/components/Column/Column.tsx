@@ -7,10 +7,10 @@ import { changeColumn, deleteColumn } from '../../store/asyncReducers/boardSlice
 import { Controller, useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { Task } from '../Task/Task';
-import { ItemTypes } from '../../utils/dragAndDropTypes';
 import { TaskType } from '../../types/types';
 import './column.scss';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
+import { Droppable } from 'react-beautiful-dnd';
 
 type RegistrationFormInputs = {
   [nameColumn: string]: string;
@@ -114,23 +114,31 @@ export const Column: React.FC<{
         </IconButton>
       </div>
 
-      <div className="task-column__list">
-        {tasks.map((task) => {
+      <Droppable droppableId={columnId}>
+        {(provided) => {
           return (
-            <Task
-              key={task.id}
-              title={task.title}
-              description={task.description}
-              boardId={task.boardId}
-              columnId={columnId}
-              taskId={task.id}
-              order={task.order}
-              isTemplate={false}
-            />
+            <div {...provided.droppableProps} ref={provided.innerRef} className="task-column__list">
+              {tasks.map((task, index) => {
+                return (
+                  <Task
+                    key={task.id}
+                    title={task.title}
+                    description={task.description}
+                    boardId={task.boardId}
+                    columnId={columnId}
+                    taskId={task.id}
+                    order={task.order}
+                    isTemplate={false}
+                    index={index}
+                  />
+                );
+              })}
+              {isShowTemplateTask && <Task columnId={columnId} isTemplate={true} />}
+              {provided.placeholder}
+            </div>
           );
-        })}
-        {isShowTemplateTask && <Task columnId={columnId} isTemplate={true} />}
-      </div>
+        }}
+      </Droppable>
 
       <Button
         className="create_task"
