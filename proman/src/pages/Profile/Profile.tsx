@@ -1,58 +1,85 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Button } from '@mui/material';
-import Box from '@mui/material/Box';
-// import TextField from '@mui/material/TextField';
 import { useCookies } from 'react-cookie';
-import './profile.scss';
-
 import { useForm } from 'react-hook-form';
-// import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-// import { signInSlice, signIn } from '../../store/asyncReducers/signInSlice';
-// import { userSlice } from '../../store/reducers/userSlice';
-// import { signUp, signUpSlice } from '../../store/asyncReducers/signUpSlice';
 import { RegistrationFormInputs } from '../../types/types';
 import { InputForm } from '../../components/InputForm/InputForm';
-// import { PopUp } from '../../components/modal/modal';
-// import CloseIcon from '@material-ui/icons/Close';
-// import ToggleButton from '@mui/material/ToggleButton';
-// import { NavLink } from 'react-router-dom';
-
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { injectIntl } from 'react-intl';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { PopUp } from '../../components/Modal/modal';
+import Loader from '../../components/Loader/Loader';
+import { deleteUser, signUpSlice, updateUser } from '../../store/asyncReducers/signUpSlice';
+import './profile.scss';
+import jwtDecode, { JwtPayload } from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
+import { userSlice } from '../../store/reducers/userSlice';
+import { signInSlice } from '../../store/asyncReducers/signInSlice';
+import { mainPageSlice } from '../../store/asyncReducers/mainPageSlice';
 
 const Profile: FC = injectIntl(({ intl }) => {
-  // const dispatch = useAppDispatch();
-  // const { modal } = useAppSelector((state) => state.signUpSlice);
-  // const { userLogin } = userSlice.actions;
-  const [cookies] = useCookies(['login', 'password', 'token']);
+  const dispatch = useAppDispatch();
+  const { modal, isLoading } = useAppSelector((state) => state.signUpSlice);
+  const [cookies, setCookie, removeCookie] = useCookies(['login', 'password', 'token']);
+  const [isDelete, setIsDelete] = useState(false);
+  const { clear } = signUpSlice.actions;
+  const { userLogin } = userSlice.actions;
+  const { removeToken } = signInSlice.actions;
+  const { clearBoards } = mainPageSlice.actions;
+  const navigate = useNavigate();
   const {
-    // handleSubmit,
+    handleSubmit,
     control,
-    // reset,
+    reset,
     formState: { isValid },
   } = useForm<RegistrationFormInputs>({
     mode: 'onChange',
   });
 
-  return (
-    <main className="profile-page">
+  const onSubmit = handleSubmit(async ({ name, login, password }) => {
+    const token: string = cookies.token;
+    const decoded: {
+      iat?: number;
+      login?: string;
+      userId?: string;
+    } = jwtDecode<JwtPayload>(token);
+    const userId = decoded.userId;
+    if (isDelete) {
+      if (token && userId) {
+        navigate('/');
+        const result = await dispatch(deleteUser({ token, userId }));
+        if (result.meta.requestStatus === 'fulfilled') {
+          dispatch(removeToken());
+          dispatch(clear());
+          dispatch(clearBoards());
+          removeCookie('login');
+          removeCookie('password');
+          removeCookie('token');
+          dispatch(userLogin(false));
+          setTimeout(() => {
+            navigate('/');
+          }, 50);
+        }
+      }
+    } else {
+      if (name && login && password && token && userId) {
+        const result = await dispatch(updateUser({ name, login, password, token, userId }));
+        if (result.meta.requestStatus === 'fulfilled') {
+          setCookie('login', login, { path: '/', maxAge: 86400 });
+          setCookie('password', password, { path: '/', maxAge: 86400 });
+          reset();
+        }
+      }
+    }
+  });
+
+  const handleClose = () => dispatch(signUpSlice.actions.closeModal());
+
+  return isLoading ? (
+    <Loader />
+  ) : (
+    <div className="profile-page">
       <h2 className="profile-page_title">{intl.formatMessage({ id: 'PROFILE_HEADER' })}</h2>
-      <Box
-        component="form"
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          '& .MuiTextField-root': {
-            m: 1,
-            width: '45ch',
-            '@media (max-width: 400px)': {
-              width: '32ch',
-            },
-          },
-        }}
-        autoComplete="off"
-        // onSubmit={onSubmit}
-      >
+      <form className="profile-page__form" autoComplete="off" onSubmit={onSubmit}>
         <InputForm
           control={control}
           name="name"
@@ -80,18 +107,38 @@ const Profile: FC = injectIntl(({ intl }) => {
           minLength={4}
           defaultValue={cookies.password}
         />
-      </Box>
-      <Button type="submit" variant="contained" color="primary" disabled={!isValid}>
-        {intl.formatMessage({ id: 'PROFILE_SAVE_BUTTON' })}
-      </Button>
-      <Button variant="contained">{intl.formatMessage({ id: 'PROFILE_DELETE_BUTTON' })}</Button>
-      {/*<PopUp
+        <Button
+          className="profile-page__form-btn"
+          type="submit"
+          variant="contained"
+          color="primary"
+          disabled={!isValid}
+          onClick={() => {
+            setIsDelete(false);
+          }}
+        >
+          {intl.formatMessage({ id: 'PROFILE_SAVE_BUTTON' })}
+        </Button>
+        <Button
+          className="profile-page__form-btn"
+          type="submit"
+          color="primary"
+          variant="contained"
+          onClick={() => {
+            setIsDelete(true);
+          }}
+          disabled={!isValid}
+        >
+          {intl.formatMessage({ id: 'PROFILE_DELETE_BUTTON' })}
+        </Button>
+      </form>
+      <PopUp
         open={modal.isOpen}
         handleClose={handleClose}
         title={modal.title}
         message={modal.message}
-      />*/}
-    </main>
+      />
+    </div>
   );
 });
 

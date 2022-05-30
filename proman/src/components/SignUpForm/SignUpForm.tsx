@@ -1,5 +1,5 @@
 import { Button, createTheme, ThemeProvider } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -27,7 +27,7 @@ export const SignUpForm: React.FC = injectIntl(({ intl }) => {
   const dispatch = useAppDispatch();
   const { modal } = useAppSelector((state) => state.signUpSlice);
   const { userLogin } = userSlice.actions;
-  const [cookies, setCookie] = useCookies(['name', 'login', 'password', 'token']);
+  const [, setCookie] = useCookies(['name', 'login', 'password', 'token']);
   const {
     handleSubmit,
     control,
@@ -53,6 +53,17 @@ export const SignUpForm: React.FC = injectIntl(({ intl }) => {
   });
 
   const handleClose = () => dispatch(signUpSlice.actions.closeModal());
+  const closeModal = () => {
+    if (modal.isOpen) {
+      setTimeout(() => {
+        dispatch(signUpSlice.actions.closeModal());
+      }, 1000);
+    }
+  };
+
+  useEffect(() => {
+    closeModal();
+  });
 
   return (
     <main style={{ display: 'grid' }}>
