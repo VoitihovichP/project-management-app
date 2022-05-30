@@ -13,6 +13,8 @@ import { TaskType } from '../../types/types';
 import './column.scss';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 
+import { useIntl } from 'react-intl';
+
 type RegistrationFormInputs = {
   [nameColumn: string]: string;
 };
@@ -108,7 +110,7 @@ export const Column: React.FC<{
               />
             )}
             rules={{
-              required: 'Поле должно быть заполнено',
+              required: `${useIntl().formatMessage({ id: 'SIGN_IN_FORM_EMPTY_FIELD_ERROR' })}`,
             }}
           />
         </form>
@@ -144,7 +146,7 @@ export const Column: React.FC<{
         style={{ color: '#a2a0a2', textTransform: 'none' }}
       >
         <AddIcon className="task-column__addTask-btn" style={{ color: '#a2a0a2' }} />
-        Добавить задачу
+        {useIntl().formatMessage({ id: 'BOARD_ADD_TASK' })}
       </Button>
     </div>
   );

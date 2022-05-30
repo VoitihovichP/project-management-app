@@ -13,6 +13,7 @@ import { changeTask, createTask, deleteTask } from '../../store/asyncReducers/bo
 import './task.scss';
 import { useState } from 'react';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
+import { useIntl } from 'react-intl';
 
 type RegistrationFormInputs = {
   [nameTask: string]: string;
@@ -78,6 +79,21 @@ export const Task: React.FC<{
     setIsShowModal(false);
   };
 
+  const textValues = [
+    useIntl().formatMessage({
+      id: 'BOARD_TASK_TITLE_PLACEHOLDER',
+    }),
+    useIntl().formatMessage({
+      id: 'SIGN_IN_FORM_EMPTY_FIELD_ERROR',
+    }),
+    useIntl().formatMessage({
+      id: 'BOARD_TASK_DESCRIPTION_PLACEHOLDER',
+    }),
+    useIntl().formatMessage({
+      id: 'BOARD_TASK_CREATE',
+    }),
+  ];
+
   return (
     <div ref={dragRef} className="taskBlock create_task">
       {isShowModal ? (
@@ -103,7 +119,7 @@ export const Task: React.FC<{
                     variant="standard"
                     autoComplete="off"
                     value={value}
-                    placeholder="Название задачи"
+                    placeholder={textValues[0]}
                     onChange={onChange}
                     error={!!error}
                     helperText={error && error.message}
@@ -114,7 +130,9 @@ export const Task: React.FC<{
                   />
                 )}
                 rules={{
-                  required: 'Поле должно быть заполнено',
+                  required: useIntl().formatMessage({
+                    id: 'SIGN_IN_FORM_EMPTY_FIELD_ERROR',
+                  }),
                 }}
               />
               <Controller
@@ -128,7 +146,7 @@ export const Task: React.FC<{
                     rows={1}
                     variant="outlined"
                     autoComplete="off"
-                    placeholder={'Описание'}
+                    placeholder={textValues[2]}
                     value={value}
                     onChange={onChange}
                     error={!!error}
@@ -140,10 +158,12 @@ export const Task: React.FC<{
                   />
                 )}
                 rules={{
-                  required: 'Поле должно быть заполнено',
+                  required: useIntl().formatMessage({
+                    id: 'SIGN_IN_FORM_EMPTY_FIELD_ERROR',
+                  }),
                 }}
               />
-              {isTemplate ? <Button type="submit">создать</Button> : null}
+              {isTemplate ? <Button type="submit">{textValues[3]}</Button> : null}
             </form>
           </div>
           {isTemplate ? null : (

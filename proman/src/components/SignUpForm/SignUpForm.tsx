@@ -27,7 +27,7 @@ export const SignUpForm: React.FC = injectIntl(({ intl }) => {
   const dispatch = useAppDispatch();
   const { modal } = useAppSelector((state) => state.signUpSlice);
   const { userLogin } = userSlice.actions;
-  const [cookies, setCookie] = useCookies(['name', 'login', 'password', 'token']);
+  const [, setCookie] = useCookies(['name', 'login', 'password', 'token']);
   const {
     handleSubmit,
     control,
@@ -43,6 +43,7 @@ export const SignUpForm: React.FC = injectIntl(({ intl }) => {
     if (result.meta.requestStatus === 'fulfilled') {
       const result = await dispatch(signIn({ login, password }));
       if (result.meta.requestStatus === 'fulfilled') {
+        setCookie('name', name, { path: '/', maxAge: 86400 });
         setCookie('login', login, { path: '/', maxAge: 86400 });
         setCookie('password', password, { path: '/', maxAge: 86400 });
         setCookie('token', result.payload.token, { path: '/', maxAge: 86400 });
@@ -75,7 +76,8 @@ export const SignUpForm: React.FC = injectIntl(({ intl }) => {
             control={control}
             name="name"
             label={intl.formatMessage({ id: 'SIGN_UP_FORM_USERNAME_PLACEHOLDER' })}
-            errorMessage={intl.formatMessage({ id: 'SIGN_UP_FORM_USERNAME_ERROR' })}
+            errorMessage1={intl.formatMessage({ id: 'SIGN_UP_FORM_USERNAME_ERROR' })}
+            errorMessage2={intl.formatMessage({ id: 'SIGN_IN_FORM_EMPTY_FIELD_ERROR' })}
             maxLength={12}
             minLength={3}
             defaultValue=""
@@ -84,7 +86,8 @@ export const SignUpForm: React.FC = injectIntl(({ intl }) => {
             control={control}
             name="login"
             label={intl.formatMessage({ id: 'SIGN_UP_FORM_LOGIN_PLACEHOLDER' })}
-            errorMessage={intl.formatMessage({ id: 'SIGN_UP_FORM_LOGIN_ERROR' })}
+            errorMessage1={intl.formatMessage({ id: 'SIGN_UP_FORM_LOGIN_ERROR' })}
+            errorMessage2={intl.formatMessage({ id: 'SIGN_IN_FORM_EMPTY_FIELD_ERROR' })}
             maxLength={12}
             minLength={4}
             defaultValue=""
@@ -93,7 +96,8 @@ export const SignUpForm: React.FC = injectIntl(({ intl }) => {
             control={control}
             name="password"
             label={intl.formatMessage({ id: 'SIGN_UP_FORM_PASSWORD_PLACEHOLDER' })}
-            errorMessage={intl.formatMessage({ id: 'SIGN_UP_FORM_PASSWORD_ERROR' })}
+            errorMessage1={intl.formatMessage({ id: 'SIGN_UP_FORM_PASSWORD_ERROR' })}
+            errorMessage2={intl.formatMessage({ id: 'SIGN_IN_FORM_EMPTY_FIELD_ERROR' })}
             maxLength={8}
             minLength={4}
             defaultValue=""

@@ -3,17 +3,25 @@ import { TextField } from '@mui/material';
 import { Control, Controller } from 'react-hook-form';
 import { RegistrationFormInputs } from '../../types/types';
 
-import { injectIntl, FormattedMessage } from 'react-intl';
-
 export const InputForm: React.FC<{
   control: Control<RegistrationFormInputs>;
   name: string;
   label: string;
-  errorMessage: string;
+  errorMessage1: string;
+  errorMessage2: string;
   maxLength: number;
   minLength: number;
   defaultValue: string;
-}> = ({ control, name, label, errorMessage, maxLength, minLength, defaultValue }) => {
+}> = ({
+  control,
+  name,
+  label,
+  errorMessage1,
+  errorMessage2,
+  maxLength,
+  minLength,
+  defaultValue,
+}) => {
   return (
     <Controller
       name={name}
@@ -29,11 +37,11 @@ export const InputForm: React.FC<{
           value={value}
           onChange={onChange}
           error={!!error}
-          helperText={error && (error.message || errorMessage)}
+          helperText={error && (error.message || errorMessage1)}
         />
       )}
       rules={{
-        required: 'Поле должно быть заполнено',
+        required: errorMessage2,
         maxLength: maxLength,
         minLength: minLength,
       }}

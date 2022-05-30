@@ -18,7 +18,9 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import StyledMenu from './StyledMenu';
 import './burger-menu.scss';
 
-const BurgerMenu: FC = () => {
+import { injectIntl } from 'react-intl';
+
+const BurgerMenu: FC = injectIntl(({ intl }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: MouseEvent<HTMLElement>) => {
@@ -59,7 +61,7 @@ const BurgerMenu: FC = () => {
         onClick={handleClick}
         startIcon={<KeyboardArrowDownIcon />}
       >
-        Меню
+        {intl.formatMessage({ id: 'BURGER_MENU_HEADER' })}
       </Button>
       <StyledMenu
         id="demo-customized-menu"
@@ -76,7 +78,7 @@ const BurgerMenu: FC = () => {
         >
           <NavLink to="/main" className="header_right-block_nav-buttons_burger-menu_button_text">
             <WorkIcon />
-            Мои проекты
+            {intl.formatMessage({ id: 'BURGER_MENU_ITEM_1' })}
           </NavLink>
         </MenuItem>
         <Divider sx={{ my: 0.5 }} />
@@ -86,7 +88,7 @@ const BurgerMenu: FC = () => {
         >
           <NavLink to="/main" className="header_right-block_nav-buttons_burger-menu_button_text">
             <CreateNewFolderIcon />
-            Новый проект
+            {intl.formatMessage({ id: 'BURGER_MENU_ITEM_2' })}
           </NavLink>
         </MenuItem>
         <Divider sx={{ my: 0.5 }} />
@@ -96,7 +98,7 @@ const BurgerMenu: FC = () => {
         >
           <NavLink to="/profile" className="header_right-block_nav-buttons_burger-menu_button_text">
             <AccountBoxIcon />
-            Мой профиль
+            {intl.formatMessage({ id: 'BURGER_MENU_ITEM_3' })}
           </NavLink>
         </MenuItem>
         <Divider sx={{ my: 0.5 }} />
@@ -105,7 +107,7 @@ const BurgerMenu: FC = () => {
           className="header_right-block_nav-buttons_burger-menu_button"
         >
           <NavLink to="/" className="header_right-block_nav-buttons_burger-menu_button_text">
-            <InfoIcon />О приложении
+            <InfoIcon /> {intl.formatMessage({ id: 'BURGER_MENU_ITEM_4' })}
           </NavLink>
         </MenuItem>
         <Divider sx={{ my: 0.5 }} />
@@ -115,12 +117,12 @@ const BurgerMenu: FC = () => {
         >
           <NavLink to="/" className="header_right-block_nav-buttons_burger-menu_button_text">
             <LogoutIcon />
-            Выход
+            {intl.formatMessage({ id: 'BURGER_MENU_ITEM_5' })}
           </NavLink>
         </MenuItem>
       </StyledMenu>
     </div>
   );
-};
+});
 
 export default BurgerMenu;

@@ -9,11 +9,13 @@ import { createColumn, getAllData } from '../../store/asyncReducers/boardSlice';
 import Loader from '../../components/Loader/Loader';
 import './board.scss';
 
+import { injectIntl } from 'react-intl';
+
 type RegistrationFormInputs = {
   [nameColumn: string]: string;
 };
 
-const Board: FC = () => {
+const Board: FC = injectIntl(({ intl }) => {
   const [isShowInput, setIsShowInput] = useState(false);
   const [cookies] = useCookies(['token']);
   const { handleSubmit, control, reset } = useForm<RegistrationFormInputs>();
@@ -73,7 +75,7 @@ const Board: FC = () => {
             aria-label="add task"
           >
             <AddIcon style={{ color: '#a2a0a2' }} />
-            Добавить секцию
+            {intl.formatMessage({ id: 'BOARD_ADD_SECTION' })}
           </IconButton>
         ) : (
           <form onSubmit={handleCreateColumn}>
@@ -98,7 +100,7 @@ const Board: FC = () => {
                 />
               )}
               rules={{
-                required: 'Поле должно быть заполнено',
+                required: intl.formatMessage({ id: 'SIGN_IN_FORM_EMPTY_FIELD_ERROR' }),
               }}
             />
           </form>
@@ -106,6 +108,6 @@ const Board: FC = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Board;
