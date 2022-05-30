@@ -7,14 +7,13 @@ import { useCookies } from 'react-cookie';
 import { signInSlice } from '../../store/asyncReducers/signInSlice';
 import { signUpSlice } from '../../store/asyncReducers/signUpSlice';
 import { mainPageSlice } from '../../store/asyncReducers/mainPageSlice';
-import LangSwitch from '../LangSwitch/LangSwitch';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import Button from '@mui/material/Button';
 import ProManLogo from '../../assets/svg/pro-man-logo2.svg';
 import './header.scss';
 
 import { LOCALES } from '../../i18n/locales';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 const Header: FC<{
   currentLocale: string;
