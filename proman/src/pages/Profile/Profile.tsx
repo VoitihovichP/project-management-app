@@ -6,7 +6,7 @@ import { RegistrationFormInputs } from '../../types/types';
 import { InputForm } from '../../components/InputForm/InputForm';
 import { injectIntl } from 'react-intl';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { PopUp } from '../../components/Modal/modal';
+import { PopUp } from '../../components/Modal/Modal';
 import Loader from '../../components/Loader/Loader';
 import { deleteUser, signUpSlice, updateUser } from '../../store/asyncReducers/signUpSlice';
 import './profile.scss';
