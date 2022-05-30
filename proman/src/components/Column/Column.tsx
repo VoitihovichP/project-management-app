@@ -12,8 +12,6 @@ import './column.scss';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
-import { useIntl } from 'react-intl';
-
 type RegistrationFormInputs = {
   [nameColumn: string]: string;
 };
@@ -89,19 +87,6 @@ export const Column: React.FC<{
                 cancelDelete={handleCancelDeleteColumn}
                 deleteBoard={handleDeleteColumn}
               />
-            )}
-            rules={{
-              required: `${useIntl().formatMessage({ id: 'SIGN_IN_FORM_EMPTY_FIELD_ERROR' })}`,
-            }}
-          />
-        </form>
-        <IconButton style={{ color: '#a2a0a2', textTransform: 'none' }} aria-label="add task">
-          <AddIcon style={{ color: '#a2a0a2' }} />
-        </IconButton>
-        <IconButton aria-label="delete column" onClick={handleClickDeleteColumn}>
-          <DeleteIcon style={{ color: '#a2a0a2' }} />
-        </IconButton>
-      </div>
             ) : null}
             <div className="task-column__settings">
               <form onSubmit={handleChangeColumn}>
@@ -137,6 +122,7 @@ export const Column: React.FC<{
                 <DeleteIcon style={{ color: '#a2a0a2' }} />
               </IconButton>
             </div>
+
             <Droppable droppableId={columnId} type="Task">
               {(provided) => {
                 return (
@@ -166,15 +152,7 @@ export const Column: React.FC<{
                 );
               }}
             </Droppable>
-      <Button
-        className="create_task"
-        onClick={handleOpenTemplateTask}
-        style={{ color: '#a2a0a2', textTransform: 'none' }}
-      >
-        <AddIcon className="task-column__addTask-btn" style={{ color: '#a2a0a2' }} />
-        {useIntl().formatMessage({ id: 'BOARD_ADD_TASK' })}
-      </Button>
-    </div>
+
             <Button
               className="create_task"
               onClick={handleOpenTemplateTask}

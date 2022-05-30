@@ -12,13 +12,11 @@ import putTicket from '../../requests/putTicket';
 import './board.scss';
 import putColumn from '../../requests/putColumn';
 
-import { injectIntl } from 'react-intl';
-
 type RegistrationFormInputs = {
   [nameColumn: string]: string;
 };
 
-const Board: FC = injectIntl(({ intl }) => {
+const Board: FC = () => {
   const [isShowInput, setIsShowInput] = useState(false);
   const [cookies] = useCookies(['token']);
   const { handleSubmit, control, reset } = useForm<RegistrationFormInputs>();
@@ -159,7 +157,7 @@ const Board: FC = injectIntl(({ intl }) => {
             aria-label="add task"
           >
             <AddIcon style={{ color: '#a2a0a2' }} />
-            {intl.formatMessage({ id: 'BOARD_ADD_SECTION' })}
+            Добавить секцию
           </IconButton>
         ) : (
           <form onSubmit={handleCreateColumn}>
@@ -184,7 +182,7 @@ const Board: FC = injectIntl(({ intl }) => {
                 />
               )}
               rules={{
-                required: intl.formatMessage({ id: 'SIGN_IN_FORM_EMPTY_FIELD_ERROR' }),
+                required: 'Поле должно быть заполнено',
               }}
             />
           </form>
@@ -192,6 +190,6 @@ const Board: FC = injectIntl(({ intl }) => {
       </div>
     </div>
   );
-});
+};
 
 export default Board;

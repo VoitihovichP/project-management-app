@@ -25,6 +25,10 @@ const App: FC = () => {
 
   const [currentLocale, setCurrentLocale] = useState(getInitialLocale());
 
+  /* const handleChange = ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) => {
+    setCurrentLocale(value);
+  }; */
+
   const handleChange = ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) => {
     setCurrentLocale(value);
     // сохраняем локацию в хранилище
