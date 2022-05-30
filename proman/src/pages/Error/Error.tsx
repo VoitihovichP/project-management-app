@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import './error.scss';
 
 const Error: FC = injectIntl(({ intl }) => {

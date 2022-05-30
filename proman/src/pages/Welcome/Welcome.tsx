@@ -5,7 +5,7 @@ import { teamMember } from '../../constants/arrays';
 import TeamMemberCard from '../../components/TeamMemberCard/TeamMemberCard';
 import Poster from '../../assets/png/main-poster.png';
 
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 const Welcome: FC = injectIntl(({ intl }) => {
   return (
