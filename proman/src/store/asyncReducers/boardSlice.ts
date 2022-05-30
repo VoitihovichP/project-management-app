@@ -291,6 +291,9 @@ export const boardSlice = createSlice({
       state.board.columns[action.payload.sourceIndex].tasks = action.payload.sourceTasks;
       state.board.columns[action.payload.destIndex].tasks = action.payload.destTasks;
     },
+    updateColumn(state, action: PayloadAction<Array<Column>>) {
+      state.board.columns = action.payload;
+    },
   },
   extraReducers: {
     [getAllData.pending.type]: (state) => {

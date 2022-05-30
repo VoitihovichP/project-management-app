@@ -7,9 +7,10 @@ import { useCookies } from 'react-cookie';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { createColumn, getAllData, boardSlice } from '../../store/asyncReducers/boardSlice';
 import Loader from '../../components/Loader/Loader';
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 import putTicket from '../../requests/putTicket';
 import './board.scss';
+import putColumn from '../../requests/putColumn';
 
 type RegistrationFormInputs = {
   [nameColumn: string]: string;
@@ -24,7 +25,7 @@ const Board: FC = () => {
     board: { id, columns },
     isLoading,
   } = useAppSelector((state) => state.boardSlice);
-  const { updateTicketsInColum, updateTicket } = boardSlice.actions;
+  const { updateTicketsInColum, updateTicket, updateColumn } = boardSlice.actions;
 
   const getData = async () => {
     const boardId = localStorage.getItem('boardId');
@@ -54,57 +55,68 @@ const Board: FC = () => {
   }, []);
 
   const onTaskDragEnd = (result: DropResult) => {
-    const { source, destination } = result;
+    const { source, destination, type } = result;
     if (!destination) {
       return;
     }
-
-    if (source.droppableId !== destination.droppableId) {
-      const sourceColumn = columns.find((item) => item.id === source.droppableId);
-      const destColumn = columns.find((item) => item.id === destination.droppableId);
-      if (sourceColumn && destColumn) {
-        const sourceIndex = columns.indexOf(sourceColumn);
-        const destIndex = columns.indexOf(destColumn);
-        const sourceTasks = [...sourceColumn.tasks];
-        const destTasks = [...destColumn.tasks];
-        const [removed] = sourceTasks.splice(source.index, 1);
-        destTasks.splice(destination.index, 0, removed);
-        dispatch(
-          updateTicket({
-            sourceIndex: sourceIndex,
-            sourceTasks: sourceTasks,
-            destIndex: destIndex,
-            destTasks: destTasks,
-          })
-        );
-        const newTicket = {
-          title: removed.title,
-          order: destination.index + 1,
-          description: removed.description,
-          userId: removed.userId,
-          boardId: id,
-          columnId: destColumn.id,
-        };
-        putTicket(cookies.token, id, sourceColumn.id, removed.id, newTicket);
-      }
+    if (type === 'Column') {
+      const copiedColumns = [...columns];
+      const [removed] = copiedColumns.splice(source.index, 1);
+      copiedColumns.splice(destination.index, 0, removed);
+      dispatch(updateColumn(copiedColumns));
+      const newColumn = {
+        title: removed.title,
+        order: destination.index + 1,
+      };
+      putColumn(cookies.token, id, removed.id, newColumn);
     } else {
-      columns.forEach((item, index) => {
-        if (item.id === source.droppableId) {
-          const copiedTickets = [...item.tasks];
-          const [removed] = copiedTickets.splice(source.index, 1);
-          copiedTickets.splice(destination.index, 0, removed);
-          dispatch(updateTicketsInColum({ columnIndex: index, newArr: copiedTickets }));
+      if (source.droppableId !== destination.droppableId) {
+        const sourceColumn = columns.find((item) => item.id === source.droppableId);
+        const destColumn = columns.find((item) => item.id === destination.droppableId);
+        if (sourceColumn && destColumn) {
+          const sourceIndex = columns.indexOf(sourceColumn);
+          const destIndex = columns.indexOf(destColumn);
+          const sourceTasks = [...sourceColumn.tasks];
+          const destTasks = [...destColumn.tasks];
+          const [removed] = sourceTasks.splice(source.index, 1);
+          destTasks.splice(destination.index, 0, removed);
+          dispatch(
+            updateTicket({
+              sourceIndex: sourceIndex,
+              sourceTasks: sourceTasks,
+              destIndex: destIndex,
+              destTasks: destTasks,
+            })
+          );
           const newTicket = {
             title: removed.title,
             order: destination.index + 1,
             description: removed.description,
             userId: removed.userId,
             boardId: id,
-            columnId: item.id,
+            columnId: destColumn.id,
           };
-          putTicket(cookies.token, id, item.id, removed.id, newTicket);
+          putTicket(cookies.token, id, sourceColumn.id, removed.id, newTicket);
         }
-      });
+      } else {
+        columns.forEach((item, index) => {
+          if (item.id === source.droppableId) {
+            const copiedTickets = [...item.tasks];
+            const [removed] = copiedTickets.splice(source.index, 1);
+            copiedTickets.splice(destination.index, 0, removed);
+            dispatch(updateTicketsInColum({ columnIndex: index, newArr: copiedTickets }));
+            const newTicket = {
+              title: removed.title,
+              order: destination.index + 1,
+              description: removed.description,
+              userId: removed.userId,
+              boardId: id,
+              columnId: item.id,
+            };
+            putTicket(cookies.token, id, item.id, removed.id, newTicket);
+          }
+        });
+      }
     }
   };
 
@@ -113,17 +125,29 @@ const Board: FC = () => {
   ) : (
     <div className="board-page">
       <DragDropContext onDragEnd={(result) => onTaskDragEnd(result)}>
-        <div className="board-page__columns">
-          {columns.map((column) => (
-            <Column
-              key={column.id}
-              columnId={column.id}
-              title={column.title}
-              order={column.order}
-              tasks={column.tasks}
-            />
-          ))}
-        </div>
+        <Droppable direction="horizontal" droppableId="Column" type="Column">
+          {(provided) => {
+            return (
+              <div
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                className="board-page__columns"
+              >
+                {columns.map((column, index) => (
+                  <Column
+                    key={column.id}
+                    columnId={column.id}
+                    title={column.title}
+                    order={column.order}
+                    tasks={column.tasks}
+                    index={index}
+                  />
+                ))}
+                {provided.placeholder}
+              </div>
+            );
+          }}
+        </Droppable>
       </DragDropContext>
       <div className="board-page__addBlock">
         {!isShowInput ? (

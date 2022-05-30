@@ -72,7 +72,7 @@ export const Task: React.FC<{
   };
 
   return (
-    <Draggable draggableId={taskId ? taskId : 'task'} index={index ? index : 0}>
+    <Draggable draggableId={taskId ? taskId : 'Task'} index={index ? index : 0}>
       {(provided) => {
         return (
           <div
