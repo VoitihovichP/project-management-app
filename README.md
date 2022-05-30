@@ -10,7 +10,8 @@
 ![image](https://user-images.githubusercontent.com/85316838/171018644-22c4eff1-0d5a-4dc7-9bda-26bb401acddc.png)
 
 ***Переходите по ссылке, регистрируйтесь и создавайте новых гигантов для мирового рынка вместе с PRO-MAN!***
-//Ссылка
+
+https://voitihovichp-proman.netlify.app/
 
 
 
