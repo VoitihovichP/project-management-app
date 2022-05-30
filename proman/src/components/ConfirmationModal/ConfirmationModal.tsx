@@ -3,8 +3,6 @@ import { Button } from '@mui/material';
 
 import './confirmationModal.scss';
 
-import { injectIntl, FormattedMessage, useIntl, WrappedComponentProps } from 'react-intl';
-
 type ConfirmModalProps = {
   cancelDelete: () => void;
   deleteBoard: () => void;
@@ -15,7 +13,7 @@ const ConfirmationModal: FC<ConfirmModalProps> = ({ cancelDelete, deleteBoard })
     <div className="owerlay">
       <div className="confirm-modal">
         <p className="confirm-modal__warning">
-          {useIntl().formatMessage({ id: 'DELETE_TASK_MODAL' })}
+          Вы точно хотите удалить этот элемент? Это действие невозможно отменить!
         </p>
         <div className="confirm-modal__buttons">
           <Button
@@ -24,7 +22,7 @@ const ConfirmationModal: FC<ConfirmModalProps> = ({ cancelDelete, deleteBoard })
             className="main-page__create"
             onClick={() => cancelDelete()}
           >
-            {useIntl().formatMessage({ id: 'DELETE_TASK_MODAL_OPTION1' })}
+            Нет
           </Button>
           <Button
             type="submit"
@@ -32,7 +30,7 @@ const ConfirmationModal: FC<ConfirmModalProps> = ({ cancelDelete, deleteBoard })
             className="main-page__create"
             onClick={() => deleteBoard()}
           >
-            {useIntl().formatMessage({ id: 'DELETE_TASK_MODAL_OPTION2' })}
+            Да
           </Button>
         </div>
       </div>
