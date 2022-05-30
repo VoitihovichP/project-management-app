@@ -3,6 +3,8 @@ import { TextField } from '@mui/material';
 import { Control, Controller } from 'react-hook-form';
 import { RegistrationFormInputs } from '../../types/types';
 
+import { injectIntl, FormattedMessage } from 'react-intl';
+
 export const InputForm: React.FC<{
   control: Control<RegistrationFormInputs>;
   name: string;
