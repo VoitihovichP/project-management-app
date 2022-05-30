@@ -49,6 +49,53 @@ export const signUp = createAsyncThunk(
   }
 );
 
+export const deleteUser = createAsyncThunk(
+  'deleteUser',
+  async (data: { token: string; userId: string }, { rejectWithValue }) => {
+    const { token, userId } = data;
+    try {
+      const response = await axios.delete(`${Requests.URL}/users/${userId}`, {
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
+  }
+);
+
+export const updateUser = createAsyncThunk(
+  'updateUser',
+  async (
+    data: { name: string; login: string; password: string; token: string; userId: string },
+    { rejectWithValue }
+  ) => {
+    const { name, login, password, token, userId } = data;
+    try {
+      const response = await axios.put(
+        `${Requests.URL}/users/${userId}`,
+        {
+          name: name,
+          login: login,
+          password: password,
+        },
+        {
+          headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
+  }
+);
+
 export const signUpSlice = createSlice({
   name: 'authorization',
   initialState,
@@ -74,11 +121,38 @@ export const signUpSlice = createSlice({
       state.id = action.payload.id;
       state.login = action.payload.login;
       state.name = action.payload.name;
-      state.modal.title = ModalText.SUCCESS_TITLE;
-      state.modal.message = ModalText.SUCCESSFUL_REGISTRATION_MESSAGE;
-      state.modal.isOpen = true;
     },
     [signUp.rejected.type]: (state) => {
+      state.isLoading = false;
+      state.modal.title = ModalText.ERROR_TITLE;
+      state.modal.message = ModalText.ERROR_MESSAGE;
+      state.modal.isOpen = true;
+    },
+    [updateUser.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+    [updateUser.fulfilled.type]: (state, action: PayloadAction<Response>) => {
+      state.isLoading = false;
+      state.id = action.payload.id;
+      state.login = action.payload.login;
+      state.name = action.payload.name;
+      state.modal.title = ModalText.SUCCESS_TITLE;
+      state.modal.message = ModalText.SUCCESSFUL_UPDATE_MESSAGE;
+      state.modal.isOpen = true;
+    },
+    [updateUser.rejected.type]: (state) => {
+      state.isLoading = false;
+      state.modal.title = ModalText.ERROR_TITLE;
+      state.modal.message = ModalText.ERROR_MESSAGE;
+      state.modal.isOpen = true;
+    },
+    [deleteUser.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+    [deleteUser.fulfilled.type]: (state) => {
+      state.isLoading = false;
+    },
+    [deleteUser.rejected.type]: (state) => {
       state.isLoading = false;
       state.modal.title = ModalText.ERROR_TITLE;
       state.modal.message = ModalText.ERROR_MESSAGE;

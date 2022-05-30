@@ -12,6 +12,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import { NavLink } from 'react-router-dom';
 
 import { injectIntl, FormattedMessage } from 'react-intl';
+import { useEffect } from 'react';
 
 const theme = createTheme({
   palette: {
@@ -44,6 +45,18 @@ export const SignInForm: React.FC = injectIntl(({ intl }) => {
       dispatch(userLogin(true));
     }
     reset();
+  });
+
+  const closeModal = () => {
+    if (modal.isOpen) {
+      setTimeout(() => {
+        dispatch(signInSlice.actions.closeModal());
+      }, 1000);
+    }
+  };
+
+  useEffect(() => {
+    closeModal();
   });
 
   const handleClose = () => dispatch(signInSlice.actions.closeModal());

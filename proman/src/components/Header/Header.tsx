@@ -62,13 +62,14 @@ const Header: FC<{
 
   const isLoginUser = () => {
     if (cookies.login && cookies.password && cookies.token) {
+      console.log(cookies.login, cookies.password, cookies.token);
       dispatch(userLogin(true));
     }
   };
 
   useEffect(() => {
     isLoginUser();
-  });
+  }, []);
 
   const languages = [
     { name: 'Русский', code: LOCALES.RUSSIAN },
@@ -81,7 +82,6 @@ const Header: FC<{
         <NavLink to="./">
           <img alt="Pro-Man App" src={ProManLogo} className="header__logo" />
         </NavLink>
-        {/* <LangSwitch /> */}
         <select onChange={handleChange} value={currentLocale}>
           {languages.map(({ name, code }) => (
             <option key={code} value={code}>

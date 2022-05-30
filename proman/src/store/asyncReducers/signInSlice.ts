@@ -64,9 +64,6 @@ export const signInSlice = createSlice({
     [signIn.fulfilled.type]: (state, action: PayloadAction<Response>) => {
       state.isLoading = false;
       state.token = action.payload.token;
-      state.modal.title = ModalText.SUCCESS_TITLE;
-      state.modal.message = ModalText.SUCCESSFUL_LOGIN_MESSAGE;
-      state.modal.isOpen = true;
     },
     [signIn.rejected.type]: (state) => {
       state.isLoading = false;
