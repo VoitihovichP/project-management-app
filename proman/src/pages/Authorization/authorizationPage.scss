@@ -4,7 +4,7 @@ $text_color: #a2a0a2;
 .authrization-page {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 272px);
   background-color: #252628;
 }
 

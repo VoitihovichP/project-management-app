@@ -11,9 +11,12 @@ export enum ModalText {
   ERROR_MESSAGE = 'Что то пошло не так...',
   SUCCESSFUL_REGISTRATION_MESSAGE = 'Вы успешно зарегестрировались!',
   SUCCESSFUL_LOGIN_MESSAGE = 'Рады снова видеть Вас!',
+  SUCCESSFUL_UPDATE_MESSAGE = 'Данные успешно обновлены!',
+  SUCCESSFUL_DELETE_MESSAGE = 'Данные успешно удалены!',
 }
 
 export enum Requests {
+  URL = 'https://final-project-backv2.herokuapp.com',
   BOARDS = 'https://final-project-backv2.herokuapp.com/boards',
   SIGN_IN = 'https://final-project-backv2.herokuapp.com/signin',
   SIGN_UP = 'https://final-project-backv2.herokuapp.com/signup',

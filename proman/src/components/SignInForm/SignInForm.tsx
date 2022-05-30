@@ -6,12 +6,13 @@ import { signInSlice, signIn } from '../../store/asyncReducers/signInSlice';
 import { userSlice } from '../../store/reducers/userSlice';
 import { RegistrationFormInputs } from '../../types/types';
 import { InputForm } from '../InputForm/InputForm';
-import { PopUp } from '../Modal/modal';
+import { PopUp } from '../Modal/Modal';
 import CloseIcon from '@material-ui/icons/Close';
 import ToggleButton from '@mui/material/ToggleButton';
 import { NavLink } from 'react-router-dom';
 
 import { injectIntl, FormattedMessage } from 'react-intl';
+import { useEffect } from 'react';
 
 const theme = createTheme({
   palette: {
@@ -45,6 +46,18 @@ export const SignInForm: React.FC = injectIntl(({ intl }) => {
       dispatch(userLogin(true));
     }
     reset();
+  });
+
+  const closeModal = () => {
+    if (modal.isOpen) {
+      setTimeout(() => {
+        dispatch(signInSlice.actions.closeModal());
+      }, 1000);
+    }
+  };
+
+  useEffect(() => {
+    closeModal();
   });
 
   const handleClose = () => dispatch(signInSlice.actions.closeModal());

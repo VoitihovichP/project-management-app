@@ -1,5 +1,5 @@
 import { Button, createTheme, ThemeProvider } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -8,7 +8,7 @@ import { signUp, signUpSlice } from '../../store/asyncReducers/signUpSlice';
 import { userSlice } from '../../store/reducers/userSlice';
 import { RegistrationFormInputs } from '../../types/types';
 import { InputForm } from '../InputForm/InputForm';
-import { PopUp } from '../Modal/modal';
+import { PopUp } from '../Modal/Modal';
 import CloseIcon from '@material-ui/icons/Close';
 import ToggleButton from '@mui/material/ToggleButton';
 import { NavLink } from 'react-router-dom';
@@ -54,6 +54,17 @@ export const SignUpForm: React.FC = injectIntl(({ intl }) => {
   });
 
   const handleClose = () => dispatch(signUpSlice.actions.closeModal());
+  const closeModal = () => {
+    if (modal.isOpen) {
+      setTimeout(() => {
+        dispatch(signUpSlice.actions.closeModal());
+      }, 1000);
+    }
+  };
+
+  useEffect(() => {
+    closeModal();
+  });
 
   return (
     <main style={{ display: 'grid' }}>
