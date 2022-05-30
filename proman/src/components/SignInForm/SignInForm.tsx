@@ -6,7 +6,7 @@ import { signInSlice, signIn } from '../../store/asyncReducers/signInSlice';
 import { userSlice } from '../../store/reducers/userSlice';
 import { RegistrationFormInputs } from '../../types/types';
 import { InputForm } from '../InputForm/InputForm';
-import { PopUp } from '../Modal/modal';
+import { PopUp } from '../Modal/Modal';
 import CloseIcon from '@material-ui/icons/Close';
 import ToggleButton from '@mui/material/ToggleButton';
 import { NavLink } from 'react-router-dom';
